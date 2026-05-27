@@ -1,0 +1,14 @@
+# Git ignore
+node_modules/
+.next/
+.env.local
+.env
+*.env
+out/
+dist/
+.DS_Store
+Thumbs.db
+*.log
+.vercel
+.turbo
+coverage/
