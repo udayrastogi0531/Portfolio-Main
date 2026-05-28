@@ -135,7 +135,7 @@ export default function BlogSection() {
           className="text-center mt-12"
         >
           <motion.a
-            href={`https://dev.to/udaykumar`}
+            href={`https://dev.to/udayrastogi0531`}
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ scale: 1.05 }}

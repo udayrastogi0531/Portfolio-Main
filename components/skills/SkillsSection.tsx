@@ -1,185 +1,423 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
-import { skills } from "@/lib/data";
+import { useRef, useState, useCallback } from "react";
+import { motion, AnimatePresence, useInView } from "framer-motion";
 
-const CATEGORIES = Object.keys(skills);
-const CATEGORY_COLORS: Record<string, string> = {
-  Frontend: "#06b6d4",
-  Backend: "#8b5cf6",
-  "AI/ML": "#10b981",
-  Cloud: "#f59e0b",
-  Database: "#ec4899",
-  DevOps: "#3b82f6",
+// ── Exact categories per user specification ───────────────────
+const CATEGORIES = [
+  {
+    id: "dsa",
+    icon: "🧠",
+    label: "Programming & DSA",
+    accent: "#f59e0b",
+    skills: [
+      "C++", "DSA", "Problem Solving", "Python",
+      "Dynamic Programming", "Graph Algorithms",
+      "Data Structures", "Competitive Programming",
+    ],
+  },
+  {
+    id: "genai",
+    icon: "🤖",
+    label: "Gen AI & Agentic AI",
+    accent: "#10b981",
+    skills: [
+      "LangChain", "LangGraph", "RAG", "Hugging Face",
+      "Ollama", "Pinecone", "FAISS", "Vector Databases",
+      "Groq API", "OpenAI APIs", "OpenRouter",
+      "Google AI Studio", "Agentic AI",
+    ],
+  },
+  {
+    id: "frontend",
+    icon: "⚛️",
+    label: "Frontend",
+    accent: "#8b5cf6",
+    skills: [
+      "React", "TypeScript", "HTML5", "CSS3",
+      "JavaScript", "Next.js", "Framer Motion", "Tailwind CSS",
+    ],
+  },
+  {
+    id: "backend",
+    icon: "🌐",
+    label: "Backend & MERN",
+    accent: "#06b6d4",
+    skills: [
+      "Node.js", "MongoDB", "REST APIs", "Firebase",
+      "Express.js", "PostgreSQL", "Supabase",
+    ],
+  },
+  {
+    id: "devops",
+    icon: "🚀",
+    label: "DevOps & Deployment",
+    accent: "#ec4899",
+    skills: [
+      "Git", "GitHub", "Vercel", "Railway",
+      "Netlify", "Streamlit", "Resend API", "Docker (basics)",
+    ],
+  },
+] as const;
+
+type CategoryId = (typeof CATEGORIES)[number]["id"];
+
+// ── Skill proficiency map ─────────────────────────────────────
+const PROFICIENCY: Record<string, number> = {
+  "C++": 95, "DSA": 94, "Problem Solving": 95, "Python": 88,
+  "Dynamic Programming": 90, "Graph Algorithms": 88,
+  "Data Structures": 94, "Competitive Programming": 86,
+  "LangChain": 95, "LangGraph": 90, "RAG": 95, "Hugging Face": 85,
+  "Ollama": 88, "Pinecone": 90, "FAISS": 88, "Vector Databases": 90,
+  "Groq API": 95, "OpenAI APIs": 94, "OpenRouter": 92,
+  "Google AI Studio": 90, "Agentic AI": 92,
+  "React": 95, "TypeScript": 92, "HTML5": 97, "CSS3": 93,
+  "JavaScript": 95, "Next.js": 94, "Framer Motion": 88, "Tailwind CSS": 93,
+  "Node.js": 90, "MongoDB": 92, "REST APIs": 95, "Firebase": 85,
+  "Express.js": 90, "PostgreSQL": 82, "Supabase": 88,
+  "Git": 96, "GitHub": 96, "Vercel": 95, "Railway": 88,
+  "Netlify": 90, "Streamlit": 85, "Resend API": 90, "Docker (basics)": 72,
 };
 
-export default function SkillsSection() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [activeCategory, setActiveCategory] = useState("AI/ML");
+const getTag = (lvl: number) =>
+  lvl >= 92 ? "Expert" : lvl >= 82 ? "Advanced" : "Proficient";
 
-  const activeSkills = skills[activeCategory as keyof typeof skills] || [];
-  const color = CATEGORY_COLORS[activeCategory] || "#06b6d4";
+// ── SkillCard ────────────────────────────────────────────────
+function SkillCard({
+  name,
+  accent,
+  index,
+  isInView,
+}: {
+  name: string;
+  accent: string;
+  index: number;
+  isInView: boolean;
+}) {
+  const [hovered, setHovered] = useState(false);
+  const lvl = PROFICIENCY[name] ?? 80;
+  const tag = getTag(lvl);
 
   return (
-    <section id="skills" className="py-32 relative overflow-hidden" ref={ref}>
-      {/* Background */}
-      <div className="absolute right-0 top-0 w-[600px] h-[600px] rounded-full bg-purple-600/5 blur-[120px] pointer-events-none" />
+    <motion.div
+      initial={{ opacity: 0, y: 20, scale: 0.92 }}
+      animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+      transition={{ delay: 0.05 + index * 0.04, duration: 0.45, ease: [0.25, 1, 0.35, 1] }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className="relative rounded-xl p-4 cursor-default overflow-hidden group"
+      style={{
+        background: hovered ? `${accent}0e` : "rgba(11,24,40,0.7)",
+        border: `1px solid ${hovered ? accent + "50" : "rgba(30,45,61,0.7)"}`,
+        boxShadow: hovered ? `0 0 20px ${accent}18, 0 8px 32px rgba(0,0,0,0.3)` : "none",
+        transition: "all 0.25s ease",
+      }}
+    >
+      {/* Shimmer on hover */}
+      {hovered && (
+        <motion.div
+          className="absolute inset-0 pointer-events-none"
+          initial={{ x: "-100%" }}
+          animate={{ x: "200%" }}
+          transition={{ duration: 0.55, ease: "easeInOut" }}
+          style={{
+            background: `linear-gradient(105deg, transparent 20%, ${accent}10 50%, transparent 80%)`,
+          }}
+        />
+      )}
+
+      {/* Glow dot top-right */}
+      <div
+        className="absolute top-2.5 right-2.5 w-1.5 h-1.5 rounded-full transition-all duration-300"
+        style={{
+          background: accent,
+          opacity: hovered ? 1 : 0.35,
+          boxShadow: hovered ? `0 0 6px ${accent}` : "none",
+        }}
+      />
+
+      {/* Skill name */}
+      <div
+        className="text-sm font-semibold mb-2.5 pr-4 leading-tight transition-colors duration-200"
+        style={{ color: hovered ? accent : "#e2e8f0" }}
+      >
+        {name}
+      </div>
+
+      {/* Progress bar */}
+      <div
+        className="h-[3px] rounded-full mb-2 overflow-hidden"
+        style={{ background: "rgba(30,45,61,0.9)" }}
+      >
+        <motion.div
+          className="h-full rounded-full relative"
+          initial={{ width: 0 }}
+          animate={isInView ? { width: `${lvl}%` } : { width: 0 }}
+          transition={{ delay: 0.1 + index * 0.04, duration: 0.8, ease: "easeOut" }}
+          style={{
+            background: `linear-gradient(90deg, ${accent}bb, ${accent})`,
+            boxShadow: hovered ? `0 0 5px ${accent}80` : "none",
+          }}
+        >
+          <div
+            className="absolute right-0 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full"
+            style={{ background: accent }}
+          />
+        </motion.div>
+      </div>
+
+      {/* Level + tag */}
+      <div className="flex items-center justify-between">
+        <span
+          className="text-[10px] font-mono uppercase tracking-wider"
+          style={{ color: `${accent}90` }}
+        >
+          {tag}
+        </span>
+        <span
+          className="text-[11px] font-mono font-bold"
+          style={{ color: accent }}
+        >
+          {lvl}%
+        </span>
+      </div>
+    </motion.div>
+  );
+}
+
+// ── Main Component ────────────────────────────────────────────
+export default function SkillsSection() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
+  const [activeId, setActiveId] = useState<CategoryId>("dsa");
+
+  const activeCategory = CATEGORIES.find((c) => c.id === activeId)!;
+  const handleTab = useCallback((id: CategoryId) => setActiveId(id), []);
+
+  const totalSkills = CATEGORIES.reduce((a, c) => a + c.skills.length, 0);
+
+  return (
+    <section className="py-20 relative overflow-hidden" ref={ref}>
+      {/* Background glow */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse at 20% 50%, rgba(245,158,11,0.05) 0%, transparent 55%), radial-gradient(ellipse at 80% 20%, rgba(16,185,129,0.05) 0%, transparent 55%)",
+        }}
+      />
 
       <div className="section-container relative z-10">
-        {/* Header */}
+
+        {/* ── Header ── */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 28 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.5 }}
           className="section-header"
         >
-          <div className="inline-flex items-center gap-2 glass-cyan rounded-full px-4 py-2 mb-6">
+          <div className="inline-flex items-center gap-2 glass-cyan rounded-full px-4 py-2 mb-5">
             <span className="font-mono text-xs text-cyan-400 tracking-wider uppercase">
               03 / Skills
             </span>
           </div>
           <h2
-            className="text-5xl md:text-6xl font-bold mb-6"
+            className="text-4xl md:text-5xl font-bold mb-4"
             style={{ fontFamily: "Orbitron, sans-serif" }}
           >
-            <span className="text-white">Neural</span>{" "}
+            <span className="text-white">Neural </span>
             <span className="gradient-text-cyan">Skill Matrix</span>
           </h2>
-          <p className="text-slate-400 text-xl max-w-2xl mx-auto">
-            Technologies I wield to build production-grade AI systems and digital experiences.
+          <p className="text-slate-400 text-lg max-w-2xl mx-auto mb-6">
+            Full-stack expertise — from low-level algorithms to cloud-scale AI systems.
           </p>
-        </motion.div>
 
-        {/* Category tabs */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.2, duration: 0.6 }}
-          className="flex flex-wrap justify-center gap-3 mb-12"
-        >
-          {CATEGORIES.map((cat) => {
-            const catColor = CATEGORY_COLORS[cat] || "#06b6d4";
-            const isActive = activeCategory === cat;
-            return (
-              <motion.button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                data-cursor="hover"
-                className="px-5 py-2.5 rounded-xl font-mono text-sm transition-all duration-300"
+          {/* Stat pills */}
+          <div className="flex flex-wrap justify-center gap-2">
+            {[
+              { label: `${totalSkills} Technologies`, color: "#06b6d4" },
+              { label: "5 Domains", color: "#8b5cf6" },
+              { label: "Expert Level AI", color: "#10b981" },
+              { label: "3+ Years", color: "#f59e0b" },
+            ].map((s) => (
+              <span
+                key={s.label}
+                className="text-xs font-mono px-3 py-1.5 rounded-full"
                 style={{
-                  background: isActive ? `${catColor}20` : "rgba(15,22,36,0.6)",
-                  border: `1px solid ${isActive ? catColor : "rgba(30,45,61,0.8)"}`,
-                  color: isActive ? catColor : "#94a3b8",
-                  boxShadow: isActive ? `0 0 20px ${catColor}30` : "none",
+                  color: s.color,
+                  background: `${s.color}12`,
+                  border: `1px solid ${s.color}25`,
                 }}
               >
-                {cat}
+                {s.label}
+              </span>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* ── Category Tabs ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.15, duration: 0.45 }}
+          className="flex flex-wrap justify-center gap-2 mb-8"
+        >
+          {CATEGORIES.map((cat) => {
+            const isActive = activeId === cat.id;
+            return (
+              <motion.button
+                key={cat.id}
+                onClick={() => handleTab(cat.id as CategoryId)}
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.96 }}
+                className="relative px-4 py-2.5 rounded-xl font-mono text-sm transition-all duration-250 overflow-hidden"
+                style={{
+                  background: isActive ? `${cat.accent}16` : "rgba(11,24,40,0.8)",
+                  border: `1px solid ${isActive ? cat.accent + "55" : "rgba(30,45,61,0.8)"}`,
+                  color: isActive ? cat.accent : "#94a3b8",
+                  boxShadow: isActive ? `0 0 20px ${cat.accent}20` : "none",
+                }}
+              >
+                <span className="flex items-center gap-2">
+                  <span>{cat.icon}</span>
+                  <span>{cat.label}</span>
+                  <span
+                    className="text-[10px] px-1.5 py-0.5 rounded-full font-mono"
+                    style={{
+                      background: `${cat.accent}18`,
+                      color: `${cat.accent}cc`,
+                      border: `1px solid ${cat.accent}20`,
+                    }}
+                  >
+                    {cat.skills.length}
+                  </span>
+                </span>
+
+                {/* Active underline */}
+                {isActive && (
+                  <motion.div
+                    layoutId="skill-tab-underline"
+                    className="absolute bottom-0 left-4 right-4 h-[2px] rounded-full"
+                    style={{ background: cat.accent }}
+                    transition={{ type: "spring", bounce: 0.2, duration: 0.45 }}
+                  />
+                )}
               </motion.button>
             );
           })}
         </motion.div>
 
-        {/* Skills grid */}
-        <motion.div
-          key={activeCategory}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
-        >
-          {activeSkills.map((skill, i) => (
-            <motion.div
-              key={skill.name}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: i * 0.05, duration: 0.4 }}
-              whileHover={{ y: -5, scale: 1.02 }}
-              className="glass rounded-2xl p-5 group cursor-default border border-transparent transition-all duration-300"
+        {/* ── Category Panel Header ── */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeId + "-header"}
+            initial={{ opacity: 0, x: -12 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 12 }}
+            transition={{ duration: 0.3 }}
+            className="flex items-center gap-3 mb-6 px-1"
+          >
+            <div
+              className="w-10 h-10 rounded-xl flex items-center justify-center text-xl"
               style={{
-                ["--hover-color" as string]: color,
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.borderColor = `${color}30`;
-                (e.currentTarget as HTMLElement).style.boxShadow = `0 0 20px ${color}10, 0 10px 40px rgba(0,0,0,0.3)`;
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.borderColor = "transparent";
-                (e.currentTarget as HTMLElement).style.boxShadow = "none";
+                background: `${activeCategory.accent}15`,
+                border: `1px solid ${activeCategory.accent}30`,
               }}
             >
-              {/* Skill name and level */}
-              <div className="flex justify-between items-start mb-3">
-                <span className="text-white font-semibold">{skill.name}</span>
-                <span
-                  className="font-mono text-xs font-bold"
-                  style={{ color }}
-                >
-                  {skill.level}%
-                </span>
-              </div>
+              {activeCategory.icon}
+            </div>
+            <div>
+              <h3
+                className="text-lg font-bold"
+                style={{ color: activeCategory.accent, fontFamily: "Orbitron, sans-serif" }}
+              >
+                {activeCategory.label}
+              </h3>
+              <p className="text-slate-500 text-sm font-mono">
+                {activeCategory.skills.length} skills · click any card to explore
+              </p>
+            </div>
+            {/* Top accent bar */}
+            <div
+              className="ml-auto h-[2px] w-20 rounded-full opacity-50"
+              style={{ background: `linear-gradient(90deg, transparent, ${activeCategory.accent})` }}
+            />
+          </motion.div>
+        </AnimatePresence>
 
-              {/* Skill bar */}
-              <div className="skill-bar rounded-full">
-                <motion.div
-                  className="skill-bar-fill rounded-full"
-                  initial={{ width: 0 }}
-                  animate={isInView ? { width: `${skill.level}%` } : { width: 0 }}
-                  transition={{ delay: 0.3 + i * 0.05, duration: 1.2, ease: "easeOut" }}
-                  style={{
-                    background: `linear-gradient(90deg, ${color}, ${color}cc)`,
-                  }}
-                />
-              </div>
+        {/* ── Skills Grid ── */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeId}
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.35, ease: [0.25, 1, 0.35, 1] }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-12"
+          >
+            {activeCategory.skills.map((skill, i) => (
+              <SkillCard
+                key={skill}
+                name={skill}
+                accent={activeCategory.accent}
+                index={i}
+                isInView={isInView}
+              />
+            ))}
+          </motion.div>
+        </AnimatePresence>
 
-              {/* Proficiency label */}
-              <div className="mt-2 text-xs text-slate-500 font-mono">
-                {skill.level >= 90
-                  ? "Expert"
-                  : skill.level >= 80
-                  ? "Advanced"
-                  : skill.level >= 70
-                  ? "Proficient"
-                  : "Intermediate"}
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* Bottom: All categories summary */}
+        {/* ── Domain Summary Bars ── */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.6, duration: 0.8 }}
-          className="mt-16 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3"
+          transition={{ delay: 0.4, duration: 0.5 }}
+          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3"
         >
           {CATEGORIES.map((cat) => {
-            const catSkills = skills[cat as keyof typeof skills];
-            const avgLevel = Math.round(
-              catSkills.reduce((acc, s) => acc + s.level, 0) / catSkills.length
+            const avg = Math.round(
+              cat.skills.reduce((a, s) => a + (PROFICIENCY[s] ?? 80), 0) / cat.skills.length
             );
-            const catColor = CATEGORY_COLORS[cat] || "#06b6d4";
+            const isActive = activeId === cat.id;
             return (
-              <motion.div
-                key={cat}
-                whileHover={{ scale: 1.05, y: -3 }}
-                onClick={() => setActiveCategory(cat)}
-                className="glass rounded-xl p-4 text-center cursor-pointer border border-transparent hover:border-cyan-500/20 transition-all duration-200"
+              <motion.button
+                key={cat.id}
+                onClick={() => handleTab(cat.id as CategoryId)}
+                whileHover={{ y: -4, scale: 1.04 }}
+                whileTap={{ scale: 0.97 }}
+                className="relative rounded-xl p-4 text-center overflow-hidden transition-all duration-250"
+                style={{
+                  background: isActive ? `${cat.accent}10` : "rgba(11,24,40,0.7)",
+                  border: `1px solid ${isActive ? cat.accent + "45" : "rgba(30,45,61,0.6)"}`,
+                  boxShadow: isActive ? `0 0 16px ${cat.accent}18` : "none",
+                }}
               >
+                <div className="text-xl mb-1">{cat.icon}</div>
                 <div
-                  className="text-2xl font-bold mb-1"
-                  style={{ color: catColor, fontFamily: "Orbitron, sans-serif" }}
+                  className="text-2xl font-bold mb-0.5"
+                  style={{ color: cat.accent, fontFamily: "Orbitron, sans-serif" }}
                 >
-                  {avgLevel}%
+                  {avg}%
                 </div>
-                <div className="text-slate-400 text-xs font-mono">{cat}</div>
-              </motion.div>
+                <div className="text-slate-500 text-[10px] font-mono uppercase tracking-wider leading-tight">
+                  {cat.label}
+                </div>
+                {/* Fill bar */}
+                <motion.div
+                  className="absolute bottom-0 left-0 right-0 h-[2px]"
+                  initial={{ scaleX: 0 }}
+                  animate={isInView ? { scaleX: avg / 100 } : { scaleX: 0 }}
+                  style={{
+                    background: cat.accent,
+                    opacity: isActive ? 0.7 : 0.2,
+                    transformOrigin: "left",
+                  }}
+                />
+              </motion.button>
             );
           })}
         </motion.div>
+
       </div>
     </section>
   );

@@ -1,81 +1,68 @@
 import { NextRequest, NextResponse } from "next/server";
 import { projects, skills } from "@/lib/data";
+import { queryLLM } from "@/lib/ai";
+
+export const runtime = "edge";
+
+const MY_SKILLS = Object.values(skills).flat().map((s) => s.name);
+const MY_PROJECTS = projects.map((p) => p.title);
 
 export async function POST(req: NextRequest) {
   try {
     const { idea } = await req.json();
 
-    const apiKey = process.env.OPENAI_API_KEY;
-
-    if (!apiKey || apiKey === "sk-your-openai-api-key-here") {
-      // Smart mock based on keywords
-      const ideaLower = idea.toLowerCase();
-      const isAI = ideaLower.includes("ai") || ideaLower.includes("chatbot") || ideaLower.includes("ml") || ideaLower.includes("intelligence");
-      const isEcommerce = ideaLower.includes("shop") || ideaLower.includes("store") || ideaLower.includes("commerce") || ideaLower.includes("sell");
-      const isAnalytics = ideaLower.includes("analytics") || ideaLower.includes("dashboard") || ideaLower.includes("data");
-
-      const relevantProjects = isAI
-        ? ["NeuralChat — AI Platform (50K+ users)", "CodeSentinel — AI Code Review"]
-        : isEcommerce
-        ? ["QuantumStore — E-Commerce OS ($2M+ GMV)", "DataPulse — Real-time Analytics"]
-        : isAnalytics
-        ? ["DataPulse — Real-time Analytics (1M events/day)", "NeuralChat — Scalable Platform"]
-        : ["NeuralChat — AI Platform", "QuantumStore — E-Commerce OS"];
-
-      const relevantSkills = isAI
-        ? ["LangChain", "OpenAI API", "FastAPI", "Next.js", "Vector Databases", "RAG Systems"]
-        : isEcommerce
-        ? ["Next.js", "Node.js", "MongoDB", "Stripe Integration", "Redis Cache", "Elasticsearch"]
-        : isAnalytics
-        ? ["Next.js", "Python", "WebSockets", "D3.js", "PostgreSQL", "Real-time Processing"]
-        : ["Next.js", "Python", "Node.js", "AWS", "PostgreSQL", "Docker"];
-
-      return NextResponse.json({
-        relevantProjects,
-        relevantSkills,
-        approach: `I'd architect this with a ${isAI ? "RAG pipeline for AI capabilities" : isEcommerce ? "microservices backend with Redis caching" : "real-time data pipeline"}, ${isAI ? "streaming responses via WebSockets" : isEcommerce ? "Stripe for payments, and Redis for cart caching" : "WebSocket connections for live updates"}, and a Next.js 15 frontend with ${isAI ? "streaming UI components" : "server-side rendering for performance"}.`,
-        timeline: "MVP in 3-4 weeks, production-ready in 2-3 months",
-        confidence: isAI ? 95 : isEcommerce ? 90 : 85,
-      });
+    if (!idea || typeof idea !== "string") {
+      return NextResponse.json({ error: "Missing or invalid idea string" }, { status: 400 });
     }
 
-    const prompt = `You are Uday Kumar, a Full Stack & AI Engineer. A potential client has a startup idea.
+    const systemPrompt = `You are Uday Prakash Rastogi, a seasoned Gen AI Engineer & Full Stack Developer. 
+A prospective client wants to hire you for their startup idea.
 
-MY EXPERTISE:
-- Projects: ${projects.map((p) => p.title).join(", ")}
-- Skills: ${Object.values(skills).flat().map((s) => s.name).join(", ")}
+UDAY'S EXPERTISE:
+- Featured Projects: ${MY_PROJECTS.join(", ")}
+- Primary Skills: ${MY_SKILLS.join(", ")}
 
-CLIENT'S IDEA:
-${idea}
+YOUR TASK:
+Analyze the startup idea, provide an engineering roadmap, and show how Uday's background aligns perfectly.
+Return EXACTLY a JSON object with these keys:
+- relevantProjects: string[] (select 2 featured projects from Uday's profile that are most relevant)
+- relevantSkills: string[] (select 5-6 technical skills Uday possesses to construct this system)
+- approach: string (detailed 2-3 sentence architectural blueprint showing how you will build this)
+- timeline: string (realistic milestone estimate, e.g., 'MVP in 4 weeks, Production in 3 months')
+- confidence: integer between 0 and 100 (Uday's alignment and confidence score for implementation)
 
-Respond as Uday would. Return JSON with:
-- relevantProjects (array of 2 project names from my portfolio that are relevant)
-- relevantSkills (array of 5-6 skills I'd apply)
-- approach (string: how I'd build this, 2-3 sentences)
-- timeline (string: realistic timeline)
-- confidence (number 0-100: how well I can build this)
+Return ONLY valid JSON. Absolutely no other text or explanation.`;
 
-Return ONLY valid JSON.`;
-
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify({
-        model: "gpt-4o-mini",
-        messages: [{ role: "user", content: prompt }],
-        max_tokens: 400,
+    const response = await queryLLM(
+      [
+        { role: "system" as const, content: systemPrompt },
+        { role: "user" as const, content: `Startup Idea:\n\n${idea}` },
+      ],
+      {
         temperature: 0.5,
-        response_format: { type: "json_object" },
-      }),
-    });
+        jsonMode: true,
+      }
+    );
 
-    const data = await response.json();
-    const result = JSON.parse(data.choices?.[0]?.message?.content);
-    return NextResponse.json(result);
-  } catch {
+    let parsedResult;
+    try {
+      const responseStr = typeof response === "string" ? response : await response.text();
+      const cleanJson = responseStr.replace(/```json|```/gi, "").trim();
+      parsedResult = JSON.parse(cleanJson);
+    } catch (parseError) {
+      console.error("Failed to parse LLM JSON response for project recommender:", parseError);
+      parsedResult = {
+        relevantProjects: [projects[0].title, projects[1].title],
+        relevantSkills: ["Next.js", "Python", "FastAPI", "MongoDB", "LangChain"],
+        approach: "Design a Next.js frontend with full reactive dashboard state. Spin up a serverless FastAPI layer to run async AI orchestration workflows with database indexing.",
+        timeline: "MVP in 3 weeks, Production build in 10 weeks.",
+        confidence: 90,
+      };
+    }
+
+    return NextResponse.json(parsedResult);
+  } catch (error) {
+    console.error("Project Recommender API route error:", error);
     return NextResponse.json({ error: "Recommendation failed" }, { status: 500 });
   }
 }

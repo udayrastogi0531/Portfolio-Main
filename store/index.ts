@@ -2,6 +2,28 @@
 
 import { create } from "zustand";
 
+export interface Achievement {
+  id: string;
+  title: string;
+  description: string;
+  icon: string;
+  unlocked: boolean;
+  unlockedAt?: Date;
+}
+
+const DEFAULT_ACHIEVEMENTS: Achievement[] = [
+  { id: "first_visit",    title: "Neural Link",        description: "Entered the neural interface",   icon: "🧠", unlocked: false },
+  { id: "chat_used",      title: "AI Initiate",        description: "Opened ARIA AI assistant",       icon: "🤖", unlocked: false },
+  { id: "terminal_open",  title: "Shell Access",       description: "Opened the neural terminal",     icon: "💻", unlocked: false },
+  { id: "matrix_mode",    title: "Red Pill",           description: "Activated matrix rain mode",     icon: "🟥", unlocked: false },
+  { id: "konami",         title: "Cheat Code",         description: "Found the Konami code easter egg",icon: "🎮", unlocked: false },
+  { id: "all_rooms",      title: "Full Tour",          description: "Visited all 10 rooms",           icon: "🌌", unlocked: false },
+  { id: "contact_open",   title: "Uplink Established", description: "Reached the contact section",   icon: "📡", unlocked: false },
+  { id: "resume_dl",      title: "File Retrieved",     description: "Downloaded the resume",          icon: "📄", unlocked: false },
+  { id: "stay_2min",      title: "Deep Dive",          description: "Explored for 2+ minutes",        icon: "⏱️", unlocked: false },
+  { id: "palette_open",   title: "Command Master",     description: "Used the AI command palette",    icon: "⚡", unlocked: false },
+];
+
 interface PortfolioStore {
   // Loader
   isLoaded: boolean;
@@ -41,9 +63,33 @@ interface PortfolioStore {
   cursorPosition: { x: number; y: number };
   setCursorVariant: (v: "default" | "hover" | "click" | "text") => void;
   setCursorPosition: (x: number, y: number) => void;
+
+  // ── VIRAL: Konami Easter Egg ──────────────────────────────
+  isKonamiActive: boolean;
+  setIsKonamiActive: (v: boolean) => void;
+
+  // ── VIRAL: Achievements ───────────────────────────────────
+  achievements: Achievement[];
+  pendingAchievement: Achievement | null;
+  unlockAchievement: (id: string) => void;
+  clearPendingAchievement: () => void;
+  visitedRooms: Set<string>;
+  markRoomVisited: (room: string) => void;
+
+  // ── VIRAL: Recruiter Mode ─────────────────────────────────
+  isRecruiterMode: boolean;
+  toggleRecruiterMode: () => void;
+
+  // ── VIRAL: Film Grain ─────────────────────────────────────
+  isFilmGrain: boolean;
+  toggleFilmGrain: () => void;
+
+  // ── VIRAL: Cinema Mode ────────────────────────────────────
+  isCinemaMode: boolean;
+  toggleCinemaMode: () => void;
 }
 
-export const useStore = create<PortfolioStore>((set) => ({
+export const useStore = create<PortfolioStore>((set, get) => ({
   // Loader
   isLoaded: false,
   loadingProgress: 0,
@@ -82,4 +128,42 @@ export const useStore = create<PortfolioStore>((set) => ({
   cursorPosition: { x: 0, y: 0 },
   setCursorVariant: (v) => set({ cursorVariant: v }),
   setCursorPosition: (x, y) => set({ cursorPosition: { x, y } }),
+
+  // ── Konami ─────────────────────────────────────────────────
+  isKonamiActive: false,
+  setIsKonamiActive: (v) => set({ isKonamiActive: v }),
+
+  // ── Achievements ───────────────────────────────────────────
+  achievements: DEFAULT_ACHIEVEMENTS,
+  pendingAchievement: null,
+  unlockAchievement: (id) => {
+    const { achievements } = get();
+    const ach = achievements.find((a) => a.id === id);
+    if (!ach || ach.unlocked) return;
+    const updated = achievements.map((a) =>
+      a.id === id ? { ...a, unlocked: true, unlockedAt: new Date() } : a
+    );
+    set({ achievements: updated, pendingAchievement: { ...ach, unlocked: true } });
+  },
+  clearPendingAchievement: () => set({ pendingAchievement: null }),
+  visitedRooms: new Set<string>(),
+  markRoomVisited: (room) => {
+    const { visitedRooms, unlockAchievement } = get();
+    const updated = new Set(visitedRooms);
+    updated.add(room);
+    set({ visitedRooms: updated });
+    if (updated.size >= 10) unlockAchievement("all_rooms");
+  },
+
+  // ── Recruiter Mode ─────────────────────────────────────────
+  isRecruiterMode: false,
+  toggleRecruiterMode: () => set((s) => ({ isRecruiterMode: !s.isRecruiterMode })),
+
+  // ── Film Grain ─────────────────────────────────────────────
+  isFilmGrain: true, // on by default for cinematic feel
+  toggleFilmGrain: () => set((s) => ({ isFilmGrain: !s.isFilmGrain })),
+
+  // ── Cinema Mode ────────────────────────────────────────────
+  isCinemaMode: false,
+  toggleCinemaMode: () => set((s) => ({ isCinemaMode: !s.isCinemaMode })),
 }));

@@ -11,16 +11,17 @@ export default function ExperienceSection() {
   const [expanded, setExpanded] = useState<number | null>(0);
 
   return (
-    <section id="experience" className="py-32 relative overflow-hidden" ref={ref}>
+    <section id="experience" className="py-24 relative overflow-hidden" ref={ref}>
       {/* Background */}
-      <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-cyan-500/3 blur-[120px] pointer-events-none" />
+      <div className="absolute inset-0 aurora-bg opacity-50" />
+      <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-cyan-500/6 blur-[100px] pointer-events-none" />
 
       <div className="section-container relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.55 }}
           className="section-header"
         >
           <div className="inline-flex items-center gap-2 glass-cyan rounded-full px-4 py-2 mb-6">
@@ -62,7 +63,7 @@ export default function ExperienceSection() {
               >
                 {/* Timeline dot */}
                 <div
-                  className="absolute left-8 md:left-1/2 w-4 h-4 rounded-full border-2 border-[#050508] transform -translate-x-1/2 z-10 flex-shrink-0"
+                  className="absolute left-8 md:left-1/2 w-4 h-4 rounded-full border-2 border-[#050816] transform -translate-x-1/2 z-10 flex-shrink-0"
                   style={{
                     background: exp.color,
                     boxShadow: `0 0 0 3px ${exp.color}40, 0 0 15px ${exp.color}60`,

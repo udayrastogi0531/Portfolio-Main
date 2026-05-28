@@ -15,9 +15,9 @@
   --font-jetbrains: 'JetBrains Mono', monospace;
   --font-orbitron: 'Orbitron', sans-serif;
 
-  --color-bg: #050508;
-  --color-bg-secondary: #0a0a0f;
-  --color-bg-card: #0f1624;
+  --color-bg: #050816;
+  --color-bg-secondary: #07101f;
+  --color-bg-card: #0b1828;
   --color-border: #1e2d3d;
   --color-border-glow: rgba(6, 182, 212, 0.5);
 
@@ -61,8 +61,14 @@ body {
   background-color: var(--color-bg);
   color: #e2e8f0;
   overflow-x: hidden;
+  overflow-y: auto;
+  min-height: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+main {
+  overflow: visible;
 }
 
 /* Hide default scrollbar */
@@ -71,7 +77,7 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-bg);
+  background: #07101f;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -126,19 +132,27 @@ body {
 .neural-bg {
   background:
     var(--grid-neural),
-    radial-gradient(ellipse at 20% 50%, rgba(6, 182, 212, 0.04) 0%, transparent 60%),
-    radial-gradient(ellipse at 80% 20%, rgba(124, 58, 237, 0.04) 0%, transparent 60%),
-    radial-gradient(ellipse at 50% 80%, rgba(16, 185, 129, 0.03) 0%, transparent 60%),
+    radial-gradient(ellipse at 20% 50%, rgba(6, 182, 212, 0.09) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(124, 58, 237, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 50% 80%, rgba(16, 185, 129, 0.06) 0%, transparent 60%),
     var(--color-bg);
   background-size: 50px 50px, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
 }
 
 .aurora-bg {
   background:
-    radial-gradient(ellipse at top left, rgba(6, 182, 212, 0.15) 0%, transparent 50%),
-    radial-gradient(ellipse at top right, rgba(124, 58, 237, 0.1) 0%, transparent 50%),
-    radial-gradient(ellipse at bottom center, rgba(16, 185, 129, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at top left, rgba(6, 182, 212, 0.22) 0%, transparent 50%),
+    radial-gradient(ellipse at top right, rgba(124, 58, 237, 0.16) 0%, transparent 50%),
+    radial-gradient(ellipse at bottom center, rgba(16, 185, 129, 0.12) 0%, transparent 50%),
     var(--color-bg);
+}
+
+/* Rich section background — layered navy with subtle glow */
+.section-bg {
+  background:
+    radial-gradient(ellipse at 30% 0%, rgba(6, 182, 212, 0.07) 0%, transparent 55%),
+    radial-gradient(ellipse at 70% 100%, rgba(124, 58, 237, 0.06) 0%, transparent 55%),
+    linear-gradient(180deg, #050816 0%, #07101f 50%, #050816 100%);
 }
 
 /* ============================================================
@@ -450,7 +464,7 @@ body {
 
 .section-header {
   text-align: center;
-  margin-bottom: 80px;
+  margin-bottom: 56px;
 }
 
 /* ============================================================
@@ -738,4 +752,348 @@ body {
   border-color: rgba(251, 191, 36, 0.6);
   box-shadow: 0 0 20px rgba(251, 191, 36, 0.15);
   transform: translateY(-2px);
+}
+
+/* ============================================================
+   🌌 HERO SECTION — PREMIUM SPECIFIC
+   ============================================================ */
+.hero-neural-bg {
+  background:
+    radial-gradient(ellipse at 15% 55%, rgba(6, 182, 212, 0.06) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 25%, rgba(124, 58, 237, 0.05) 0%, transparent 55%),
+    radial-gradient(ellipse at 50% 85%, rgba(16, 185, 129, 0.04) 0%, transparent 50%),
+    #050508;
+}
+
+.hero-badge-glow {
+  box-shadow:
+    0 0 20px rgba(6, 182, 212, 0.15),
+    0 0 40px rgba(6, 182, 212, 0.07),
+    inset 0 0 20px rgba(6, 182, 212, 0.04);
+  animation: heroBadgePulse 3s ease-in-out infinite;
+}
+
+.hero-name {
+  filter: drop-shadow(0 0 30px rgba(6, 182, 212, 0.35));
+}
+
+/* ============================================================
+   🎬 KEYFRAME ANIMATIONS — AAA LEVEL
+   ============================================================ */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes scan {
+  0% { left: -10%; }
+  100% { left: 110%; }
+}
+
+@keyframes heroBadgePulse {
+  0%, 100% {
+    box-shadow:
+      0 0 20px rgba(6, 182, 212, 0.15),
+      0 0 40px rgba(6, 182, 212, 0.07);
+  }
+  50% {
+    box-shadow:
+      0 0 30px rgba(6, 182, 212, 0.25),
+      0 0 60px rgba(6, 182, 212, 0.12);
+  }
+}
+
+@keyframes floatY {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes holoPulse {
+  0%, 100% {
+    opacity: 0.6;
+    filter: blur(0px);
+  }
+  50% {
+    opacity: 1;
+    filter: blur(0.5px);
+  }
+}
+
+@keyframes chromatic {
+  0% { text-shadow: 2px 0 rgba(255,0,128,0.5), -2px 0 rgba(0,255,255,0.5); }
+  25% { text-shadow: -2px 0 rgba(255,0,128,0.5), 2px 0 rgba(0,255,255,0.5); }
+  50% { text-shadow: 1px 0 rgba(255,0,128,0.3), -1px 0 rgba(0,255,255,0.3); }
+  75% { text-shadow: -1px 0 rgba(255,0,128,0.5), 1px 0 rgba(0,255,255,0.5); }
+  100% { text-shadow: 2px 0 rgba(255,0,128,0.5), -2px 0 rgba(0,255,255,0.5); }
+}
+
+@keyframes warpScan {
+  0% {
+    background-position: 0% 0%;
+    opacity: 0.8;
+  }
+  100% {
+    background-position: 100% 100%;
+    opacity: 0.2;
+  }
+}
+
+@keyframes neuralPing {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.2); opacity: 0.4; }
+}
+
+/* Utility classes using new keyframes */
+.animate-float {
+  animation: floatY 4s ease-in-out infinite;
+}
+
+.animate-holo-pulse {
+  animation: holoPulse 2.5s ease-in-out infinite;
+}
+
+.animate-chromatic {
+  animation: chromatic 0.15s steps(1) infinite;
+}
+
+/* ============================================================
+   🔲 PREMIUM GLASS VARIANTS
+   ============================================================ */
+.glass-dark {
+  background: rgba(5, 5, 8, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.glass-premium {
+  background: linear-gradient(
+    135deg,
+    rgba(15, 22, 36, 0.7) 0%,
+    rgba(10, 10, 20, 0.5) 100%
+  );
+  backdrop-filter: blur(30px) saturate(150%);
+  -webkit-backdrop-filter: blur(30px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow:
+    0 0 0 1px rgba(6, 182, 212, 0.05),
+    0 20px 60px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+/* ============================================================
+   ⚡ NEON LINE ACCENTS
+   ============================================================ */
+.neon-line-cyan {
+  position: relative;
+}
+
+.neon-line-cyan::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #06b6d4, #00f5ff, #06b6d4, transparent);
+  box-shadow: 0 0 8px #06b6d4, 0 0 16px #06b6d4;
+  animation: gradientShift 3s linear infinite;
+  background-size: 200% 100%;
+}
+
+/* ============================================================
+   📱 MOBILE PREMIUM FIXES
+   ============================================================ */
+@media (max-width: 640px) {
+  .section-container {
+    padding: 0 16px;
+  }
+  .magnetic-btn {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+}
+
+/* ============================================================
+   💬 CHAT BUBBLES — ARIA AI Assistant
+   ============================================================ */
+.chat-bubble-ai {
+  max-width: 85%;
+  padding: 10px 14px;
+  border-radius: 4px 18px 18px 18px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #e2e8f0;
+  word-break: break-word;
+}
+
+.chat-bubble-user {
+  max-width: 85%;
+  padding: 10px 14px;
+  border-radius: 18px 4px 18px 18px;
+  font-size: 13px;
+  line-height: 1.6;
+  background: linear-gradient(135deg, rgba(6,182,212,0.2), rgba(124,58,237,0.15));
+  border: 1px solid rgba(6,182,212,0.25);
+  color: #e2e8f0;
+  word-break: break-word;
+  box-shadow: 0 4px 20px rgba(6,182,212,0.1);
+}
+
+/* ============================================================
+   🔵 GLASS PURPLE UTILITY
+   ============================================================ */
+.glass-purple {
+  background: rgba(124, 58, 237, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(124, 58, 237, 0.2);
+  box-shadow: 0 0 20px rgba(124, 58, 237, 0.08);
+}
+
+/* ============================================================
+   ✨ AMBIENT GLOW — environment depth
+   ============================================================ */
+.ambient-glow-cyan {
+  position: relative;
+}
+.ambient-glow-cyan::before {
+  content: '';
+  position: absolute;
+  inset: -40px;
+  background: radial-gradient(ellipse at center, rgba(6,182,212,0.06) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* ============================================================
+   🔡 FONT DISPLAY ALIAS
+   ============================================================ */
+.font-display {
+  font-family: "Orbitron", "JetBrains Mono", monospace;
+}
+
+/* ============================================================
+   ♿ REDUCED MOTION — accessibility
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================================
+   📲 TOUCH DEVICE OPTIMIZATIONS
+   ============================================================ */
+@media (hover: none) {
+  /* On touch devices, show cursor normally */
+  html { cursor: auto; }
+  .cursor-dot, .cursor-ring { display: none; }
+}
+
+/* ============================================================
+   🎯 FOCUS STATES — keyboard accessibility
+   ============================================================ */
+:focus-visible {
+  outline: 2px solid rgba(6,182,212,0.8);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid rgba(6,182,212,0.8);
+  outline-offset: 2px;
+}
+
+/* ============================================================
+   🌐 SCROLLBAR HIDE UTILITY
+   ============================================================ */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* ============================================================
+   ⚡ GOD MODE — Final polish utilities
+   ============================================================ */
+
+/* Holographic shimmer text */
+.text-holographic {
+  background: linear-gradient(
+    90deg,
+    #06b6d4 0%,
+    #a855f7 25%,
+    #00f5ff 50%,
+    #a855f7 75%,
+    #06b6d4 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 3s linear infinite;
+}
+
+/* GPU-accelerated hover lift */
+.hover-lift {
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.25s ease;
+  will-change: transform;
+}
+.hover-lift:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+
+/* Neon border pulse */
+.neon-border-pulse {
+  animation: neonPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes neonPulse {
+  0%, 100% { box-shadow: 0 0 8px rgba(6,182,212,0.4), 0 0 20px rgba(6,182,212,0.15); }
+  50%       { box-shadow: 0 0 16px rgba(6,182,212,0.7), 0 0 40px rgba(6,182,212,0.25); }
+}
+
+/* Cinematic scanline flicker */
+.scanlines {
+  position: relative;
+}
+.scanlines::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0,0,0,0.04) 3px,
+    rgba(0,0,0,0.04) 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Entrance animations for sections */
+@keyframes slideUpFade {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-slide-up {
+  animation: slideUpFade 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }

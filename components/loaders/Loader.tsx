@@ -1,62 +1,65 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useStore } from "@/store";
 
-const BOOT_MESSAGES = [
-  { text: "Initializing Neural Interface...", delay: 0 },
-  { text: "Loading cognitive matrix...", delay: 400 },
-  { text: "Establishing quantum link...", delay: 800 },
-  { text: "Syncing AI modules [LangChain, OpenAI]...", delay: 1200 },
-  { text: "Calibrating holographic systems...", delay: 1600 },
-  { text: "Loading project database [25 entries]...", delay: 2000 },
-  { text: "Injecting creativity protocols...", delay: 2400 },
-  { text: "Running neural diagnostics... OK", delay: 2800 },
-  { text: "Mounting experience timeline...", delay: 3200 },
-  { text: "AI Core: ONLINE", delay: 3600 },
-  { text: "Welcome to the future.", delay: 4000 },
+interface LoaderStep {
+  progress: number;
+  text: string;
+  detail: string;
+}
+
+const LOADER_STEPS: LoaderStep[] = [
+  { progress: 2,  text: "Initializing Neural Core...",         detail: "SYS_BOOT v4.0" },
+  { progress: 10, text: "Mapping Quantum Pathways...",          detail: "KERNEL_INIT" },
+  { progress: 19, text: "Rendering Holographic Grid...",        detail: "GPU_SHADER_LOAD" },
+  { progress: 31, text: "Activating AI Engine Cluster...",      detail: "GROQ+GEMINI_SYNC" },
+  { progress: 46, text: "Synchronizing Neural Systems...",      detail: "LANGCHAIN_CONNECT" },
+  { progress: 61, text: "Calibrating 3D Warp Engine...",        detail: "THREE.JS_COMPILE" },
+  { progress: 74, text: "Booting ARIA Assistant Core...",       detail: "LLM_WARM_UP" },
+  { progress: 88, text: "Streaming AI Modules Online...",        detail: "SSE_READY" },
+  { progress: 100, text: "Neural Interface Activated.",          detail: "SYSTEM_READY" },
 ];
 
 export default function Loader() {
   const { setIsLoaded, setLoadingProgress } = useStore();
   const [progress, setProgress] = useState(0);
+  const [stepIndex, setStepIndex] = useState(0);
   const [messages, setMessages] = useState<string[]>([]);
   const [isVisible, setIsVisible] = useState(true);
   const [glitchActive, setGlitchActive] = useState(false);
+  const [scanPulse, setScanPulse] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const progressRef = useRef(0);
+  const gridCanvasRef = useRef<HTMLCanvasElement>(null);
 
-  // Neural particle canvas
+  // ── Particle network background ──────────────────────────────
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    resize();
+    window.addEventListener("resize", resize);
 
-    const particles: Array<{
-      x: number; y: number; vx: number; vy: number;
-      opacity: number; size: number;
-    }> = [];
-
-    for (let i = 0; i < 80; i++) {
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.5,
-        vy: (Math.random() - 0.5) * 0.5,
-        opacity: Math.random() * 0.5 + 0.1,
-        size: Math.random() * 2 + 0.5,
-      });
-    }
+    type Particle = { x: number; y: number; vx: number; vy: number; opacity: number; size: number };
+    const particles: Particle[] = Array.from({ length: 100 }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      vx: (Math.random() - 0.5) * 0.5,
+      vy: (Math.random() - 0.5) * 0.5,
+      opacity: Math.random() * 0.45 + 0.1,
+      size: Math.random() * 2.5 + 0.5,
+    }));
 
     let animId: number;
-    const animate = () => {
+    const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-
       particles.forEach((p, i) => {
         p.x += p.vx;
         p.y += p.vy;
@@ -65,17 +68,15 @@ export default function Loader() {
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(6, 182, 212, ${p.opacity})`;
+        ctx.fillStyle = `rgba(6,182,212,${p.opacity})`;
         ctx.fill();
 
-        // Connect nearby particles
-        particles.slice(i + 1, i + 5).forEach((p2) => {
-          const dx = p.x - p2.x;
-          const dy = p.y - p2.y;
+        particles.slice(i + 1, i + 6).forEach((p2) => {
+          const dx = p.x - p2.x, dy = p.y - p2.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 120) {
+          if (dist < 140) {
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(6, 182, 212, ${0.15 * (1 - dist / 120)})`;
+            ctx.strokeStyle = `rgba(6,182,212,${0.15 * (1 - dist / 140)})`;
             ctx.lineWidth = 0.5;
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(p2.x, p2.y);
@@ -83,189 +84,285 @@ export default function Loader() {
           }
         });
       });
-
-      animId = requestAnimationFrame(animate);
+      animId = requestAnimationFrame(draw);
     };
-    animate();
+    draw();
+    return () => {
+      cancelAnimationFrame(animId);
+      window.removeEventListener("resize", resize);
+    };
+  }, []);
+
+  // ── Holographic scanline grid ─────────────────────────────────
+  useEffect(() => {
+    const canvas = gridCanvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let offset = 0;
+    let animId: number;
+    const draw = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const cols = Math.ceil(canvas.width / 60);
+      const rows = Math.ceil(canvas.height / 60);
+
+      ctx.strokeStyle = "rgba(6,182,212,0.07)";
+      ctx.lineWidth = 0.5;
+      for (let x = 0; x <= cols; x++) {
+        ctx.beginPath();
+        ctx.moveTo(x * 60, 0);
+        ctx.lineTo(x * 60, canvas.height);
+        ctx.stroke();
+      }
+      for (let y = 0; y <= rows; y++) {
+        ctx.beginPath();
+        ctx.moveTo(0, y * 60);
+        ctx.lineTo(canvas.width, y * 60);
+        ctx.stroke();
+      }
+
+      // Moving scan line
+      const scanY = (offset % canvas.height);
+      const grad = ctx.createLinearGradient(0, scanY - 60, 0, scanY + 60);
+      grad.addColorStop(0, "transparent");
+      grad.addColorStop(0.5, "rgba(6,182,212,0.12)");
+      grad.addColorStop(1, "transparent");
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, scanY - 60, canvas.width, 120);
+
+      offset += 1.2;
+      animId = requestAnimationFrame(draw);
+    };
+    draw();
     return () => cancelAnimationFrame(animId);
   }, []);
 
-  // Progress counter
+  // ── Boot sequence ─────────────────────────────────────────────
   useEffect(() => {
-    const duration = 4500;
-    const startTime = Date.now();
-
-    const tick = () => {
-      const elapsed = Date.now() - startTime;
-      const raw = (elapsed / duration) * 100;
-      const eased = Math.min(100, raw < 80 ? raw * 1.05 : 80 + (raw - 80) * 0.6);
-      const val = Math.floor(eased);
-      progressRef.current = val;
-      setProgress(val);
-      setLoadingProgress(val);
-
-      if (val < 100) {
-        requestAnimationFrame(tick);
-      } else {
+    let step = 0;
+    const run = () => {
+      if (step >= LOADER_STEPS.length) {
         setProgress(100);
         setLoadingProgress(100);
         setTimeout(() => {
           setIsVisible(false);
-          setTimeout(() => setIsLoaded(true), 800);
+          setTimeout(() => setIsLoaded(true), 700);
         }, 600);
+        return;
       }
+      const s = LOADER_STEPS[step];
+      setProgress(s.progress);
+      setLoadingProgress(s.progress);
+      setStepIndex(step);
+      setMessages((prev) => [...prev, s.text]);
+      step++;
+      const delay = step === LOADER_STEPS.length ? 700 : 350 + Math.random() * 150;
+      setTimeout(run, delay);
     };
-    requestAnimationFrame(tick);
+    const t = setTimeout(run, 300);
+    return () => clearTimeout(t);
   }, [setIsLoaded, setLoadingProgress]);
 
-  // Boot messages reveal
+  // ── Glitch loop ───────────────────────────────────────────────
   useEffect(() => {
-    BOOT_MESSAGES.forEach(({ text, delay }) => {
-      setTimeout(() => {
-        setMessages((prev) => [...prev, text]);
-      }, delay);
-    });
+    const iv = setInterval(() => {
+      setGlitchActive(true);
+      setScanPulse(true);
+      setTimeout(() => { setGlitchActive(false); setScanPulse(false); }, 110);
+    }, 2200);
+    return () => clearInterval(iv);
   }, []);
 
-  // Glitch effect
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setGlitchActive(true);
-      setTimeout(() => setGlitchActive(false), 150);
-    }, 2000);
-    return () => clearInterval(interval);
-  }, []);
+  const currentStep = LOADER_STEPS[stepIndex] || LOADER_STEPS[0];
 
   return (
     <AnimatePresence>
       {isVisible && (
         <motion.div
           initial={{ opacity: 1 }}
-          exit={{ opacity: 0, scale: 1.05 }}
-          transition={{ duration: 0.8, ease: "easeInOut" }}
-          className="fixed inset-0 z-[9999] bg-[#050508] flex flex-col items-center justify-center overflow-hidden"
+          exit={{ opacity: 0, scale: 1.06, filter: "blur(8px)" }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="fixed inset-0 z-[9999] bg-[#050816] flex flex-col items-center justify-center overflow-hidden"
+          aria-label="Loading portfolio..."
+          role="progressbar"
+          aria-valuenow={progress}
         >
-          {/* Neural particles canvas */}
-          <canvas ref={canvasRef} className="absolute inset-0 opacity-30" />
+          {/* Particle canvas */}
+          <canvas ref={canvasRef} className="absolute inset-0 opacity-20" />
+          {/* Holographic grid */}
+          <canvas ref={gridCanvasRef} className="absolute inset-0 opacity-100 pointer-events-none" />
 
-          {/* Scan line */}
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <div className="loader-scan-line" />
-          </div>
-
-          {/* Grid overlay */}
+          {/* Scanlines overlay */}
           <div
-            className="absolute inset-0 opacity-10"
+            className="absolute inset-0 pointer-events-none"
             style={{
               backgroundImage:
-                "linear-gradient(rgba(6,182,212,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(6,182,212,0.15) 1px, transparent 1px)",
-              backgroundSize: "60px 60px",
+                "repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.08) 3px, rgba(0,0,0,0.08) 4px)",
             }}
           />
 
-          {/* Center HUD */}
-          <div className="relative z-10 w-full max-w-2xl px-6">
-            {/* Logo / Name */}
+          {/* Glitch flash overlay */}
+          <AnimatePresence>
+            {glitchActive && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.05 }}
+                className="absolute inset-0 pointer-events-none z-10"
+                style={{
+                  background:
+                    "linear-gradient(90deg, rgba(255,0,128,0.04) 0%, rgba(0,255,255,0.06) 50%, rgba(255,0,128,0.04) 100%)",
+                  mixBlendMode: "screen",
+                }}
+              />
+            )}
+          </AnimatePresence>
+
+          {/* HUD Box */}
+          <div className="relative z-20 w-full max-w-xl px-6">
+            {/* Logo / Identity */}
             <motion.div
-              initial={{ opacity: 0, y: -30 }}
+              initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.8 }}
-              className="text-center mb-12"
+              transition={{ delay: 0.1, duration: 0.7 }}
+              className="text-center mb-10"
             >
               <div
-                className={`font-display text-5xl md:text-7xl font-bold mb-2 transition-all duration-100 ${
-                  glitchActive ? "text-red-400 translate-x-1" : "gradient-text-cyan text-glow-cyan"
+                className={`font-display text-6xl md:text-7xl font-black mb-2 tracking-widest transition-all duration-75 ${
+                  glitchActive
+                    ? "text-red-400 [text-shadow:2px_0_rgba(255,0,128,0.8),-2px_0_rgba(0,255,255,0.8)]"
+                    : "gradient-text-cyan text-glow-cyan"
                 }`}
                 style={{ fontFamily: "Orbitron, sans-serif" }}
               >
                 UDAY
               </div>
-              <div className="font-mono text-cyan-400/60 text-sm tracking-[0.4em] uppercase">
-                Neural Interface v3.0 — Loading
+              <div className="font-mono text-cyan-400/40 text-[10px] tracking-[0.5em] uppercase">
+                Neural Interface v4.0 — Diagnostic Boot
               </div>
             </motion.div>
 
-            {/* HUD Frame */}
+            {/* Glowing HUD frame */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
+              initial={{ opacity: 0, scale: 0.93 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.4, duration: 0.6 }}
-              className="relative border border-cyan-500/20 rounded-lg p-6 glass"
+              transition={{ delay: 0.2, duration: 0.6 }}
+              className="relative glass rounded-2xl p-6 border border-cyan-500/20"
+              style={{
+                boxShadow: scanPulse
+                  ? "0 0 60px rgba(6,182,212,0.2), 0 0 120px rgba(6,182,212,0.08)"
+                  : "0 0 30px rgba(6,182,212,0.07)",
+                transition: "box-shadow 0.1s ease",
+              }}
             >
-              {/* Corner decorations */}
-              <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-cyan-400 rounded-tl-lg" />
-              <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-cyan-400 rounded-tr-lg" />
-              <div className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-cyan-400 rounded-bl-lg" />
-              <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-cyan-400 rounded-br-lg" />
+              {/* Corner brackets */}
+              <div className="absolute top-0 left-0 w-5 h-5 border-t-2 border-l-2 border-cyan-400 rounded-tl-xl" />
+              <div className="absolute top-0 right-0 w-5 h-5 border-t-2 border-r-2 border-cyan-400 rounded-tr-xl" />
+              <div className="absolute bottom-0 left-0 w-5 h-5 border-b-2 border-l-2 border-cyan-400 rounded-bl-xl" />
+              <div className="absolute bottom-0 right-0 w-5 h-5 border-b-2 border-r-2 border-cyan-400 rounded-br-xl" />
 
-              {/* Progress percentage */}
+              {/* Progress header */}
               <div className="flex justify-between items-baseline mb-3">
-                <span className="font-mono text-cyan-400/70 text-xs uppercase tracking-widest">
-                  System Boot Progress
+                <span className="font-mono text-cyan-400/60 text-[10px] uppercase tracking-widest">
+                  {currentStep.detail}
                 </span>
                 <motion.span
                   key={progress}
-                  className="font-display text-4xl font-bold gradient-text-cyan"
+                  initial={{ scale: 1.3, opacity: 0.6 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  className="font-display text-4xl font-black gradient-text-cyan text-glow-cyan"
                   style={{ fontFamily: "Orbitron, sans-serif" }}
                 >
                   {progress}%
                 </motion.span>
               </div>
 
-              {/* Progress bar */}
-              <div className="loader-progress-bar rounded-full mb-6">
+              {/* Neon progress bar */}
+              <div className="h-[3px] rounded-full bg-white/5 border border-cyan-500/10 overflow-hidden mb-5">
                 <motion.div
-                  className="loader-progress-fill rounded-full"
-                  style={{ width: `${progress}%` }}
-                />
+                  className="h-full rounded-full relative"
+                  animate={{ width: `${progress}%` }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
+                  style={{
+                    background: "linear-gradient(90deg, #06b6d4, #a855f7, #00f5ff)",
+                    boxShadow: "0 0 12px rgba(6,182,212,0.8)",
+                  }}
+                >
+                  <div
+                    className="absolute right-0 top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-white"
+                    style={{ boxShadow: "0 0 8px #00f5ff, 0 0 16px #06b6d4" }}
+                  />
+                </motion.div>
               </div>
 
-              {/* Boot messages terminal */}
-              <div className="space-y-1 h-40 overflow-hidden relative">
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] to-transparent z-10 pointer-events-none" />
+              {/* Terminal log panel */}
+              <div className="h-40 overflow-hidden relative space-y-1">
+                <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-[#0a0f1a]/90 to-transparent z-10 pointer-events-none" />
                 {messages.map((msg, i) => (
                   <motion.div
                     key={i}
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="font-mono text-xs"
+                    transition={{ duration: 0.2 }}
+                    className="font-mono text-[11px] flex items-center gap-2 leading-relaxed"
                   >
-                    <span className="text-cyan-400/50 mr-2">[SYS]</span>
+                    <span className="text-cyan-400/35 flex-shrink-0">[CORE]</span>
                     <span
                       className={
                         i === messages.length - 1
-                          ? "text-cyan-300"
-                          : "text-slate-500"
+                          ? "text-cyan-300 font-semibold"
+                          : "text-slate-600"
                       }
                     >
                       {msg}
                     </span>
                     {i === messages.length - 1 && (
-                      <span className="ml-1 animate-pulse text-cyan-400">█</span>
+                      <motion.span
+                        animate={{ opacity: [1, 0, 1] }}
+                        transition={{ duration: 0.7, repeat: Infinity }}
+                        className="text-cyan-400 ml-0.5"
+                      >
+                        ▮
+                      </motion.span>
                     )}
                   </motion.div>
                 ))}
               </div>
             </motion.div>
 
-            {/* Status indicators */}
+            {/* Status badges */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.8 }}
-              className="flex justify-center gap-6 mt-6"
+              transition={{ delay: 0.6 }}
+              className="flex justify-center gap-5 mt-6"
             >
               {[
-                { label: "AI Core", status: "ONLINE" },
-                { label: "3D Engine", status: "READY" },
-                { label: "Neural Net", status: "ACTIVE" },
+                { label: "AI Node",   status: "ONLINE",  color: "#06b6d4" },
+                { label: "Render",    status: "GPU 3D",  color: "#8b5cf6" },
+                { label: "Warp Net",  status: "READY",   color: "#10b981" },
               ].map((item) => (
-                <div key={item.label} className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-                  <span className="font-mono text-xs text-slate-500">
+                <div
+                  key={item.label}
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-lg"
+                  style={{
+                    border: `1px solid ${item.color}25`,
+                    background: `${item.color}08`,
+                  }}
+                >
+                  <motion.span
+                    animate={{ opacity: [0.5, 1, 0.5], scale: [1, 1.2, 1] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                    className="w-1.5 h-1.5 rounded-full"
+                    style={{ backgroundColor: item.color }}
+                  />
+                  <span className="font-mono text-[10px]" style={{ color: item.color }}>
                     {item.label}:{" "}
-                    <span className="text-cyan-400">{item.status}</span>
+                    <span className="font-bold">{item.status}</span>
                   </span>
                 </div>
               ))}

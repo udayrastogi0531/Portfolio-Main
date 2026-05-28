@@ -1,29 +1,26 @@
 // ============================================================
-// 📂 lib/data.ts — ALL PORTFOLIO DATA (Edit this to personalize)
+// 📂 lib/data.ts — ALL PORTFOLIO DATA (Uday Prakash Rastogi)
 // ============================================================
 
 export const personalInfo = {
   name: "Uday",
-  fullName: "Uday Kumar",
-  title: "Full Stack Engineer",
+  fullName: "Uday Prakash Rastogi",
+  title: "Gen AI Engineer & Full Stack Developer",
   taglines: [
-    "Full Stack Engineer",
-    "AI Engineer",
-    "Creative Technologist",
-    "Gen AI Developer",
+    "Gen AI Engineer",
+    "Agentic AI Developer",
+    "MERN Stack Developer",
     "Problem Solver",
-    "Neural Interface Creator",
+    "AI Systems Builder",
+    "RAG Engineer",
+    "AI Automation Developer",
+    "Creative Technologist",
   ],
-  bio: `I architect digital experiences at the intersection of AI and human creativity. 
-  With 3+ years building production-grade systems, I transform complex problems into 
-  elegant, scalable solutions that push the boundaries of what's possible.`,
-  mission: `To build AI-powered systems that don't just solve problems — they redefine 
-  how humans interact with technology. Every line of code is a step toward a more 
-  intelligent, more connected world.`,
-  philosophy: `Code is poetry. Architecture is art. AI is the canvas. 
-  I don't build applications — I engineer experiences.`,
+  bio: `I architect digital universes at the intersection of Agentic AI, large language models, and high-performance full-stack applications. With a foundation built on robust algorithmic problem-solving and years of experimentation, I build autonomous agents, multi-model RAG pipelines, and premium glassmorphic interfaces that redefine human-machine collaboration.`,
+  mission: `To engineer intelligent Agentic workflows and highly responsive full-stack applications that solve tangible, real-world problems. I combine rigorous algorithmic engineering with visual design to build memorable internet experiences.`,
+  philosophy: `Code is the medium. AI is the spark. Algorithmic thinking is the foundation. I don't build standard software — I design digital experiences that feel alive.`,
   location: "Hyderabad, India",
-  email: "uday@example.com",
+  email: "udayprakashrastogi2005@gmail.com",
   phone: "+91 98765 43210",
   availability: "Open to opportunities",
   yearsOfExperience: 3,
@@ -35,12 +32,12 @@ export const personalInfo = {
 };
 
 export const socialLinks = {
-  github: "https://github.com/udaykumar",
-  linkedin: "https://linkedin.com/in/udaykumar",
-  twitter: "https://twitter.com/udaykumar",
-  youtube: "https://youtube.com/@udaykumar",
-  devto: "https://dev.to/udaykumar",
-  email: "mailto:uday@example.com",
+  github: "https://github.com/udayrastogi0531",
+  linkedin: "https://linkedin.com/in/udayrastogi0531",
+  twitter: "https://twitter.com/udayrastogi0531",
+  youtube: "https://youtube.com/@udayrastogi0531",
+  devto: "https://dev.to/udayrastogi0531",
+  email: "mailto:udayprakashrastogi2005@gmail.com",
 };
 
 export const navItems = [
@@ -111,97 +108,85 @@ export const experiences = [
     tech: ["Python", "FastAPI", "OpenAI", "TensorFlow", "React"],
     color: "#10b981",
   },
-  {
-    id: 4,
-    company: "DevSprint Startup",
-    logo: "/images/companies/devsprint.png",
-    role: "Junior Developer Intern",
-    type: "Internship",
-    period: "Jun 2021 — Dec 2021",
-    location: "Hyderabad, India",
-    description:
-      "First industry experience building web applications and learning production workflows.",
-    achievements: [
-      "Developed 5 full-stack features independently",
-      "Contributed to open source with 200+ GitHub stars",
-      "Mentored 3 junior interns",
-    ],
-    tech: ["React", "Node.js", "MySQL", "Git", "Figma"],
-    color: "#f59e0b",
-  },
 ];
 
 export const skills = {
-  Frontend: [
-    { name: "Next.js", level: 95, icon: "nextjs" },
+  "Gen AI & Agentic AI": [
+    { name: "LangChain", level: 95, icon: "langchain" },
+    { name: "LangGraph", level: 90, icon: "langgraph" },
+    { name: "RAG Systems", level: 95, icon: "rag" },
+    { name: "Agentic AI", level: 92, icon: "agentic" },
+    { name: "Hugging Face", level: 85, icon: "huggingface" },
+    { name: "Ollama", level: 88, icon: "ollama" },
+    { name: "Vector Databases", level: 90, icon: "vectordb" },
+    { name: "Pinecone / FAISS", level: 90, icon: "pinecone" },
+    { name: "Groq / OpenAI APIs", level: 95, icon: "openai" },
+    { name: "OpenRouter", level: 92, icon: "openrouter" },
+    { name: "Google AI Studio", level: 90, icon: "gemini" },
+    { name: "AI Workflows", level: 92, icon: "workflows" },
+  ],
+  "Full Stack Development": [
     { name: "React", level: 95, icon: "react" },
-    { name: "TypeScript", level: 90, icon: "typescript" },
-    { name: "Three.js", level: 80, icon: "threejs" },
-    { name: "Tailwind CSS", level: 92, icon: "tailwind" },
-    { name: "Framer Motion", level: 85, icon: "framer" },
-    { name: "GSAP", level: 80, icon: "gsap" },
-  ],
-  Backend: [
+    { name: "TypeScript", level: 92, icon: "typescript" },
+    { name: "MERN Stack", level: 94, icon: "mern" },
     { name: "Node.js", level: 90, icon: "nodejs" },
-    { name: "Python", level: 88, icon: "python" },
-    { name: "FastAPI", level: 85, icon: "fastapi" },
-    { name: "GraphQL", level: 80, icon: "graphql" },
+    { name: "MongoDB", level: 92, icon: "mongodb" },
     { name: "REST APIs", level: 95, icon: "api" },
-    { name: "WebSockets", level: 82, icon: "websocket" },
+    { name: "HTML & CSS", level: 95, icon: "css" },
+    { name: "JavaScript", level: 95, icon: "javascript" },
   ],
-  "AI/ML": [
-    { name: "LangChain", level: 88, icon: "langchain" },
-    { name: "OpenAI API", level: 92, icon: "openai" },
-    { name: "TensorFlow", level: 78, icon: "tensorflow" },
-    { name: "PyTorch", level: 75, icon: "pytorch" },
-    { name: "Hugging Face", level: 82, icon: "huggingface" },
-    { name: "Vector DBs", level: 80, icon: "vectordb" },
-    { name: "RAG Systems", level: 85, icon: "rag" },
+  "Programming Languages": [
+    { name: "C++ (Strong DSA)", level: 94, icon: "cpp" },
+    { name: "JavaScript", level: 95, icon: "javascript" },
+    { name: "TypeScript", level: 92, icon: "typescript" },
+    { name: "Python", level: 90, icon: "python" },
+    { name: "SQL", level: 88, icon: "sql" },
   ],
-  Cloud: [
-    { name: "AWS", level: 85, icon: "aws" },
-    { name: "GCP", level: 78, icon: "gcp" },
+  "Databases": [
+    { name: "MongoDB", level: 92, icon: "mongodb" },
+    { name: "MySQL", level: 88, icon: "mysql" },
+    { name: "Pinecone Vector DB", level: 90, icon: "pinecone" },
+    { name: "FAISS", level: 88, icon: "faiss" },
+  ],
+  "DevOps & Deployment": [
     { name: "Vercel", level: 95, icon: "vercel" },
-    { name: "Docker", level: 88, icon: "docker" },
-    { name: "Kubernetes", level: 72, icon: "kubernetes" },
+    { name: "Railway", level: 88, icon: "railway" },
+    { name: "Git", level: 95, icon: "git" },
+    { name: "GitHub", level: 95, icon: "github" },
+    { name: "Netlify", level: 90, icon: "netlify" },
+    { name: "Streamlit", level: 85, icon: "streamlit" },
   ],
-  Database: [
-    { name: "PostgreSQL", level: 88, icon: "postgresql" },
-    { name: "MongoDB", level: 90, icon: "mongodb" },
-    { name: "Redis", level: 82, icon: "redis" },
-    { name: "Prisma", level: 88, icon: "prisma" },
-    { name: "Pinecone", level: 80, icon: "pinecone" },
-  ],
-  DevOps: [
-    { name: "CI/CD", level: 85, icon: "cicd" },
-    { name: "GitHub Actions", level: 88, icon: "github" },
-    { name: "Nginx", level: 78, icon: "nginx" },
-    { name: "Linux", level: 85, icon: "linux" },
+  "Core Computer Science": [
+    { name: "DBMS", level: 92, icon: "dbms" },
+    { name: "Computer Networks", level: 88, icon: "networks" },
+    { name: "Operating Systems", level: 90, icon: "os" },
+    { name: "Compiler Design", level: 85, icon: "compiler" },
+    { name: "Software Engineering", level: 92, icon: "software" },
+    { name: "Project Management", level: 88, icon: "pm" },
   ],
 };
 
 export const techStack = [
-  "Next.js", "React", "TypeScript", "Python", "Node.js",
-  "Three.js", "TensorFlow", "LangChain", "OpenAI", "AWS",
-  "Docker", "MongoDB", "PostgreSQL", "Redis", "GraphQL",
-  "FastAPI", "Kubernetes", "Vercel", "Prisma", "Tailwind",
+  "LangChain", "LangGraph", "React", "TypeScript", "Node.js", "MongoDB",
+  "Python", "C++ (DSA)", "Vercel", "Pinecone", "Ollama", "Hugging Face",
+  "Agentic AI", "RAG Systems", "MERN Stack", "FAISS", "SQL"
 ];
 
 export const projects = [
   {
     id: 1,
-    title: "NeuralChat — AI Conversation Platform",
+    title: "NeuralChat — Agentic AI Conversation & RAG OS",
     slug: "neuralchat",
     category: "AI/ML",
     description:
-      "Production-grade AI chat platform with multi-model support, RAG pipeline, and real-time streaming. Handles 100K+ conversations daily.",
+      "Production-grade multi-agent chat platform with LangGraph routing, hybrid RAG pipeline (Pinecone/FAISS), and real-time SSE streaming. Serves 50K+ sessions.",
     longDescription: `NeuralChat is a next-generation AI conversation platform that combines multiple LLM providers 
     with a sophisticated RAG pipeline. Built with a microservices architecture, it supports real-time streaming, 
     custom knowledge bases, and enterprise-grade security.`,
     tech: ["Next.js", "Python", "LangChain", "OpenAI", "Pinecone", "Redis", "PostgreSQL"],
     metrics: { users: "50K+", conversations: "1M+", uptime: "99.9%", latency: "<100ms" },
     liveUrl: "https://neuralchat.demo",
-    githubUrl: "https://github.com/udaykumar/neuralchat",
+    githubUrl: "https://github.com/udayrastogi0531/neuralchat",
     featured: true,
     color: "#06b6d4",
     gradient: "from-cyan-500 to-blue-600",
@@ -211,17 +196,17 @@ export const projects = [
   },
   {
     id: 2,
-    title: "QuantumStore — E-Commerce OS",
+    title: "QuantumStore — AI-Powered E-Commerce OS",
     slug: "quantumstore",
     category: "Full Stack",
     description:
-      "Blazing-fast e-commerce platform with AI recommendations, real-time inventory, and multi-currency support. $2M+ GMV processed.",
+      "Blazing-fast MERN stack e-commerce engine with collaborative filter recommender, real-time inventory sockets, and Stripe/Razorpay integrations. $2M+ GMV.",
     longDescription: `QuantumStore reimagines e-commerce with AI-powered personalization, real-time inventory management, 
     and a hyper-optimized checkout flow. Built for scale with a 99.99% uptime SLA.`,
     tech: ["Next.js", "Node.js", "MongoDB", "Redis", "Stripe", "Razorpay", "Elasticsearch"],
     metrics: { gmv: "$2M+", users: "100K+", orders: "50K+", conversion: "8.5%" },
     liveUrl: "https://quantumstore.demo",
-    githubUrl: "https://github.com/udaykumar/quantumstore",
+    githubUrl: "https://github.com/udayrastogi0531/quantumstore",
     featured: true,
     color: "#8b5cf6",
     gradient: "from-purple-500 to-pink-600",
@@ -231,17 +216,17 @@ export const projects = [
   },
   {
     id: 3,
-    title: "CodeSentinel — AI Code Review",
+    title: "CodeSentinel — Agentic CI/CD Code Reviewer",
     slug: "codesentinel",
     category: "AI/ML",
     description:
-      "GitHub-integrated AI code reviewer that catches bugs, security vulnerabilities, and suggests optimizations. Saves 3hrs/developer/week.",
+      "Agentic AI GitHub webhook bot that reviews pull requests, runs security vulnerability static analysis, and suggests code optimizations autonomously.",
     longDescription: `CodeSentinel uses fine-tuned LLMs to review pull requests in real-time, 
     detecting security vulnerabilities, performance issues, and code quality problems before they reach production.`,
     tech: ["Python", "FastAPI", "OpenAI", "GitHub API", "PostgreSQL", "Docker"],
     metrics: { prs: "10K+", bugs: "5K caught", devs: "500+", timeSaved: "3hrs/week" },
     liveUrl: "https://codesentinel.demo",
-    githubUrl: "https://github.com/udaykumar/codesentinel",
+    githubUrl: "https://github.com/udayrastogi0531/codesentinel",
     featured: true,
     color: "#10b981",
     gradient: "from-emerald-500 to-cyan-600",
@@ -251,15 +236,15 @@ export const projects = [
   },
   {
     id: 4,
-    title: "DataPulse — Real-time Analytics",
+    title: "DataPulse — Live Agentic Telemetry Dashboard",
     slug: "datapulse",
     category: "Full Stack",
     description:
-      "Enterprise analytics dashboard with real-time data streaming, AI-powered insights, and beautiful visualizations.",
+      "Real-time stream processing analytics pipeline aggregating event logs and performance metrics with WebSocket feeds.",
     tech: ["Next.js", "Python", "Apache Kafka", "ClickHouse", "D3.js", "WebSockets"],
     metrics: { events: "1M/day", latency: "<50ms", dashboards: "200+", clients: "30+" },
     liveUrl: "https://datapulse.demo",
-    githubUrl: "https://github.com/udaykumar/datapulse",
+    githubUrl: "https://github.com/udayrastogi0531/datapulse",
     featured: false,
     color: "#f59e0b",
     gradient: "from-amber-500 to-orange-600",
@@ -269,15 +254,15 @@ export const projects = [
   },
   {
     id: 5,
-    title: "MindMap AI — Learning Platform",
+    title: "MindMap AI — Adaptive EdTech Curriculum Builder",
     slug: "mindmap-ai",
     category: "EdTech",
     description:
-      "AI-powered personalized learning platform that generates custom curricula and adapts to learning patterns.",
+      "Agentic curriculum compiler generating custom learning vectors and personalized course timelines adapted to student diagnostics.",
     tech: ["Next.js", "Python", "LangChain", "PostgreSQL", "OpenAI", "Stripe"],
     metrics: { learners: "20K+", courses: "500+", completion: "78%", rating: "4.9/5" },
     liveUrl: "https://mindmapai.demo",
-    githubUrl: "https://github.com/udaykumar/mindmap-ai",
+    githubUrl: "https://github.com/udayrastogi0531/mindmap-ai",
     featured: false,
     color: "#ec4899",
     gradient: "from-pink-500 to-purple-600",
@@ -287,15 +272,15 @@ export const projects = [
   },
   {
     id: 6,
-    title: "CryptoOracle — DeFi Dashboard",
+    title: "CryptoOracle — DeFi Agentic Predictor",
     slug: "cryptooracle",
     category: "Web3",
     description:
-      "Real-time DeFi analytics dashboard with portfolio tracking, AI price predictions, and on-chain analytics.",
+      "Autonomous on-chain DeFi pipeline tracking liquidity pools and predicting tokens volatility via vector search patterns.",
     tech: ["Next.js", "Web3.js", "Python", "CoinGecko API", "TensorFlow", "Redis"],
     metrics: { traders: "15K+", protocols: "50+", tvl: "$10M+ tracked", accuracy: "76%" },
     liveUrl: "https://cryptooracle.demo",
-    githubUrl: "https://github.com/udaykumar/cryptooracle",
+    githubUrl: "https://github.com/udayrastogi0531/cryptooracle",
     featured: false,
     color: "#06b6d4",
     gradient: "from-cyan-400 to-teal-600",
@@ -303,6 +288,17 @@ export const projects = [
     tags: ["Web3", "DeFi", "AI Predictions"],
     architecture: ["Next.js", "Web3.js", "Python ML", "Redis", "WebSockets"],
   },
+];
+
+export const hobbies = [
+  { name: "Late-night Coding", icon: "💻", desc: "Crafting elegant algorithms and building AI workflows under the moon." },
+  { name: "Exploring AI Systems", icon: "🧠", desc: "Experimenting with LangGraph, agentic routing, and custom LLM nodes." },
+  { name: "Problem Solving", icon: "⚡", desc: "Tackling complex C++ and DSA challenges to keep the brain sharp." },
+  { name: "Trekking & Exploration", icon: "🏔️", desc: "Conquering peaks, breathing mountain air, and exploring futuristic horizons." },
+  { name: "Bike Riding", icon: "🏍️", desc: "Cruising down empty highways to clear my head and get inspired." },
+  { name: "Reading Novels", icon: "📚", desc: "Immersing myself in sci-fi, philosophy, and futuristic storytelling." },
+  { name: "Dance", icon: "🕺", desc: "Translating rhythm into fluid kinetic energy and structural expression." },
+  { name: "Listening to Music", icon: "🎧", desc: "Curating synthwave and lo-fi playlists that fuel creative coding flows." },
 ];
 
 export const blogs = [
@@ -330,30 +326,6 @@ export const blogs = [
     color: "#8b5cf6",
     featured: true,
   },
-  {
-    id: 3,
-    title: "The Future of AI Agents: Building Autonomous Systems",
-    slug: "ai-agents-future",
-    excerpt: "How I built an AI agent system that autonomously debugs and deploys code.",
-    category: "AI/ML",
-    readTime: "10 min",
-    date: "2024-02-10",
-    tags: ["AI Agents", "LangChain", "Automation"],
-    color: "#10b981",
-    featured: false,
-  },
-  {
-    id: 4,
-    title: "Microservices vs Monolith: The Real Answer",
-    slug: "microservices-vs-monolith",
-    excerpt: "After building both at scale, here's what I actually recommend and when.",
-    category: "Architecture",
-    readTime: "8 min",
-    date: "2024-01-20",
-    tags: ["Architecture", "DevOps", "Scaling"],
-    color: "#f59e0b",
-    featured: false,
-  },
 ];
 
 export const certifications = [
@@ -374,24 +346,6 @@ export const certifications = [
     credentialId: "GCP-MLE-2023-UDAY",
     color: "#06b6d4",
     icon: "gcp",
-  },
-  {
-    id: 3,
-    name: "Meta Full Stack Developer",
-    issuer: "Meta / Coursera",
-    date: "2022",
-    credentialId: "META-FSD-2022-UDAY",
-    color: "#3b82f6",
-    icon: "meta",
-  },
-  {
-    id: 4,
-    name: "Deep Learning Specialization",
-    issuer: "DeepLearning.AI",
-    date: "2022",
-    credentialId: "DL-SPEC-2022-UDAY",
-    color: "#8b5cf6",
-    icon: "deeplearning",
   },
 ];
 
@@ -416,26 +370,6 @@ export const hackathons = [
     date: "2023",
     color: "#e2e8f0",
   },
-  {
-    id: 3,
-    name: "Google DevFest",
-    position: "🥉 3rd Place",
-    project: "EduBot — Personalized Learning AI",
-    prize: "$2,500",
-    participants: "300+",
-    date: "2023",
-    color: "#cd7c2f",
-  },
-  {
-    id: 4,
-    name: "Buildathon 2022",
-    position: "🏆 Winner",
-    project: "ClimaAI — Climate Prediction System",
-    prize: "$3,000",
-    participants: "200+",
-    date: "2022",
-    color: "#fbbf24",
-  },
 ];
 
 export const testimonials = [
@@ -445,27 +379,17 @@ export const testimonials = [
     role: "CTO at TechNova AI",
     avatar: "/images/testimonials/priya.jpg",
     content:
-      "Uday is the rare engineer who combines deep technical expertise with creative problem-solving. The AI systems he built for us handle millions of requests flawlessly.",
+      "Uday Prakash Rastogi is the rare engineer who combines deep technical expertise with creative problem-solving. The AI systems he built for us handle millions of requests flawlessly.",
     rating: 5,
     color: "#06b6d4",
   },
   {
     id: 2,
-    name: "Rahul Mehta",
-    role: "Founder at InnovateLab",
-    avatar: "/images/testimonials/rahul.jpg",
-    content:
-      "Working with Uday transformed our platform. He doesn't just write code — he architects solutions. Our conversion rate tripled after his optimizations.",
-    rating: 5,
-    color: "#8b5cf6",
-  },
-  {
-    id: 3,
     name: "Sarah Chen",
     role: "Product Lead at QuantumVentures",
     avatar: "/images/testimonials/sarah.jpg",
     content:
-      "Uday delivered beyond expectations every single time. His AI expertise is world-class and his communication is exceptional. Truly a 10x developer.",
+      "Uday Prakash Rastogi delivered beyond expectations every single time. His AI expertise is world-class and his communication is exceptional. Truly a 10x developer.",
     rating: 5,
     color: "#10b981",
   },
@@ -478,7 +402,7 @@ export const education = [
     institution: "JNTU Hyderabad",
     period: "2018 — 2022",
     grade: "CGPA: 8.9/10",
-    description: "Specialized in Machine Learning and Distributed Systems",
+    description: "Specialized in Machine Learning, robust C++ problem solving foundations, and Distributed Systems",
     color: "#06b6d4",
   },
 ];
@@ -487,7 +411,7 @@ export const services = [
   {
     id: 1,
     title: "Full Stack Development",
-    description: "End-to-end web applications with modern tech stack, scalable architecture, and premium UX.",
+    description: "End-to-end web applications with modern MERN stack, scalable architecture, and premium UX.",
     icon: "code",
     price: "Starting $2,000",
     features: ["Next.js / React", "Node.js / Python APIs", "Database Design", "Cloud Deployment"],
@@ -496,114 +420,86 @@ export const services = [
   {
     id: 2,
     title: "AI/ML Integration",
-    description: "Transform your product with AI — chatbots, recommendation engines, intelligent automation.",
+    description: "Transform your product with AI — chatbots, RAG pipelines, intelligent automation, agent workflows.",
     icon: "brain",
     price: "Starting $3,000",
     features: ["LLM Integration", "RAG Pipelines", "Custom AI Models", "AI APIs"],
     color: "#8b5cf6",
   },
-  {
-    id: 3,
-    title: "Technical Consulting",
-    description: "Architecture reviews, tech stack decisions, performance optimization, and scaling strategy.",
-    icon: "lightbulb",
-    price: "$150/hour",
-    features: ["Architecture Review", "Code Audit", "Performance Tuning", "Team Mentoring"],
-    color: "#10b981",
-  },
-  {
-    id: 4,
-    title: "Dev Setup & DevOps",
-    description: "CI/CD pipelines, Docker/Kubernetes setup, monitoring, and infrastructure automation.",
-    icon: "server",
-    price: "Starting $1,500",
-    features: ["CI/CD Setup", "Docker/K8s", "Monitoring", "Infrastructure as Code"],
-    color: "#f59e0b",
-  },
 ];
 
-export const aiChatSystemPrompt = `You are ARIA (Advanced Research & Intelligence Assistant), Uday's personal AI portfolio assistant.
+export const aiChatSystemPrompt = `You are ARIA (Advanced Research & Intelligence Assistant), Uday Prakash Rastogi's personal AI portfolio assistant.
 
-About Uday Kumar:
-- Full Stack Engineer & AI Engineer based in Hyderabad, India
-- 3+ years of experience building production-grade AI/ML systems
-- Currently Senior Full Stack & AI Engineer at TechNova AI
-- Specializes in: Next.js, React, Python, LangChain, OpenAI APIs, AWS, Node.js
-- Built systems handling 1M+ daily users/requests
-- Won multiple hackathons including HackAI 2024 ($10,000 prize)
-- Key projects: NeuralChat, QuantumStore, CodeSentinel, DataPulse
-
-Projects:
-1. NeuralChat - AI conversation platform (50K users, 1M+ conversations)
-2. QuantumStore - E-commerce platform ($2M+ GMV, 100K users)
-3. CodeSentinel - AI code reviewer (10K+ PRs reviewed, 500+ devs)
-4. DataPulse - Real-time analytics (1M events/day)
-5. MindMap AI - Learning platform (20K learners)
-
-Contact: uday@example.com | GitHub: github.com/udaykumar | LinkedIn: linkedin.com/in/udaykumar
+About Uday Prakash Rastogi:
+- Gen AI Engineer, Agentic AI Developer, MERN Stack Developer, Problem Solver, AI Systems Builder, RAG Engineer, AI Automation Developer, and Creative Technologist.
+- Based in Hyderabad, India.
+- 3+ years of experience building production-grade AI/ML systems and MERN apps.
+- Currently Senior Full Stack & AI Engineer at TechNova AI.
+- Specializes in: LangChain, LangGraph, RAG Systems, Agentic AI, Ollama, Vector Databases, React, TypeScript, MongoDB, Node.js, and C++ (Strong DSA, Algorithmic Thinking, and problem solving foundations).
+- Hobbies: Dance, listening to music, reading novels, late-night coding, problem solving, bike riding, trekking, exploring futuristic technology, and learning AI systems.
+- Key projects: NeuralChat (Agentic RAG Platform), QuantumStore (AI-Powered E-Commerce OS), CodeSentinel (Agentic CI/CD reviewer), DataPulse (Live Telemetry Analytics).
 
 Instructions:
-- Be helpful, concise, and professional
-- Answer questions about Uday's skills, projects, experience, and availability
-- For hiring inquiries, provide Uday's email
-- Use futuristic, tech-forward language
-- Keep responses under 150 words unless asked for detail
-- You can discuss technical topics related to Uday's expertise`;
+- Be helpful, concise, intelligent, and highly professional.
+- Confidently answer questions about Uday Prakash Rastogi's skills, projects, experience, DSA foundation, and availability.
+- For hiring inquiries, provide his email: udayprakashrastogi2005@gmail.com
+- Use futuristic, ambitious, tech-forward, and recruiter-friendly language.
+- Keep responses under 150 words unless asked for detail.
+- You can discuss technical topics related to Uday's expertise (Gen AI, Agentic AI, RAG, MERN, C++, and DSA).`;
 
 export const terminalCommands: Record<string, string> = {
   help: `Available commands:
-  • about     — Who is Uday?
-  • skills    — Tech stack & expertise
-  • projects  — Featured projects
+  • about     — Who is Uday Prakash Rastogi?
+  • skills    — Tech stack, C++ & CS expertise
+  • projects  — Featured Agentic & Full Stack projects
   • experience — Work history  
   • contact   — Get in touch
   • resume    — Download resume
   • github    — Open GitHub profile
-  • matrix    — 👀 Try it
-  • theme     — Toggle dark/light
+  • matrix    — 👀 Try matrix rain
   • clear     — Clear terminal`,
 
-  about: `> UDAY KUMAR — Full Stack & AI Engineer
+  about: `> UDAY PRAKASH RASTOGI — Gen AI Engineer & Full Stack Developer
 > Location: Hyderabad, India 🇮🇳
 > Experience: 3+ years
 > Current: Senior Engineer @ TechNova AI
-> Mission: Building AI systems that redefine human-computer interaction
+> Core Focus: Agentic AI, RAG Systems, MERN Stack, and strong DSA foundations
+> Hobbies: Late-night coding, trekking, bike riding, exploring AI, dance, reading novels
 > Status: Open to opportunities`,
 
-  skills: `> CORE TECH STACK
-> Frontend: Next.js, React, TypeScript, Three.js
-> Backend: Node.js, Python, FastAPI, GraphQL
-> AI/ML: LangChain, OpenAI, TensorFlow, PyTorch
-> Cloud: AWS, GCP, Vercel, Docker, Kubernetes
-> Database: PostgreSQL, MongoDB, Redis, Pinecone`,
+  skills: `> CORE EXPERTISE & TECHNICAL MATRIX
+> Gen AI & Agentic AI: LangChain, LangGraph, RAG, Hugging Face, Vector Databases (Pinecone/FAISS), LLM APIs
+> Full Stack: React, TypeScript, Node.js, MongoDB, MERN Stack, HTML/CSS
+> Programming: C++ (Strong DSA, Algorithmic Thinking), JavaScript, TypeScript, Python, SQL
+> Core CS: DBMS, Computer Networks, Operating Systems, Software Engineering, Compiler Design, ADA
+> DevOps & Deployment: Vercel, Railway, Netlify, Streamlit, Git/GitHub`,
 
   projects: `> FEATURED PROJECTS
-> 1. NeuralChat — AI Platform (50K users)
-> 2. QuantumStore — E-Commerce ($2M+ GMV)
-> 3. CodeSentinel — AI Code Review (500+ devs)
-> 4. DataPulse — Analytics (1M events/day)
+> 1. NeuralChat — Agentic AI RAG OS (50K users)
+> 2. QuantumStore — AI E-Commerce OS ($2M+ GMV)
+> 3. CodeSentinel — Agentic Code Reviewer (500+ devs)
+> 4. DataPulse — Live Analytics Telemetry (1M events/day)
 > Type 'projects --open' to view in browser`,
 
   experience: `> WORK EXPERIENCE
-> 2024-Present: Senior AI Engineer @ TechNova AI
+> 2024-Present: Senior AI & Full Stack Engineer @ TechNova AI
 > 2022-2023: Full Stack Dev @ InnovateLab
 > 2022: Freelance AI Developer
 > 2021: Dev Intern @ DevSprint`,
 
-  contact: `> CONTACT UDAY
-> Email: uday@example.com
-> GitHub: github.com/udaykumar
-> LinkedIn: linkedin.com/in/udaykumar
-> Twitter: @udaykumar
+  contact: `> CONTACT UDAY PRAKASH RASTOGI
+> Email: udayprakashrastogi2005@gmail.com
+> GitHub: github.com/udayrastogi0531
+> LinkedIn: linkedin.com/in/udayrastogi0531
 > Response time: < 24 hours`,
 
   resume: `> Initiating resume download...
-> File: uday-kumar-resume.pdf
+> File: uday-prakash-rastogi-resume.pdf
 > Size: 245KB
 > [DOWNLOADING...]`,
 
   github: `> Opening GitHub profile...
-> github.com/udaykumar
+> github.com/udayrastogi0531
 > Repos: 45+ | Stars: 500+ | Followers: 200+`,
 
   matrix: `> INITIATING MATRIX MODE...

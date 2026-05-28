@@ -35,8 +35,8 @@ export default function TechStackSection() {
         {/* Scrolling marquee effect */}
         <div className="relative overflow-hidden">
           {/* Gradient masks */}
-          <div className="absolute left-0 top-0 bottom-0 w-20 z-10 bg-gradient-to-r from-[#050508] to-transparent pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-20 z-10 bg-gradient-to-l from-[#050508] to-transparent pointer-events-none" />
+          <div className="absolute left-0 top-0 bottom-0 w-20 z-10 bg-gradient-to-r from-[#050816] to-transparent pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-20 z-10 bg-gradient-to-l from-[#050816] to-transparent pointer-events-none" />
 
           {/* Row 1: left scroll */}
           <motion.div

@@ -12,3 +12,10 @@ Thumbs.db
 .vercel
 .turbo
 coverage/
+
+# Supabase local dev
+.supabase/
+supabase/.temp/
+
+# TypeScript
+tsconfig.tsbuildinfo

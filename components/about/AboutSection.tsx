@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import CountUp from "react-countup";
-import { personalInfo, education } from "@/lib/data";
+import { personalInfo, education, hobbies } from "@/lib/data";
 import { Target, Lightbulb, Rocket, Heart, GraduationCap, MapPin, Calendar } from "lucide-react";
 
 const STATS = [
@@ -45,17 +45,17 @@ export default function AboutSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="about" className="py-32 relative overflow-hidden" ref={ref}>
+    <section id="about" className="py-24 relative overflow-hidden" ref={ref}>
       {/* Background effects */}
-      <div className="absolute inset-0 aurora-bg opacity-40" />
-      <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-purple-600/5 blur-[120px] pointer-events-none" />
+      <div className="absolute inset-0 aurora-bg opacity-65" />
+      <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-purple-600/8 blur-[100px] pointer-events-none" />
 
       <div className="section-container relative z-10">
         {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.55 }}
           className="section-header"
         >
           <div className="inline-flex items-center gap-2 glass-cyan rounded-full px-4 py-2 mb-6">
@@ -77,7 +77,7 @@ export default function AboutSection() {
         </motion.div>
 
         {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-20">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-14">
           {STATS.map((stat, i) => {
             const Icon = stat.icon;
             return (
@@ -118,7 +118,7 @@ export default function AboutSection() {
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ delay: 0.3, duration: 0.8 }}
+            transition={{ delay: 0.25, duration: 0.55 }}
           >
             {/* Floating profile card */}
             <div className="holographic-card rounded-3xl p-8 mb-8 relative overflow-hidden">
@@ -189,7 +189,7 @@ export default function AboutSection() {
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ delay: 0.4, duration: 0.8 }}
+            transition={{ delay: 0.35, duration: 0.55 }}
             className="space-y-4"
           >
             <h3
@@ -224,6 +224,34 @@ export default function AboutSection() {
             })}
           </motion.div>
         </div>
+
+        {/* Hobbies & Storytelling */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.5, duration: 0.55 }}
+          className="mt-16 border-t border-white/5 pt-14"
+        >
+          <h3
+            className="text-3xl font-bold text-center text-white mb-12"
+            style={{ fontFamily: "Orbitron, sans-serif" }}
+          >
+            Behind the Code: <span className="gradient-text-cyan">Creative Universe</span>
+          </h3>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {hobbies.map((h, i) => (
+              <motion.div
+                key={h.name}
+                whileHover={{ y: -8, scale: 1.03 }}
+                className="glass rounded-2xl p-6 cursor-default relative overflow-hidden group border border-transparent hover:border-cyan-500/20 transition-all duration-300"
+              >
+                <div className="text-4xl mb-4 group-hover:scale-125 transition-transform duration-300 origin-left">{h.icon}</div>
+                <h4 className="text-white font-bold text-base mb-1 font-display" style={{ fontFamily: "Orbitron, sans-serif" }}>{h.name}</h4>
+                <p className="text-slate-400 text-xs leading-relaxed">{h.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </section>
   );
