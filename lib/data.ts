@@ -5,7 +5,7 @@
 export const personalInfo = {
   name: "Uday",
   fullName: "Uday Prakash Rastogi",
-  title: "Gen AI Engineer & Full Stack Developer",
+  title: "Gen AI Engineer & MERN Stack Developer",
   taglines: [
     "Gen AI Engineer",
     "Agentic AI Developer",
@@ -41,14 +41,15 @@ export const socialLinks = {
 };
 
 export const navItems = [
-  { label: "Home", href: "#hero", icon: "home" },
-  { label: "About", href: "#about", icon: "user" },
-  { label: "Experience", href: "#experience", icon: "briefcase" },
-  { label: "Skills", href: "#skills", icon: "cpu" },
-  { label: "Projects", href: "#projects", icon: "code" },
-  { label: "AI Lab", href: "#ai-features", icon: "bot" },
-  { label: "Blog", href: "#blog", icon: "book" },
-  { label: "Contact", href: "#contact", icon: "mail" },
+  { label: "Home",       href: "#hero",             icon: "home"      },
+  { label: "About",      href: "#about",            icon: "user"      },
+  { label: "Experience", href: "#experience",       icon: "briefcase" },
+  { label: "Skills",     href: "#skills",           icon: "cpu"       },
+  { label: "DSA",        href: "#problem-solving",  icon: "code"      },
+  { label: "Projects",   href: "#projects",         icon: "code"      },
+  { label: "AI Lab",     href: "#ai-features",      icon: "bot"       },
+  { label: "Blog",       href: "#blog",             icon: "book"      },
+  { label: "Contact",    href: "#contact",          icon: "mail"      },
 ];
 
 export const experiences = [
@@ -510,3 +511,101 @@ export const terminalCommands: Record<string, string> = {
 
   clear: ``,
 };
+
+// ============================================================
+// 🧠 PROBLEM SOLVING DASHBOARD DATA
+// ============================================================
+
+export const problemSolving = {
+  // ── Platform stats (update these regularly) ───────────────
+  leetcode: {
+    username: "udayrastogi0531",
+    profileUrl: "https://leetcode.com/udayrastogi0531",
+    totalSolved: 320,
+    easy: 110,
+    medium: 165,
+    hard: 45,
+    contestRating: 1642,
+    globalRank: "Top 15%",
+    streak: 45,          // days
+    badgesEarned: 8,
+  },
+
+  gfg: {
+    username: "udayrastogi0531",
+    profileUrl: "https://www.geeksforgeeks.org/user/udayrastogi0531",
+    totalSolved: 280,
+    codingScore: 920,
+    instituteRank: 12,
+    currentStreak: 38,   // days
+    monthlyScore: 210,
+  },
+
+  // ── Summary metrics (shown as big stat cards) ─────────────
+  stats: [
+    { label: "LeetCode Solved",       value: 320,  suffix: "+", color: "#f59e0b", icon: "code"  },
+    { label: "GFG Problems",          value: 280,  suffix: "+", color: "#10b981", icon: "leaf"  },
+    { label: "DSA Topics Covered",    value: 15,   suffix: "",  color: "#06b6d4", icon: "layers"},
+    { label: "Contest Participations",value: 22,   suffix: "+", color: "#8b5cf6", icon: "trophy"},
+    { label: "Current Streak",        value: 45,   suffix: "d", color: "#ec4899", icon: "flame" },
+  ],
+
+  // ── DSA topic mastery (Beginner / Intermediate / Advanced) ─
+  // level: 1=Beginner  2=Intermediate  3=Advanced
+  dsaTopics: [
+    { name: "Arrays",              level: 3, problems: 60 },
+    { name: "Strings",             level: 3, problems: 45 },
+    { name: "Linked Lists",        level: 3, problems: 30 },
+    { name: "Stacks & Queues",     level: 3, problems: 28 },
+    { name: "Trees",               level: 3, problems: 40 },
+    { name: "Binary Search",       level: 3, problems: 35 },
+    { name: "BST",                 level: 2, problems: 22 },
+    { name: "Heaps",               level: 2, problems: 18 },
+    { name: "Graphs",              level: 2, problems: 32 },
+    { name: "Greedy",              level: 3, problems: 25 },
+    { name: "Recursion",           level: 3, problems: 30 },
+    { name: "Backtracking",        level: 2, problems: 20 },
+    { name: "Dynamic Programming", level: 2, problems: 38 },
+    { name: "Bit Manipulation",    level: 2, problems: 15 },
+    { name: "Divide & Conquer",    level: 2, problems: 12 },
+  ],
+
+  // ── Currently focusing on ─────────────────────────────────
+  currentFocus: [
+    { tag: "Graph Algorithms",    color: "#06b6d4" },
+    { tag: "Dynamic Programming", color: "#8b5cf6" },
+    { tag: "System Design",       color: "#f59e0b" },
+    { tag: "Agentic AI",          color: "#10b981" },
+    { tag: "LangGraph",           color: "#ec4899" },
+    { tag: "RAG Systems",         color: "#3b82f6" },
+  ],
+
+  // ── Coding journey milestones ─────────────────────────────
+  milestones: [
+    {
+      year: "2023",
+      title: "DSA Foundation Built",
+      description: "Mastered C++ STL, core data structures, and began consistent LeetCode practice. Solved first 100 problems.",
+      color: "#06b6d4",
+    },
+    {
+      year: "2024",
+      title: "Competitive Programming & Projects",
+      description: "Reached 300+ LeetCode problems, participated in 15+ contests. Simultaneously built full-stack MERN projects integrating AI APIs.",
+      color: "#8b5cf6",
+    },
+    {
+      year: "2025",
+      title: "GenAI + Algorithms Fusion",
+      description: "Built multiple production GenAI projects using LangChain and RAG. Advanced to graphs, DP, and system design problems.",
+      color: "#10b981",
+    },
+    {
+      year: "2026",
+      title: "Agentic AI & Advanced Problem Solving",
+      description: "Focused on LangGraph, agentic workflows, and hard-tier algorithmic challenges. Interview-ready with 320+ problems solved.",
+      color: "#f59e0b",
+    },
+  ],
+};
+

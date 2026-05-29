@@ -152,7 +152,7 @@ export const useStore = create<PortfolioStore>((set, get) => ({
     const updated = new Set(visitedRooms);
     updated.add(room);
     set({ visitedRooms: updated });
-    if (updated.size >= 8) unlockAchievement("all_rooms");
+    if (updated.size >= 9) unlockAchievement("all_rooms");
   },
 
   // ── Recruiter Mode ─────────────────────────────────────────

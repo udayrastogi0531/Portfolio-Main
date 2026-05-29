@@ -5,14 +5,15 @@ import { useStore } from "@/store";
 
 // Sections mapped in order for the progress rail + active tracking
 const SECTIONS = [
-  { id: "hero",        label: "INTRO" },
-  { id: "about",       label: "BIO" },
-  { id: "experience",  label: "TIMELINE" },
-  { id: "skills",      label: "SKILLS" },
-  { id: "projects",    label: "PROJECTS" },
-  { id: "ai-features", label: "AI LABS" },
-  { id: "github",      label: "GITHUB" },
-  { id: "contact",     label: "CONTACT" },
+  { id: "hero",             label: "INTRO"    },
+  { id: "about",            label: "BIO"      },
+  { id: "experience",       label: "TIMELINE" },
+  { id: "skills",           label: "SKILLS"   },
+  { id: "problem-solving",  label: "DSA"      },
+  { id: "projects",         label: "PROJECTS" },
+  { id: "ai-features",      label: "AI LABS"  },
+  { id: "github",           label: "GITHUB"   },
+  { id: "contact",          label: "CONTACT"  },
 ];
 
 interface ScrollObserverProps {

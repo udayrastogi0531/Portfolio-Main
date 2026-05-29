@@ -18,6 +18,7 @@ const ExperienceSection = dynamic(() => import("@/components/experience/Experien
 const SkillsSection     = dynamic(() => import("@/components/skills/SkillsSection"),         { ssr: false });
 const TechStackSection  = dynamic(() => import("@/components/skills/TechStackSection"),      { ssr: false });
 const ProjectsSection   = dynamic(() => import("@/components/projects/ProjectsSection"),     { ssr: false });
+const ProblemSolvingDashboard = dynamic(() => import("@/components/skills/ProblemSolvingDashboard"), { ssr: false });
 const AIFeaturesSection = dynamic(() => import("@/components/ai-features/AIFeaturesSection"),{ ssr: false });
 const GitHubSection     = dynamic(() => import("@/components/extras/GitHubSection"),         { ssr: false });
 const BlogSection       = dynamic(() => import("@/components/blog/BlogSection"),             { ssr: false });
@@ -103,6 +104,11 @@ export default function Home() {
                 <section id="skills" className="w-full">
                   <SkillsSection />
                   <TechStackSection />
+                </section>
+
+                {/* Problem Solving Dashboard */}
+                <section id="problem-solving" className="w-full">
+                  <ProblemSolvingDashboard />
                 </section>
 
                 {/* Projects */}
