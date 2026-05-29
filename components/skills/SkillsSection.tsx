@@ -3,7 +3,7 @@
 import { useRef, useState, useCallback } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 
-// ── Exact categories per user specification ───────────────────
+// ── Categories ────────────────────────────────────────────────
 const CATEGORIES = [
   {
     id: "dsa",
@@ -58,6 +58,17 @@ const CATEGORIES = [
       "Netlify", "Streamlit", "Resend API", "Docker (basics)",
     ],
   },
+  {
+    id: "core",
+    icon: "🖥️",
+    label: "Core CS",
+    accent: "#a78bfa",
+    skills: [
+      "DBMS", "Computer Networks", "Operating Systems",
+      "Compiler Design", "Software Engineering",
+      "ADA / Algorithms", "Project Management",
+    ],
+  },
 ] as const;
 
 type CategoryId = (typeof CATEGORIES)[number]["id"];
@@ -77,32 +88,40 @@ const PROFICIENCY: Record<string, number> = {
   "Express.js": 90, "PostgreSQL": 82, "Supabase": 88,
   "Git": 96, "GitHub": 96, "Vercel": 95, "Railway": 88,
   "Netlify": 90, "Streamlit": 85, "Resend API": 90, "Docker (basics)": 72,
+  "DBMS": 92, "Computer Networks": 88, "Operating Systems": 90,
+  "Compiler Design": 85, "Software Engineering": 92,
+  "ADA / Algorithms": 90, "Project Management": 88,
 };
 
 const getTag = (lvl: number) =>
   lvl >= 92 ? "Expert" : lvl >= 82 ? "Advanced" : "Proficient";
 
-// ── SkillCard ────────────────────────────────────────────────
+// ── SkillCard — takes `hasAnimated` flag to avoid re-animating on tab switch ──
 function SkillCard({
   name,
   accent,
   index,
   isInView,
+  hasAnimated,
+  onAnimated,
 }: {
   name: string;
   accent: string;
   index: number;
   isInView: boolean;
+  hasAnimated: boolean;
+  onAnimated: (name: string) => void;
 }) {
   const [hovered, setHovered] = useState(false);
   const lvl = PROFICIENCY[name] ?? 80;
   const tag = getTag(lvl);
+  const shouldAnimate = isInView && !hasAnimated;
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 20, scale: 0.92 }}
       animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
-      transition={{ delay: 0.05 + index * 0.04, duration: 0.45, ease: [0.25, 1, 0.35, 1] }}
+      transition={{ delay: hasAnimated ? 0 : 0.05 + index * 0.04, duration: 0.45, ease: [0.25, 1, 0.35, 1] }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       className="relative rounded-xl p-4 cursor-default overflow-hidden group"
@@ -144,16 +163,23 @@ function SkillCard({
         {name}
       </div>
 
-      {/* Progress bar */}
+      {/* Progress bar — only animates once */}
       <div
         className="h-[3px] rounded-full mb-2 overflow-hidden"
         style={{ background: "rgba(30,45,61,0.9)" }}
       >
         <motion.div
           className="h-full rounded-full relative"
-          initial={{ width: 0 }}
+          initial={{ width: hasAnimated ? `${lvl}%` : 0 }}
           animate={isInView ? { width: `${lvl}%` } : { width: 0 }}
-          transition={{ delay: 0.1 + index * 0.04, duration: 0.8, ease: "easeOut" }}
+          transition={
+            shouldAnimate
+              ? { delay: 0.1 + index * 0.04, duration: 0.8, ease: "easeOut" }
+              : { duration: 0 }
+          }
+          onAnimationComplete={() => {
+            if (shouldAnimate) onAnimated(name);
+          }}
           style={{
             background: `linear-gradient(90deg, ${accent}bb, ${accent})`,
             boxShadow: hovered ? `0 0 5px ${accent}80` : "none",
@@ -190,6 +216,12 @@ export default function SkillsSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
   const [activeId, setActiveId] = useState<CategoryId>("dsa");
+
+  // Track which skills have already animated — so switching tabs doesn't reset bars
+  const animatedSkills = useRef<Set<string>>(new Set());
+  const handleAnimated = useCallback((name: string) => {
+    animatedSkills.current.add(name);
+  }, []);
 
   const activeCategory = CATEGORIES.find((c) => c.id === activeId)!;
   const handleTab = useCallback((id: CategoryId) => setActiveId(id), []);
@@ -236,7 +268,7 @@ export default function SkillsSection() {
           <div className="flex flex-wrap justify-center gap-2">
             {[
               { label: `${totalSkills} Technologies`, color: "#06b6d4" },
-              { label: "5 Domains", color: "#8b5cf6" },
+              { label: "6 Domains", color: "#8b5cf6" },
               { label: "Expert Level AI", color: "#10b981" },
               { label: "3+ Years", color: "#f59e0b" },
             ].map((s) => (
@@ -334,7 +366,7 @@ export default function SkillsSection() {
                 {activeCategory.label}
               </h3>
               <p className="text-slate-500 text-sm font-mono">
-                {activeCategory.skills.length} skills · click any card to explore
+                {activeCategory.skills.length} skills · hover any card for details
               </p>
             </div>
             {/* Top accent bar */}
@@ -346,33 +378,36 @@ export default function SkillsSection() {
         </AnimatePresence>
 
         {/* ── Skills Grid ── */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeId}
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.35, ease: [0.25, 1, 0.35, 1] }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-12"
-          >
-            {activeCategory.skills.map((skill, i) => (
-              <SkillCard
-                key={skill}
-                name={skill}
-                accent={activeCategory.accent}
-                index={i}
-                isInView={isInView}
-              />
-            ))}
-          </motion.div>
-        </AnimatePresence>
+        {/* NOTE: We DON'T use AnimatePresence key={activeId} here — that would remount
+            the SkillCard components and re-trigger bar animations. Instead, we just
+            animate the container opacity/y. The bars themselves track animation state
+            via the persistent `animatedSkills` ref. */}
+        <motion.div
+          key={activeId}
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, ease: [0.25, 1, 0.35, 1] }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 mb-12"
+        >
+          {activeCategory.skills.map((skill, i) => (
+            <SkillCard
+              key={skill}
+              name={skill}
+              accent={activeCategory.accent}
+              index={i}
+              isInView={isInView}
+              hasAnimated={animatedSkills.current.has(skill)}
+              onAnimated={handleAnimated}
+            />
+          ))}
+        </motion.div>
 
         {/* ── Domain Summary Bars ── */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.4, duration: 0.5 }}
-          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3"
+          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3"
         >
           {CATEGORIES.map((cat) => {
             const avg = Math.round(

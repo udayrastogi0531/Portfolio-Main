@@ -13,7 +13,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL("https://udayrastogi.dev"),
   title: {
-    default: "Uday Prakash Rastogi — Gen AI Engineer & Full Stack Developer | Cinematic Portfolio",
+    default: "Uday Rastogi — Gen AI Engineer & Full Stack Developer",
     template: "%s | Uday Prakash Rastogi",
   },
   description:
@@ -89,9 +89,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://udayrastogi.dev",
   },
-  verification: {
-    google: "your-google-verification-code",
-  },
+  // verification: { google: "add-your-code-from-search-console" },
 };
 
 const jsonLd = {
@@ -150,12 +148,12 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         {/* Theme color for mobile browsers */}
-        <meta name="theme-color" content="#050508" />
+        <meta name="theme-color" content="#050816" />
         <meta name="color-scheme" content="dark" />
         {/* Prevent flash */}
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
       </head>
-      <body className="antialiased bg-[#050508] text-slate-200 selection:bg-cyan-500/30 selection:text-white">
+      <body className="antialiased bg-[#050816] text-slate-200 selection:bg-cyan-500/30 selection:text-white">
         {children}
         <Toaster
           position="bottom-right"

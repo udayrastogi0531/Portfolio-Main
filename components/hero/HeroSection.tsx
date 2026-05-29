@@ -85,8 +85,8 @@ export default function HeroSection() {
     { label: "Next.js 15", color: "#06b6d4", icon: Globe },
     { label: "LangChain + OpenAI", color: "#a855f7", icon: Activity },
     { label: "React Three Fiber", color: "#10b981", icon: Cpu },
-    { label: "AWS + Docker", color: "#f59e0b", icon: Cpu },
-    { label: "Python + FastAPI", color: "#3b82f6", icon: Activity },
+    { label: "AWS + Docker", color: "#f59e0b", icon: Globe },
+    { label: "Python + FastAPI", color: "#3b82f6", icon: Zap },
   ];
 
   return (
@@ -161,7 +161,7 @@ export default function HeroSection() {
               transition={{ delay: 0.15, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
             >
               <h1
-                className="text-7xl md:text-8xl lg:text-[7rem] font-black leading-none mb-2 hero-name"
+                className="text-5xl md:text-7xl lg:text-[7rem] font-black leading-none mb-2 hero-name"
                 style={{ fontFamily: "Orbitron, sans-serif" }}
               >
                 <span className="gradient-text-cyan text-glow-cyan inline-block">
@@ -209,9 +209,9 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 15 }}
               animate={isLoaded ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
               transition={{ delay: 0.3, duration: 0.5 }}
-              className="text-slate-400 text-lg leading-relaxed max-w-xl mb-8"
+              className="text-slate-400 text-base md:text-lg leading-relaxed max-w-xl mb-8"
             >
-              {personalInfo.bio}
+              {personalInfo.shortBio}
             </motion.p>
 
             {/* Stats row */}

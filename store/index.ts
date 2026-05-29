@@ -17,7 +17,7 @@ const DEFAULT_ACHIEVEMENTS: Achievement[] = [
   { id: "terminal_open",  title: "Shell Access",       description: "Opened the neural terminal",     icon: "💻", unlocked: false },
   { id: "matrix_mode",    title: "Red Pill",           description: "Activated matrix rain mode",     icon: "🟥", unlocked: false },
   { id: "konami",         title: "Cheat Code",         description: "Found the Konami code easter egg",icon: "🎮", unlocked: false },
-  { id: "all_rooms",      title: "Full Tour",          description: "Visited all 10 rooms",           icon: "🌌", unlocked: false },
+  { id: "all_rooms",      title: "Full Tour",          description: "Visited all 8 sections",           icon: "🌌", unlocked: false },
   { id: "contact_open",   title: "Uplink Established", description: "Reached the contact section",   icon: "📡", unlocked: false },
   { id: "resume_dl",      title: "File Retrieved",     description: "Downloaded the resume",          icon: "📄", unlocked: false },
   { id: "stay_2min",      title: "Deep Dive",          description: "Explored for 2+ minutes",        icon: "⏱️", unlocked: false },
@@ -152,18 +152,18 @@ export const useStore = create<PortfolioStore>((set, get) => ({
     const updated = new Set(visitedRooms);
     updated.add(room);
     set({ visitedRooms: updated });
-    if (updated.size >= 10) unlockAchievement("all_rooms");
+    if (updated.size >= 8) unlockAchievement("all_rooms");
   },
 
   // ── Recruiter Mode ─────────────────────────────────────────
   isRecruiterMode: false,
   toggleRecruiterMode: () => set((s) => ({ isRecruiterMode: !s.isRecruiterMode })),
 
-  // ── Film Grain ─────────────────────────────────────────────
-  isFilmGrain: true, // on by default for cinematic feel
+  // ── Film Grain — TODO: wire to a UI toggle if needed ────────
+  isFilmGrain: true,
   toggleFilmGrain: () => set((s) => ({ isFilmGrain: !s.isFilmGrain })),
 
-  // ── Cinema Mode ────────────────────────────────────────────
+  // ── Cinema Mode — TODO: wire to a UI toggle if needed ───────
   isCinemaMode: false,
   toggleCinemaMode: () => set((s) => ({ isCinemaMode: !s.isCinemaMode })),
 }));

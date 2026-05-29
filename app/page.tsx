@@ -10,7 +10,7 @@ import Loader from "@/components/loaders/Loader";
 import FloatingNav from "@/components/navigation/FloatingNav";
 import HeroSection from "@/components/hero/HeroSection";
 import Footer from "@/components/footer/Footer";
-import ScrollObserver from "@/components/navigation/CinematicContainer";
+import ScrollObserver from "@/components/navigation/ScrollObserver";
 
 // ── Content sections — lazy loaded ───────────────────────────
 const AboutSection      = dynamic(() => import("@/components/about/AboutSection"),           { ssr: false });

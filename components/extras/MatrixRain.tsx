@@ -15,6 +15,9 @@ export default function MatrixRain() {
       return;
     }
 
+    // Skip canvas animation on small screens — saves GPU
+    if (typeof window !== "undefined" && window.innerWidth < 768) return;
+
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
@@ -96,6 +99,7 @@ export default function MatrixRain() {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5 }}
           className="fixed inset-0 z-[45] pointer-events-none"
+          aria-hidden="true"
         />
       )}
     </AnimatePresence>
