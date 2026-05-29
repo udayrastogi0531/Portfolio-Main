@@ -23,6 +23,7 @@ const GitHubSection     = dynamic(() => import("@/components/extras/GitHubSectio
 const BlogSection       = dynamic(() => import("@/components/blog/BlogSection"),             { ssr: false });
 const ExtrasSection     = dynamic(() => import("@/components/extras/ExtrasSection"),         { ssr: false });
 const ServicesSection   = dynamic(() => import("@/components/extras/ServicesSection"),        { ssr: false });
+const NewsletterSection = dynamic(() => import("@/components/extras/NewsletterSection"),     { ssr: false });
 const ContactSection    = dynamic(() => import("@/components/contact/ContactSection"),       { ssr: false });
 
 // ── Floating UI overlays ──────────────────────────────────────
@@ -119,11 +120,12 @@ export default function Home() {
                   <GitHubSection />
                 </section>
 
-                {/* Extras: Services + Blog */}
+                {/* Extras: Services + Blog + Newsletter */}
                 <section id="extras" className="w-full">
                   <ExtrasSection />
                   <ServicesSection />
                   <BlogSection />
+                  <NewsletterSection />
                 </section>
 
                 {/* Contact + Footer */}

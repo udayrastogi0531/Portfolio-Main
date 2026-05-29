@@ -1,72 +1,133 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Volume2, VolumeX, Loader2, Disc } from "lucide-react";
+import { Volume2, VolumeX, Loader2, AlertCircle } from "lucide-react";
 
 export default function VoiceIntro() {
   const [voiceState, setVoiceState] = useState<"idle" | "loading" | "playing" | "error">("idle");
   const [barsCount] = useState(16);
-  const audioContextRef = useRef<AudioContext | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const sourceRef = useRef<MediaElementAudioSourceNode | null>(null);
+  const voicesRef = useRef<SpeechSynthesisVoice[]>([]);
 
-  // Stop voice on component unmount
+  // ── Pre-load Speech Synthesis Voices Asynchronously ───────────
+  useEffect(() => {
+    if (typeof window === "undefined" || !window.speechSynthesis) return;
+
+    const loadVoices = () => {
+      try {
+        const v = window.speechSynthesis.getVoices();
+        if (v && v.length > 0) {
+          voicesRef.current = v;
+        }
+      } catch (err) {
+        // Silent catch to prevent any console noise
+      }
+    };
+
+    loadVoices();
+    if (window.speechSynthesis.onvoiceschanged !== undefined) {
+      window.speechSynthesis.onvoiceschanged = loadVoices;
+    }
+
+    return () => {
+      if (window.speechSynthesis) {
+        window.speechSynthesis.onvoiceschanged = null;
+      }
+    };
+  }, []);
+
+  // ── Auto-recover from error state after 3 seconds ────────────
+  useEffect(() => {
+    if (voiceState === "error") {
+      const t = setTimeout(() => setVoiceState("idle"), 3000);
+      return () => clearTimeout(t);
+    }
+  }, [voiceState]);
+
+  const stopAllVoice = useCallback(() => {
+    try {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.src = "";
+      }
+      if (typeof window !== "undefined" && window.speechSynthesis) {
+        window.speechSynthesis.cancel();
+      }
+    } catch (err) {
+      // Safe cleanup
+    }
+    setVoiceState("idle");
+  }, []);
+
+  // ── Safe Unmount Cleanup ───────────────────────────────────────
   useEffect(() => {
     return () => {
       stopAllVoice();
     };
-  }, []);
+  }, [stopAllVoice]);
 
-  const stopAllVoice = () => {
-    if (audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current.src = "";
-    }
-    if (typeof window !== "undefined" && window.speechSynthesis) {
-      window.speechSynthesis.cancel();
-    }
-    setVoiceState("idle");
-  };
-
-  const playBrowserSpeech = () => {
+  // ── Web Speech API SpeechSynthesis Fallback ───────────────────
+  const playBrowserSpeech = useCallback(() => {
     if (typeof window === "undefined" || !window.speechSynthesis) {
       setVoiceState("error");
       return;
     }
 
-    // Cancel any ongoing speech
-    window.speechSynthesis.cancel();
+    try {
+      // Cancel previous utterances before starting
+      window.speechSynthesis.cancel();
 
-    const introText = "Hi, I'm Uday's neural voice avatar. Welcome to my next-generation cinematic portfolio. Explore my full-stack projects, interactive AI tools, and creative experiences. Let's build the future together.";
-    const utterance = new SpeechSynthesisUtterance(introText);
-    
-    // Attempt to pick a modern, neural English voice (like Microsoft David, Google US English, etc.)
-    const voices = window.speechSynthesis.getVoices();
-    const englishVoice = voices.find(v => v.lang.startsWith("en-US") && v.name.toLowerCase().includes("natural")) ||
-                        voices.find(v => v.lang.startsWith("en")) ||
-                        voices[0];
+      const introText = "Hi, I'm Uday's neural voice avatar. Welcome to my next-generation cinematic portfolio. Explore my full-stack projects, interactive AI tools, and creative experiences. Let's build the future together.";
+      const utterance = new SpeechSynthesisUtterance(introText);
 
-    if (englishVoice) utterance.voice = englishVoice;
-    utterance.pitch = 0.92; // Slightly deeper, futuristic feel
-    utterance.rate = 1.02;  // Natural speaking rate
+      // Dynamically query voices if ref is empty
+      let voices = voicesRef.current;
+      if (!voices || voices.length === 0) {
+        voices = window.speechSynthesis.getVoices();
+        voicesRef.current = voices;
+      }
 
-    utterance.onstart = () => {
-      setVoiceState("playing");
-    };
+      // Pick high-quality en-US voices, falling back cleanly
+      const englishVoice =
+        voices.find((v) => v.lang.startsWith("en-US") && v.name.toLowerCase().includes("natural")) ||
+        voices.find((v) => v.lang.startsWith("en-US") && v.name.toLowerCase().includes("google")) ||
+        voices.find((v) => v.lang.startsWith("en-US")) ||
+        voices.find((v) => v.lang.startsWith("en")) ||
+        voices[0];
 
-    utterance.onend = () => {
-      setVoiceState("idle");
-    };
+      if (englishVoice) {
+        utterance.voice = englishVoice;
+      }
 
-    utterance.onerror = (err) => {
-      console.error("SpeechSynthesis error:", err);
+      utterance.pitch = 0.95; // Futuristic tone
+      utterance.rate = 1.0;   // Natural speaking pace
+
+      utterance.onstart = () => {
+        setVoiceState("playing");
+      };
+
+      utterance.onend = () => {
+        setVoiceState("idle");
+      };
+
+      utterance.onerror = (e) => {
+        // Interrupted/removed are triggered normally when calling .cancel()
+        const errType = e.error as string;
+        if (errType !== "interrupted" && errType !== "removed" && errType !== "canceled") {
+          setVoiceState("error");
+        } else {
+          setVoiceState("idle");
+        }
+      };
+
+      window.speechSynthesis.speak(utterance);
+    } catch (err) {
       setVoiceState("error");
-    };
+    }
+  }, []);
 
-    window.speechSynthesis.speak(utterance);
-  };
-
+  // ── Master Play Handler — Triggered ONLY by User Interaction ──
   const handleVoiceIntro = async () => {
     if (voiceState === "playing" || voiceState === "loading") {
       stopAllVoice();
@@ -87,14 +148,13 @@ export default function VoiceIntro() {
       const contentType = res.headers.get("content-type") || "";
       if (contentType.includes("application/json")) {
         const data = await res.json();
-        // Server triggered fallback or returned error
         if (data.fallback || data.error) {
           playBrowserSpeech();
           return;
         }
       }
 
-      // We have raw audio binary stream! Play using Audio element
+      // We have raw audio binary stream! Play using safe HTML5 Audio elements
       const audioBlob = await res.blob();
       const audioUrl = URL.createObjectURL(audioBlob);
 
@@ -110,13 +170,12 @@ export default function VoiceIntro() {
         setVoiceState("idle");
       };
       audioRef.current.onerror = () => {
-        // Fallback to browser SpeechSynthesis if binary playback fails
         playBrowserSpeech();
       };
 
       await audioRef.current.play();
     } catch (err) {
-      console.warn("Server TTS failed, falling back to Web Speech API...", err);
+      // Graceful fallback to SpeechSynthesis, zero user console noise
       playBrowserSpeech();
     }
   };
@@ -135,6 +194,8 @@ export default function VoiceIntro() {
               ? "border-cyan-400 bg-cyan-500/10 shadow-[0_0_30px_rgba(6,182,212,0.3)]"
               : voiceState === "loading"
               ? "border-purple-500 bg-purple-500/10"
+              : voiceState === "error"
+              ? "border-rose-500/30 bg-rose-500/5 hover:border-rose-500/50"
               : "border-cyan-500/20 bg-white/5 hover:border-cyan-500/40"
           }
         `}
@@ -165,6 +226,15 @@ export default function VoiceIntro() {
                 className="absolute inset-0 w-8 h-8 border border-dashed border-cyan-400/30 rounded-full scale-125"
               />
             </motion.div>
+          ) : voiceState === "error" ? (
+            <motion.div
+              key="error"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <AlertCircle size={20} className="text-rose-400" />
+            </motion.div>
           ) : (
             <motion.div
               key="idle"
@@ -181,11 +251,17 @@ export default function VoiceIntro() {
       {/* Visualizer Sound Waves and Title */}
       <div className="flex flex-col">
         <div className="flex items-center gap-2 mb-1.5">
-          <span className="font-mono text-[10px] text-cyan-400 tracking-wider">
+          <span
+            className={`font-mono text-[10px] tracking-wider transition-colors duration-300 ${
+              voiceState === "error" ? "text-rose-400" : "text-cyan-400"
+            }`}
+          >
             {voiceState === "playing"
               ? "PLAYING NEURAL INTRODUCTION"
               : voiceState === "loading"
               ? "ESTABLISHING TELEMETRY LINK..."
+              : voiceState === "error"
+              ? "VOICE UNAVAILABLE"
               : "AI VOCALIZER CORE"}
           </span>
           {voiceState === "playing" && (
@@ -205,6 +281,8 @@ export default function VoiceIntro() {
                   ${
                     voiceState === "playing"
                       ? "bg-gradient-to-t from-cyan-400 to-purple-500"
+                      : voiceState === "error"
+                      ? "bg-rose-500/20"
                       : "bg-slate-700"
                   }
                 `}

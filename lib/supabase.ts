@@ -161,6 +161,44 @@ export async function trackEvent(
   }
 }
 
+// ── NEWSLETTER SUBSCRIBERS ───────────────────────────────────
+
+/**
+ * Saves a newsletter email registration to Supabase newsletter_subscribers.
+ * Handles duplicate emails gracefully.
+ */
+export async function subscribeToNewsletter(
+  email: string
+): Promise<{ success: boolean; alreadySubscribed?: boolean; error?: string }> {
+  const client = getClient();
+  if (!client) {
+    return { success: false, error: "Database unavailable" };
+  }
+
+  const cleanEmail = email.trim().toLowerCase();
+  if (!EMAIL_RE.test(cleanEmail)) {
+    return { success: false, error: "Invalid email address" };
+  }
+
+  try {
+    const { error } = await client
+      .from("newsletter_subscribers")
+      .insert({ email: cleanEmail });
+
+    if (error) {
+      if (error.code === "23505") {
+        return { success: true, alreadySubscribed: true };
+      }
+      console.error("[Supabase] newsletter insert error:", error.message);
+      return { success: false, error: error.message };
+    }
+    return { success: true };
+  } catch (err) {
+    console.error("[Supabase] subscribeToNewsletter unexpected:", err);
+    return { success: false, error: "Unexpected error" };
+  }
+}
+
 // ── ADMIN READS (server-only, never called from client) ───────
 
 /**

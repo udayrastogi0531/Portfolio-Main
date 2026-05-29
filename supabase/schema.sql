@@ -208,3 +208,24 @@ ORDER BY 3 DESC;
 --   ('test-session-1', 'page_view',    'navigation'),
 --   ('test-session-1', 'konami_code',  'easter_egg'),
 --   ('test-session-2', 'chat_opened',  'interaction');
+
+-- ============================================================
+-- TABLE 5: newsletter_subscribers
+-- Stores newsletter registrations
+-- ============================================================
+CREATE TABLE IF NOT EXISTS newsletter_subscribers (
+  id            UUID        PRIMARY KEY DEFAULT gen_random_uuid(),
+  email         TEXT        UNIQUE NOT NULL CHECK (email ~* '^[^@\s]+@[^@\s]+\.[^@\s]+$'),
+  subscribed_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+-- Index
+CREATE INDEX IF NOT EXISTS idx_newsletter_email ON newsletter_subscribers (email);
+
+-- RLS: public can INSERT only; no SELECT/UPDATE/DELETE without service role
+ALTER TABLE newsletter_subscribers ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "newsletter_insert_public" ON newsletter_subscribers;
+CREATE POLICY "newsletter_insert_public"
+  ON newsletter_subscribers FOR INSERT TO anon
+  WITH CHECK (true);
