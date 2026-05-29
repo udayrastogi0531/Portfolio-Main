@@ -229,7 +229,7 @@ export default function SkillsSection() {
   const totalSkills = CATEGORIES.reduce((a, c) => a + c.skills.length, 0);
 
   return (
-    <section className="py-20 relative overflow-hidden" ref={ref}>
+    <section className="py-20 relative overflow-x-hidden" ref={ref}>
       {/* Background glow */}
       <div
         className="absolute inset-0 pointer-events-none"

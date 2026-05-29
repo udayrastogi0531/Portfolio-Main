@@ -44,7 +44,7 @@ export default function AIFeaturesSection() {
   const { toggleChat, toggleTerminal } = useStore();
 
   return (
-    <section id="ai-features" className="py-32 relative overflow-hidden" ref={ref}>
+    <section id="ai-features" className="py-20 relative overflow-hidden" ref={ref}>
       {/* Background */}
       <div className="absolute inset-0 aurora-bg opacity-30" />
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-950/10 to-transparent" />

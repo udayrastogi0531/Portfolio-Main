@@ -25,6 +25,14 @@ import { useStore } from "@/store";
 
 const TAGLINES = personalInfo.taglines;
 
+// Shared helper — scrolls to a section id accounting for fixed navbar height
+const scrollNavTo = (id: string) => {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const top = el.getBoundingClientRect().top + window.scrollY - 72;
+  window.scrollTo({ top, behavior: "smooth" });
+};
+
 export default function HeroSection() {
   const { isLoaded } = useStore();
   const [taglineIndex, setTaglineIndex] = useState(0);
@@ -133,8 +141,8 @@ export default function HeroSection() {
       </motion.div>
 
       {/* ── Main Content ── */}
-      <div className="relative z-10 section-container w-full pt-28 pb-24">
-        <div className="grid lg:grid-cols-2 gap-16 items-center min-h-[80vh]">
+      <div className="relative z-10 section-container w-full pt-24 pb-16">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* ── Left: Text ── */}
           <motion.div style={{ x: layer1X, y: layer1Y }}>
             {/* Status badge */}
@@ -252,9 +260,7 @@ export default function HeroSection() {
               className="flex flex-wrap gap-4 mb-8"
             >
               <motion.button
-                onClick={() =>
-                  document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })
-                }
+                onClick={() => scrollNavTo("projects")}
                 whileHover={{ scale: 1.07, y: -2 }}
                 whileTap={{ scale: 0.95 }}
                 data-cursor="hover"
@@ -405,7 +411,7 @@ export default function HeroSection() {
           initial={{ opacity: 0 }}
           animate={isLoaded ? { opacity: 1 } : { opacity: 0 }}
           transition={{ delay: 0.9 }}
-          onClick={() => document.getElementById("about")?.scrollIntoView({ behavior: "smooth" })}
+          onClick={() => scrollNavTo("about")}
           data-cursor="hover"
           className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-cyan-400/50 hover:text-cyan-400 transition-colors group"
         >

@@ -421,8 +421,15 @@ main {
 /* ============================================================
    📊 SECTION LAYOUT
    ============================================================ */
+
+/* Navbar anchor offset — prevents all headings from hiding behind the fixed navbar
+   when using #hash links, scrollIntoView, or browser back/forward. */
+[id] {
+  scroll-margin-top: 80px;
+}
+
 .section-container {
-  max-width: 1400px;
+  max-width: 1280px;
   margin: 0 auto;
   padding: 0 24px;
 }
@@ -435,13 +442,13 @@ main {
 
 @media (min-width: 1280px) {
   .section-container {
-    padding: 0 80px;
+    padding: 0 64px;
   }
 }
 
 .section-header {
   text-align: center;
-  margin-bottom: 56px;
+  margin-bottom: 40px;
 }
 
 /* ============================================================

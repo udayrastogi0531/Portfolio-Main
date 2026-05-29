@@ -120,7 +120,8 @@ export default function AICommandPalette() {
       const element = document.getElementById(id);
       if (element) {
         setTimeout(() => {
-          element.scrollIntoView({ behavior: "smooth" });
+          const top = element.getBoundingClientRect().top + window.scrollY - 72;
+          window.scrollTo({ top, behavior: "smooth" });
         }, 100);
       }
     }

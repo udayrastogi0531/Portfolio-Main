@@ -270,7 +270,7 @@ export default function ProjectsSection() {
     filter === "All" ? projects : projects.filter((p) => p.category === filter);
 
   return (
-    <section id="projects" className="py-28 relative overflow-hidden" ref={ref}>
+    <section id="projects" className="py-20 relative overflow-hidden" ref={ref}>
       {/* Background */}
       <div className="absolute inset-0 neural-bg opacity-30" />
       <div

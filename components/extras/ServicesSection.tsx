@@ -17,7 +17,7 @@ export default function ServicesSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="services" className="py-24 relative overflow-hidden" ref={ref}>
+    <section id="services" className="py-20 relative overflow-hidden" ref={ref}>
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-gradient-radial from-purple-600/5 to-transparent blur-[80px] pointer-events-none" />
 
       <div className="section-container relative z-10">
@@ -87,7 +87,10 @@ export default function ServicesSection() {
                     {service.price}
                   </div>
                   <button
-                    onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+                    onClick={() => {
+                      const el = document.getElementById("contact");
+                      if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 72, behavior: "smooth" });
+                    }}
                     className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-medium transition-all"
                     style={{
                       background: `${service.color}10`,

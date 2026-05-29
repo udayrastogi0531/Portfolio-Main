@@ -53,7 +53,7 @@ export default function ScrollObserver({ children }: ScrollObserverProps) {
             markRoomVisited(id);
           }
         },
-        { threshold: 0.25, rootMargin: "-60px 0px -60px 0px" }
+        { threshold: 0.15, rootMargin: "-80px 0px -20px 0px" }
       );
       obs.observe(el);
       observers.push(obs);
@@ -79,7 +79,11 @@ function ProgressRail() {
 
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (el) {
+      const navbarHeight = 72;
+      const top = el.getBoundingClientRect().top + window.scrollY - navbarHeight;
+      window.scrollTo({ top, behavior: "smooth" });
+    }
   };
 
   return (

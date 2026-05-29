@@ -16,7 +16,7 @@ export default function BlogSection() {
   const filtered = filter === "All" ? blogs : blogs.filter((b) => b.category === filter);
 
   return (
-    <section id="blog" className="py-32 relative overflow-hidden" ref={ref}>
+    <section id="blog" className="py-20 relative overflow-hidden" ref={ref}>
       <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full bg-cyan-500/5 blur-[100px] pointer-events-none" />
 
       <div className="section-container relative z-10">

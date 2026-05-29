@@ -45,7 +45,7 @@ export default function AboutSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="about" className="py-24 relative overflow-hidden" ref={ref}>
+    <section id="about" className="py-20 relative overflow-hidden" ref={ref}>
       {/* Background effects */}
       <div className="absolute inset-0 aurora-bg opacity-65" />
       <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-purple-600/8 blur-[100px] pointer-events-none" />

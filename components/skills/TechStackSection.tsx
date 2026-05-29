@@ -16,7 +16,7 @@ export default function TechStackSection() {
   const [hoveredTech, setHoveredTech] = useState<string | null>(null);
 
   return (
-    <section className="py-20 relative overflow-hidden" ref={ref}>
+    <div className="pb-16 relative overflow-hidden" ref={ref}>
       <div className="section-container">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -84,6 +84,6 @@ export default function TechStackSection() {
           </motion.div>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

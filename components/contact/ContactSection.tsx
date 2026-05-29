@@ -67,7 +67,7 @@ export default function ContactSection() {
   }, []);
 
   return (
-    <section id="contact" className="py-28 relative overflow-hidden" ref={ref}>
+    <section id="contact" className="py-20 relative overflow-hidden" ref={ref}>
       {/* Background */}
       <div className="absolute inset-0 aurora-bg opacity-25 pointer-events-none" />
       <div

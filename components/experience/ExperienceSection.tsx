@@ -11,7 +11,7 @@ export default function ExperienceSection() {
   const [expanded, setExpanded] = useState<number | null>(0);
 
   return (
-    <section id="experience" className="py-24 relative overflow-hidden" ref={ref}>
+    <section id="experience" className="py-20 relative overflow-hidden" ref={ref}>
       {/* Background */}
       <div className="absolute inset-0 aurora-bg opacity-50" />
       <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-cyan-500/6 blur-[100px] pointer-events-none" />
