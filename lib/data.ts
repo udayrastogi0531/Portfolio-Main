@@ -27,7 +27,7 @@ export const personalInfo = {
   projectsCompleted: 25,
   clientsSatisfied: 15,
   githubStars: 500,
-  avatar: "/images/avatar.png",
+  avatar: "/images/pic.jpeg",
   resume: "/resume.pdf",
 };
 
