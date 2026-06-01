@@ -452,6 +452,27 @@ export default function ProjectsSection() {
                   ))}
                 </div>
 
+
+                {/* Key Features */}
+                {("features" in selectedProject) && (selectedProject as any).features && (
+                  <div className="mb-6">
+                    <h4 className="text-xs font-mono text-cyan-400 uppercase tracking-widest mb-3">
+                      Key Features
+                    </h4>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                      {((selectedProject as any).features as string[]).map((feature, idx) => (
+                        <div key={idx} className="flex items-center gap-2 text-slate-300 text-sm">
+                          <span
+                            className="w-1.5 h-1.5 rounded-full flex-shrink-0"
+                            style={{ backgroundColor: selectedProject.color }}
+                          />
+                          <span>{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
                 {/* Architecture */}
                 {selectedProject.architecture && (
                   <div className="mb-6">
