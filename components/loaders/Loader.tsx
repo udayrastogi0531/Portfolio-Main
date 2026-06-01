@@ -183,8 +183,8 @@ export default function Loader() {
       {isVisible && (
         <motion.div
           initial={{ opacity: 1 }}
-          exit={{ opacity: 0, scale: 1.06, filter: "blur(8px)" }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          exit={{ opacity: 0, scale: 1.02 }}
+          transition={{ duration: 0.35, ease: "easeOut" }}
           className="fixed inset-0 z-[9999] bg-[#050816] flex flex-col items-center justify-center overflow-hidden"
           aria-label="Loading portfolio..."
           role="progressbar"

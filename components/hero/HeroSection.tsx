@@ -90,7 +90,7 @@ export default function HeroSection() {
   }, [displayText, isDeleting, taglineIndex]);
 
   const TECH_BADGES = [
-    { label: "Next.js 15", color: "#06b6d4", icon: Globe },
+    { label: "LLMs & Gen AI", color: "#06b6d4", icon: Globe },
     { label: "LangChain + OpenAI", color: "#a855f7", icon: Activity },
     { label: "React Three Fiber", color: "#10b981", icon: Cpu },
     { label: "AWS + Docker", color: "#f59e0b", icon: Globe },
