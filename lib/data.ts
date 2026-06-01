@@ -196,7 +196,7 @@ export const projects = [
     featured: true,
     color: "#06b6d4",
     gradient: "from-cyan-500 to-blue-600",
-    image: "/images/projects/ai_career_copilot.png",
+    image: "/images/projects/AI Career Copilot (SkillSync AI).png",
     tags: ["AI", "Production", "Scaling"],
     architecture: ["React.js Frontend", "Node.js + Express Backend", "Google Gemini API", "Business Logic Layer","MongoDB Atlas", "JWT + Google OAuth Authentication", "Vercel Deployment"],
   },
@@ -241,7 +241,7 @@ export const projects = [
     featured: true,
     color: "#8b5cf6",
     gradient: "from-purple-500 to-pink-600",
-    image: "/images/projects/ai_video_analyzer.png",
+    image: "/images/projects/AI Video Assistant.png",
      tags: [
     "Gen AI",
     "RAG",
@@ -304,7 +304,7 @@ features: [
     featured: true,
     color: "#10b981",
     gradient: "from-emerald-500 to-cyan-600",
-    image: "/images/projects/swapskill.png",
+    image: "/images/projects/Swap Skill.png",
      tags: [
     "Full Stack",
     "Next.js",
@@ -356,7 +356,7 @@ metrics: {
     featured: true,
     color: "#f59e0b",
     gradient: "from-amber-500 to-orange-600",
-    image: "/images/projects/pdf_rag_chatbot.png",
+    image: "/images/projects/Pdf Rag Chatbot.png",
     tags: [
 "RAG",
 "Gen AI",
@@ -424,7 +424,7 @@ metrics: {
     featured: false,
     color: "#ec4899",
     gradient: "from-pink-500 to-purple-600",
-    image: "/images/projects/ai_learning_platform.png",
+    image: "/images/projects/AI Learning Platform.png",
       tags: [
     "Gen AI",
     "EdTech",
@@ -465,7 +465,7 @@ longDescription:
     featured: false,
     color: "#06b6d4",
     gradient: "from-cyan-400 to-teal-600",
-    image: "/images/projects/hangman_game.png",
+    image: "/images/projects/Hangman Game.png",
     tags: ["C++", "DSA", "Visualization"],
    architecture: [
 "Word Loader",

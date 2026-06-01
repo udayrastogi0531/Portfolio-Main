@@ -101,6 +101,17 @@ function ProjectCard({
       <div
         className={`h-52 bg-gradient-to-br ${project.gradient} relative overflow-hidden flex items-center justify-center`}
       >
+        {/* Project Image Background */}
+        {("image" in project) && (project as any).image && (
+          <img
+            src={(project as any).image}
+            alt={project.title}
+            className="absolute inset-0 w-full h-full object-cover opacity-65 transition-transform duration-500"
+            style={{
+              transform: isHovered ? "scale(1.05)" : "scale(1)",
+            }}
+          />
+        )}
         {/* Holographic grid overlay */}
         <div
           className="absolute inset-0"
@@ -383,6 +394,14 @@ export default function ProjectsSection() {
               <div
                 className={`h-52 bg-gradient-to-br ${selectedProject.gradient} rounded-t-3xl relative overflow-hidden flex items-center justify-center`}
               >
+                {/* Project Image Background */}
+                {("image" in selectedProject) && (selectedProject as any).image && (
+                  <img
+                    src={(selectedProject as any).image}
+                    alt={selectedProject.title}
+                    className="absolute inset-0 w-full h-full object-cover opacity-60"
+                  />
+                )}
                 <div
                   className="absolute inset-0"
                   style={{
