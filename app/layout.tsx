@@ -42,9 +42,9 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://udayrastogi.dev",
-    title: "Uday Prakash Rastogi — Gen AI Engineer & Full Stack Developer",
+    title: "Uday Prakash Rastogi — Gen AI Engineer & MERN Stack Developer",
     description:
-      "Full Stack & AI Engineer | Next.js | Python | LangChain | AWS | Cinematic Portfolio Experience",
+      "MERN Stack & AI Engineer | React | TypeScript | LangChain | Cinematic Portfolio Experience",
     siteName: "Uday Prakash Rastogi Portfolio",
     images: [
       {
@@ -58,9 +58,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Uday Prakash Rastogi — Gen AI Engineer & Full Stack Developer",
+    title: "Uday Prakash Rastogi — Gen AI Engineer & MERN Stack Developer",
     description:
-      "Gen AI Engineer & Full Stack Developer | Next.js | React | TypeScript | LangChain | Cinematic Portfolio",
+      "Gen AI Engineer & MERN Stack Developer | React | TypeScript | LangChain | Cinematic Portfolio",
     creator: "@udayrastogi0531",
     site: "@udayrastogi0531",
     images: ["/og-image.jpg"],

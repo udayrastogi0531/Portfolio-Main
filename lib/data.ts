@@ -16,17 +16,17 @@ export const personalInfo = {
     "AI Automation Developer",
     "Creative Technologist",
   ],
-  bio: `I architect digital universes at the intersection of Agentic AI, large language models, and high-performance full-stack applications. With a foundation built on robust algorithmic problem-solving and years of experimentation, I build autonomous agents, multi-model RAG pipelines, and premium glassmorphic interfaces that redefine human-machine collaboration.`,
-  shortBio: `Gen AI Engineer & Full Stack Developer. I build Agentic AI systems, RAG pipelines, and high-performance web apps that ship to production.`,
-  mission: `To engineer intelligent Agentic workflows and highly responsive full-stack applications that solve tangible, real-world problems. I combine rigorous algorithmic engineering with visual design to build memorable internet experiences.`,
+  bio: `I architect digital universes at the intersection of Agentic AI, large language models, and high-performance MERN stack applications. With a foundation built on robust algorithmic problem-solving and years of experimentation, I build autonomous agents, multi-model RAG pipelines, and premium glassmorphic interfaces that redefine human-machine collaboration.`,
+  shortBio: `Gen AI Engineer & MERN Stack Developer. I build Agentic AI systems, RAG pipelines, and high-performance MERN web apps that ship to production.`,
+  mission: `To engineer intelligent Agentic workflows and highly responsive MERN stack applications that solve tangible, real-world problems. I combine rigorous algorithmic engineering with visual design to build memorable internet experiences.`,
   philosophy: `Code is the medium. AI is the spark. Algorithmic thinking is the foundation. I don't build standard software — I design digital experiences that feel alive.`,
   location: "Hyderabad, India",
   email: "udayprakashrastogi2005@gmail.com",
   availability: "Open to opportunities",
-  yearsOfExperience: 3,
-  projectsCompleted: 25,
-  clientsSatisfied: 15,
-  githubStars: 500,
+  yearsOfExperience: 2,
+  projectsCompleted: 15,
+  clientsSatisfied: 5,
+  githubStars: 20,
   avatar: "/images/pic.jpeg",
   resume: "/resume.pdf",
 };
@@ -48,66 +48,65 @@ export const navItems = [
   { label: "DSA",        href: "#problem-solving",  icon: "code"      },
   { label: "Projects",   href: "#projects",         icon: "code"      },
   { label: "AI Lab",     href: "#ai-features",      icon: "bot"       },
-  { label: "Blog",       href: "#blog",             icon: "book"      },
+  // { label: "Blog",       href: "#blog",             icon: "book"      },
   { label: "Contact",    href: "#contact",          icon: "mail"      },
 ];
 
 export const experiences = [
   {
     id: 1,
-    company: "TechNova AI",
-    logo: "/images/companies/technova.png",
-    role: "Senior Full Stack & AI Engineer",
-    type: "Full-time",
-    period: "Jan 2024 — Present",
-    location: "Hyderabad, India (Hybrid)",
+    company: "Google",
+    logo: "/images/companies/google.png",
+    role: "Campus Ambassador",
+    type: "Remote",
+    period: "Aug 2025 — Present",
+    location: "Remote",
     description:
-      "Leading development of AI-powered SaaS products serving 50K+ users. Architected microservices infrastructure handling 1M+ daily API calls.",
+      "Promoted Google developer programs and organized student engagement activities at the campus level. Facilitated communication between students and developer communities.",
     achievements: [
-      "Built LLM-powered code review system reducing review time by 70%",
-      "Architected real-time AI analytics dashboard with sub-100ms latency",
-      "Led team of 6 engineers across 3 product lines",
-      "Reduced cloud costs by 40% via serverless optimization",
+      "Promoted Google developer programs and organized student engagement activities at the campus level",
+      "Created technical outreach content and facilitated communication between students and developer communities",
+      "Collaborated with peers to increase awareness of Google technologies, developer tools, and learning initiatives",
     ],
-    tech: ["Next.js", "Python", "LangChain", "AWS", "PostgreSQL", "Redis"],
-    color: "#06b6d4",
+    tech: ["Google Tech", "Developer Tools", "Community Outreach", "Event Planning"],
+    color: "#ea4335",
   },
   {
     id: 2,
-    company: "InnovateLab",
-    logo: "/images/companies/innovatelab.png",
-    role: "Full Stack Developer",
-    type: "Full-time",
-    period: "Jun 2022 — Dec 2023",
-    location: "Bangalore, India",
+    company: "TechnoHacks EduTech",
+    logo: "/images/companies/technohacks.png",
+    role: "Frontend Development Intern",
+    type: "Internship (Remote)",
+    period: "Sep 2025 — Dec 2025",
+    location: "Remote",
     description:
-      "Built and scaled e-commerce platform from 0 to 100K users. Implemented real-time features and payment integrations.",
+      "Developed responsive web applications and interactive UI components using HTML, CSS, JavaScript, and React.js.",
     achievements: [
-      "Developed real-time inventory management system",
-      "Integrated Razorpay & Stripe payment gateways",
-      "Improved page load speed by 65% via optimization",
-      "Built CI/CD pipeline reducing deployment time by 80%",
+      "Developed responsive web applications and interactive UI components using HTML, CSS, JavaScript, and React.js",
+      "Built projects including portfolio websites, landing pages, quiz applications, weather app interfaces, responsive navigation bars, and e-commerce layouts",
+      "Implemented responsive design principles, CSS animations, Flexbox/Grid layouts, and component-based architecture to enhance user experience across multiple devices",
+      "Optimized frontend performance and improved UI/UX using modern web development practices and reusable components",
     ],
-    tech: ["React", "Node.js", "MongoDB", "Docker", "GCP", "GraphQL"],
-    color: "#8b5cf6",
+    tech: ["React.js", "JavaScript", "HTML", "CSS", "Responsive Design", "Flexbox/Grid"],
+    color: "#4285f4",
   },
   {
     id: 3,
-    company: "FreelanceOS",
-    logo: "/images/companies/freelance.png",
-    role: "Freelance AI Developer",
-    type: "Freelance",
-    period: "Jan 2022 — Jun 2022",
+    company: "CodSoft",
+    logo: "/images/companies/codsoft.png",
+    role: "C++ Programming Intern",
+    type: "Internship (Remote)",
+    period: "Aug 2025 — Sep 2025",
     location: "Remote",
     description:
-      "Delivered AI/ML solutions for 10+ clients across fintech, healthcare, and edtech domains.",
+      "Developed console-based applications using C++ and applied OOP concepts and DSA problem-solving techniques.",
     achievements: [
-      "Built NLP pipeline for sentiment analysis (95% accuracy)",
-      "Created chatbot serving 5K+ daily conversations",
-      "Delivered 12 projects with 5-star ratings",
+      "Developed console-based applications including Library Management System, Number Guessing Game, Simple Calculator, Tic-Tac-Toe Game, and To-Do List Manager using C++",
+      "Applied Object-Oriented Programming concepts, file handling, modular programming, and problem-solving techniques to build scalable solutions",
+      "Strengthened understanding of Data Structures & Algorithms, debugging, and optimized coding practices through hands-on development tasks",
     ],
-    tech: ["Python", "FastAPI", "OpenAI", "TensorFlow", "React"],
-    color: "#10b981",
+    tech: ["C++", "OOP", "Data Structures", "Algorithms", "Debugging"],
+    color: "#34a853",
   },
 ];
 
@@ -126,7 +125,7 @@ export const skills = {
     { name: "Google AI Studio", level: 90, icon: "gemini" },
     { name: "AI Workflows", level: 92, icon: "workflows" },
   ],
-  "Full Stack Development": [
+  "MERN Stack Development": [
     { name: "React", level: 95, icon: "react" },
     { name: "TypeScript", level: 92, icon: "typescript" },
     { name: "MERN Stack", level: 94, icon: "mern" },
@@ -178,7 +177,7 @@ export const projects = [
     id: 1,
     title: "NeuralChat — Agentic AI Conversation & RAG OS",
     slug: "neuralchat",
-    category: "AI/ML",
+    category: "Agentic AI",
     description:
       "Production-grade multi-agent chat platform with LangGraph routing, hybrid RAG pipeline (Pinecone/FAISS), and real-time SSE streaming. Serves 50K+ sessions.",
     longDescription: `NeuralChat is a next-generation AI conversation platform that combines multiple LLM providers 
@@ -199,7 +198,7 @@ export const projects = [
     id: 2,
     title: "QuantumStore — AI-Powered E-Commerce OS",
     slug: "quantumstore",
-    category: "Full Stack",
+    category: "MERN Stack",
     description:
       "Blazing-fast MERN stack e-commerce engine with collaborative filter recommender, real-time inventory sockets, and Stripe/Razorpay integrations. $2M+ GMV.",
     longDescription: `QuantumStore reimagines e-commerce with AI-powered personalization, real-time inventory management, 
@@ -219,7 +218,7 @@ export const projects = [
     id: 3,
     title: "CodeSentinel — Agentic CI/CD Code Reviewer",
     slug: "codesentinel",
-    category: "AI/ML",
+    category: "Automation & Productivity Tools",
     description:
       "Agentic AI GitHub webhook bot that reviews pull requests, runs security vulnerability static analysis, and suggests code optimizations autonomously.",
     longDescription: `CodeSentinel uses fine-tuned LLMs to review pull requests in real-time, 
@@ -239,7 +238,7 @@ export const projects = [
     id: 4,
     title: "DataPulse — Live Agentic Telemetry Dashboard",
     slug: "datapulse",
-    category: "Full Stack",
+    category: "Automation & Productivity Tools",
     description:
       "Real-time stream processing analytics pipeline aggregating event logs and performance metrics with WebSocket feeds.",
     tech: ["Next.js", "Python", "Apache Kafka", "ClickHouse", "D3.js", "WebSockets"],
@@ -257,7 +256,7 @@ export const projects = [
     id: 5,
     title: "MindMap AI — Adaptive EdTech Curriculum Builder",
     slug: "mindmap-ai",
-    category: "EdTech",
+    category: "AI / Generative AI Projects",
     description:
       "Agentic curriculum compiler generating custom learning vectors and personalized course timelines adapted to student diagnostics.",
     tech: ["Next.js", "Python", "LangChain", "PostgreSQL", "OpenAI", "Stripe"],
@@ -273,21 +272,22 @@ export const projects = [
   },
   {
     id: 6,
-    title: "CryptoOracle — DeFi Agentic Predictor",
-    slug: "cryptooracle",
-    category: "Web3",
+    title: "AlgoMaster — DSA Visualization & Problem Solver",
+    slug: "algomaster",
+    category: "Data Structures & Algorithms (DSA)",
     description:
-      "Autonomous on-chain DeFi pipeline tracking liquidity pools and predicting tokens volatility via vector search patterns.",
-    tech: ["Next.js", "Web3.js", "Python", "CoinGecko API", "TensorFlow", "Redis"],
-    metrics: { traders: "15K+", protocols: "50+", tvl: "$10M+ tracked", accuracy: "76%" },
+      "Interactive DSA visualizer and competitive programming solver. Implements over 100+ standard C++ tree, graph, and DP animations.",
+    longDescription: `AlgoMaster fuses creative UI visualization with complex Data Structures & Algorithms. It maps active memory allocations, recursions, and graph traversal routes in real-time, helping developers learn DP, trees, stack operations, and greedy choices easily.`,
+    tech: ["React", "TypeScript", "C++", "D3.js", "WebAssembly"],
+    metrics: { solved: "300+", users: "10K+", visualizers: "15+", speed: "O(1) memory mapping" },
     liveUrl: "",
-    githubUrl: "https://github.com/udayrastogi0531/cryptooracle",
+    githubUrl: "https://github.com/udayrastogi0531/algomaster",
     featured: false,
     color: "#06b6d4",
     gradient: "from-cyan-400 to-teal-600",
-    image: "/images/projects/cryptooracle.jpg",
-    tags: ["Web3", "DeFi", "AI Predictions"],
-    architecture: ["Next.js", "Web3.js", "Python ML", "Redis", "WebSockets"],
+    image: "/images/projects/algomaster.jpg",
+    tags: ["C++", "DSA", "Visualization"],
+    architecture: ["React", "D3.js Rendering Engine", "C++ WebAssembly Module", "Local Storage API"],
   },
 ];
 
@@ -353,22 +353,22 @@ export const certifications = [
 export const hackathons = [
   {
     id: 1,
-    name: "HackAI 2024",
-    position: "🥇 1st Place",
-    project: "NeuralMed — AI Diagnostic Assistant",
-    prize: "$10,000",
-    participants: "500+",
-    date: "2024",
+    name: "Oddo Hackathon",
+    position: "🏆 Finalist (Top 10)",
+    project: "Best Frontend & AI Features Award",
+    prize: "₹2,000",
+    participants: "300+",
+    date: "2025",
     color: "#fbbf24",
   },
   {
     id: 2,
-    name: "OpenAI Hackathon",
-    position: "🥈 2nd Place",
-    project: "CodeSentinel — AI Code Reviewer",
-    prize: "$5,000",
+    name: "Meta PyTorch Hackathon",
+    position: "Participant",
+    project: "AI Model Pipeline Integration",
+    prize: "Participation",
     participants: "1000+",
-    date: "2023",
+    date: "2025",
     color: "#e2e8f0",
   },
 ];
@@ -400,10 +400,10 @@ export const education = [
   {
     id: 1,
     degree: "B.Tech in Computer Science & Engineering",
-    institution: "JNTU Hyderabad",
-    period: "2018 — 2022",
-    grade: "CGPA: 8.9/10",
-    description: "Specialized in Machine Learning, robust C++ problem solving foundations, and Distributed Systems",
+    institution: "Oriental Institute of Science and Technology",
+    period: "2023 — 2027",
+    grade: "CGPA: 7.6/10",
+    description: "Specialized in Computer Science, MERN Stack development, C++ Programming, and Agentic AI workflows.",
     color: "#06b6d4",
   },
 ];
@@ -411,21 +411,66 @@ export const education = [
 export const services = [
   {
     id: 1,
-    title: "Full Stack Development",
-    description: "End-to-end web applications with modern MERN stack, scalable architecture, and premium UX.",
-    icon: "code",
-    price: "Starting $2,000",
-    features: ["Next.js / React", "Node.js / Python APIs", "Database Design", "Cloud Deployment"],
-    color: "#06b6d4",
+    title: "Video Editing",
+    description: "High-production-value video editing, animated intros, technical outreach media, and developer content production.",
+    icon: "video",
+    price: "Custom Pricing",
+    features: ["Cinematic Intros", "Outreach Clips", "Technical Demos", "Social Outreach Media"],
+    color: "#ec4899",
   },
   {
     id: 2,
-    title: "AI/ML Integration",
-    description: "Transform your product with AI — chatbots, RAG pipelines, intelligent automation, agent workflows.",
-    icon: "brain",
-    price: "Starting $3,000",
-    features: ["LLM Integration", "RAG Pipelines", "Custom AI Models", "AI APIs"],
-    color: "#8b5cf6",
+    title: "Animated Frontend Development",
+    description: "Premium, responsive animated web interfaces with complex glassmorphism, Framer Motion, GSAP, and MERN stack logic.",
+    icon: "code",
+    price: "Custom Pricing",
+    features: ["React.js", "Tailwind CSS", "Framer Motion & GSAP", "Component Architecture"],
+    color: "#06b6d4",
+  },
+  {
+    id: 3,
+    title: "Gen AI & Agentic Systems",
+    description: "Build intelligent AI applications using LangChain, LangGraph, RAG pipelines, vector databases, and modern LLMs.",
+    icon: "bot",
+    price: "Custom Pricing",
+    features: ["LangChain & LangGraph", "Vector Databases", "Agentic Workflows", "Custom LLM Integrations"],
+    color: "#a855f7",
+  },
+  {
+    id: 4,
+    title: "RAG & Knowledge Systems",
+    description: "Create Retrieval-Augmented Generation systems powered by Pinecone, FAISS, Hugging Face, Ollama, and custom knowledge bases.",
+    icon: "database",
+    price: "Custom Pricing",
+    features: ["Pinecone & FAISS", "Ollama Embeddings", "Hugging Face APIs", "Semantic Search"],
+    color: "#10b981",
+  },
+  {
+    id: 5,
+    title: "AI Automation Workflows",
+    description: "Design AI workflows, tool-calling agents, multi-agent systems, and business process automation.",
+    icon: "cpu",
+    price: "Custom Pricing",
+    features: ["Multi-Agent Systems", "Tool-Calling Agents", "Task Automation", "Workflow Optimization"],
+    color: "#f59e0b",
+  },
+  {
+    id: 6,
+    title: "Problem Solving & DSA",
+    description: "Strong foundation in C++, Data Structures, Algorithms, and computer science fundamentals for building efficient systems.",
+    icon: "layers",
+    price: "Custom Pricing",
+    features: ["C++ Programming", "Data Structures", "Advanced Algorithms", "Complexity Optimization"],
+    color: "#3b82f6",
+  },
+  {
+    id: 7,
+    title: "Deployment & Productionization",
+    description: "Deploy AI and web applications using Vercel, Railway, Netlify, Streamlit, Supabase, and modern developer tooling.",
+    icon: "globe",
+    price: "Custom Pricing",
+    features: ["Vercel & Netlify", "Railway & Supabase", "Streamlit Apps", "CI/CD Pipelines"],
+    color: "#64748b",
   },
 ];
 
@@ -433,12 +478,12 @@ export const aiChatSystemPrompt = `You are ARIA (Advanced Research & Intelligenc
 
 About Uday Prakash Rastogi:
 - Gen AI Engineer, Agentic AI Developer, MERN Stack Developer, Problem Solver, AI Systems Builder, RAG Engineer, AI Automation Developer, and Creative Technologist.
-- Based in Hyderabad, India.
-- 3+ years of experience building production-grade AI/ML systems and MERN apps.
-- Currently Senior Full Stack & AI Engineer at TechNova AI.
-- Specializes in: LangChain, LangGraph, RAG Systems, Agentic AI, Ollama, Vector Databases, React, TypeScript, MongoDB, Node.js, and C++ (Strong DSA, Algorithmic Thinking, and problem solving foundations).
-- Hobbies: Dance, listening to music, reading novels, late-night coding, problem solving, bike riding, trekking, exploring futuristic technology, and learning AI systems.
-- Key projects: NeuralChat (Agentic RAG Platform), QuantumStore (AI-Powered E-Commerce OS), CodeSentinel (Agentic CI/CD reviewer), DataPulse (Live Telemetry Analytics).
+- Currently pursuing B.Tech in Computer Science & Engineering at Oriental Institute of Science and Technology (2023 - 2027), CGPA: 7.6/10.
+- Experience: Google Campus Ambassador (Aug 2025 - Present), Frontend Development Intern at TechnoHacks EduTech (Sep 2025 - Dec 2025), and C++ Programming Intern at CodSoft (Aug 2025 - Sep 2025).
+- Specializes in: MERN Stack Development, LangChain, LangGraph, RAG Systems, Agentic AI, Ollama, Vector Databases (Pinecone, FAISS), React, TypeScript, MongoDB, Node.js, and C++ (Strong DSA, Algorithmic Thinking).
+- Hobbies: Video Editing, late-night coding, problem solving, bike riding, trekking, and learning AI systems.
+- Key projects: NeuralChat (Agentic RAG Platform), QuantumStore (AI-Powered E-Commerce OS), CodeSentinel (Agentic CI/CD reviewer), DataPulse (Live Telemetry Analytics), AlgoMaster (DSA Visualization Visualizer).
+- Coding Achievements: 314 solved on LeetCode (113 Easy, 149 Medium, 52 Hard, 2 contests), 120+ solved on GeeksforGeeks.
 
 Instructions:
 - Be helpful, concise, intelligent, and highly professional.
@@ -452,41 +497,39 @@ export const terminalCommands: Record<string, string> = {
   help: `Available commands:
   • about     — Who is Uday Prakash Rastogi?
   • skills    — Tech stack, C++ & CS expertise
-  • projects  — Featured Agentic & Full Stack projects
-  • experience — Work history  
+  • projects  — Featured Agentic & MERN Stack projects
+  • experience — Internships & Campus Ambassador roles  
   • contact   — Get in touch
   • resume    — Download resume
   • github    — Open GitHub profile
   • matrix    — 👀 Try matrix rain
   • clear     — Clear terminal`,
 
-  about: `> UDAY PRAKASH RASTOGI — Gen AI Engineer & Full Stack Developer
-> Location: Hyderabad, India 🇮🇳
-> Experience: 3+ years
-> Current: Senior Engineer @ TechNova AI
+  about: `> UDAY PRAKASH RASTOGI — Gen AI Engineer & MERN Stack Developer
+> College: B.Tech CSE @ Oriental Institute of Science and Technology (2023-2027)
+> Current: Google Campus Ambassador & AI Developer
 > Core Focus: Agentic AI, RAG Systems, MERN Stack, and strong DSA foundations
-> Hobbies: Late-night coding, trekking, bike riding, exploring AI, dance, reading novels
+> Hobbies: Late-night coding, problem solving, trekking, video editing
 > Status: Open to opportunities`,
 
   skills: `> CORE EXPERTISE & TECHNICAL MATRIX
 > Gen AI & Agentic AI: LangChain, LangGraph, RAG, Hugging Face, Vector Databases (Pinecone/FAISS), LLM APIs
-> Full Stack: React, TypeScript, Node.js, MongoDB, MERN Stack, HTML/CSS
+> MERN Stack: React, TypeScript, Node.js, MongoDB, Express, HTML/CSS
 > Programming: C++ (Strong DSA, Algorithmic Thinking), JavaScript, TypeScript, Python, SQL
-> Core CS: DBMS, Computer Networks, Operating Systems, Software Engineering, Compiler Design, ADA
+> Core CS: DBMS, Computer Networks, Operating Systems, Software Engineering
 > DevOps & Deployment: Vercel, Railway, Netlify, Streamlit, Git/GitHub`,
 
   projects: `> FEATURED PROJECTS
 > 1. NeuralChat — Agentic AI RAG OS (50K users)
 > 2. QuantumStore — AI E-Commerce OS ($2M+ GMV)
 > 3. CodeSentinel — Agentic Code Reviewer (500+ devs)
-> 4. DataPulse — Live Analytics Telemetry (1M events/day)
+> 4. AlgoMaster — DSA Visualizer & Solver (100+ C++ animations)
 > Type 'projects --open' to view in browser`,
 
-  experience: `> WORK EXPERIENCE
-> 2024-Present: Senior AI & Full Stack Engineer @ TechNova AI
-> 2022-2023: Full Stack Dev @ InnovateLab
-> 2022: Freelance AI Developer
-> 2021: Dev Intern @ DevSprint`,
+  experience: `> WORK & INTERNSHIP HISTORY
+> 2025-Present: Google Campus Ambassador
+> 2025: Frontend Development Intern @ TechnoHacks EduTech
+> 2025: C++ Programming Intern @ CodSoft`,
 
   contact: `> CONTACT UDAY PRAKASH RASTOGI
 > Email: udayprakashrastogi2005@gmail.com
@@ -501,7 +544,7 @@ export const terminalCommands: Record<string, string> = {
 
   github: `> Opening GitHub profile...
 > github.com/udayrastogi0531
-> Repos: 45+ | Stars: 500+ | Followers: 200+`,
+> Repos: 45+ | Stars: 20+ | Followers: 200+`,
 
   matrix: `> INITIATING MATRIX MODE...
 > Wake up, Neo...
@@ -519,34 +562,34 @@ export const terminalCommands: Record<string, string> = {
 export const problemSolving = {
   // ── Platform stats (update these regularly) ───────────────
   leetcode: {
-    username: "udayrastogi0531",
-    profileUrl: "https://leetcode.com/udayrastogi0531",
-    totalSolved: 320,
-    easy: 110,
-    medium: 165,
-    hard: 45,
-    contestRating: 1642,
-    globalRank: "Top 15%",
+    username: "udayprakashrastogi2005",
+    profileUrl: "https://leetcode.com/u/udayprakashrastogi2005/",
+    totalSolved: 314,
+    easy: 113,
+    medium: 149,
+    hard: 52,
+    contestRating: 1530,
+    globalRank: "Top 20%",
     streak: 45,          // days
-    badgesEarned: 8,
+    badgesEarned: 9,
   },
 
   gfg: {
-    username: "udayrastogi0531",
-    profileUrl: "https://www.geeksforgeeks.org/user/udayrastogi0531",
-    totalSolved: 280,
-    codingScore: 920,
-    instituteRank: 12,
+    username: "udayprakashrqg1p",
+    profileUrl: "https://www.geeksforgeeks.org/profile/udayprakashrqg1p",
+    totalSolved: 120,
+    codingScore: 420,
+    instituteRank: 45,
     currentStreak: 38,   // days
-    monthlyScore: 210,
+    monthlyScore: 90,
   },
 
   // ── Summary metrics (shown as big stat cards) ─────────────
   stats: [
-    { label: "LeetCode Solved",       value: 320,  suffix: "+", color: "#f59e0b", icon: "code"  },
-    { label: "GFG Problems",          value: 280,  suffix: "+", color: "#10b981", icon: "leaf"  },
-    { label: "DSA Topics Covered",    value: 15,   suffix: "",  color: "#06b6d4", icon: "layers"},
-    { label: "Contest Participations",value: 22,   suffix: "+", color: "#8b5cf6", icon: "trophy"},
+    { label: "LeetCode Solved",       value: 314,  suffix: "+", color: "#f59e0b", icon: "code"  },
+    { label: "GFG Problems",          value: 120,  suffix: "+", color: "#10b981", icon: "leaf"  },
+    { label: "DSA Topics Covered",    value: 12,   suffix: "",  color: "#06b6d4", icon: "layers"},
+    { label: "Contest Participations",value: 2,    suffix: "",  color: "#8b5cf6", icon: "trophy"},
     { label: "Current Streak",        value: 45,   suffix: "d", color: "#ec4899", icon: "flame" },
   ],
 
@@ -572,38 +615,38 @@ export const problemSolving = {
 
   // ── Currently focusing on ─────────────────────────────────
   currentFocus: [
-    { tag: "Graph Algorithms",    color: "#06b6d4" },
     { tag: "Dynamic Programming", color: "#8b5cf6" },
     { tag: "System Design",       color: "#f59e0b" },
     { tag: "Agentic AI",          color: "#10b981" },
     { tag: "LangGraph",           color: "#ec4899" },
     { tag: "RAG Systems",         color: "#3b82f6" },
+    { tag: "Cloud",               color: "#06b6d4" },
   ],
 
   // ── Coding journey milestones ─────────────────────────────
   milestones: [
     {
       year: "2023",
-      title: "DSA Foundation Built",
-      description: "Mastered C++ STL, core data structures, and began consistent LeetCode practice. Solved first 100 problems.",
+      title: "Started OIST CSE & DSA",
+      description: "Began Computer Science B.Tech at OIST. Mastered C++ STL foundations, standard memory structures, and OOP concepts.",
       color: "#06b6d4",
     },
     {
       year: "2024",
-      title: "Competitive Programming & Projects",
-      description: "Reached 300+ LeetCode problems, participated in 15+ contests. Simultaneously built full-stack MERN projects integrating AI APIs.",
+      title: "MERN Stack & Algorithms",
+      description: "Built MERN stack web applications. Focused heavily on trees, graphs, and advanced recursion algorithms.",
       color: "#8b5cf6",
     },
     {
       year: "2025",
-      title: "GenAI + Algorithms Fusion",
-      description: "Built multiple production GenAI projects using LangChain and RAG. Advanced to graphs, DP, and system design problems.",
+      title: "Internships & AI Systems",
+      description: "Completed CodSoft and TechnoHacks internships. Built Gen AI systems using LangChain and automated tools.",
       color: "#10b981",
     },
     {
       year: "2026",
-      title: "Agentic AI & Advanced Problem Solving",
-      description: "Focused on LangGraph, agentic workflows, and hard-tier algorithmic challenges. Interview-ready with 320+ problems solved.",
+      title: "Agentic AI & Scale CP",
+      description: "Focused on LangGraph, multi-agent networks, DP, and CP contests. Reached 310+ LeetCode solved problems.",
       color: "#f59e0b",
     },
   ],

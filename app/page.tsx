@@ -21,7 +21,7 @@ const ProjectsSection   = dynamic(() => import("@/components/projects/ProjectsSe
 const ProblemSolvingDashboard = dynamic(() => import("@/components/skills/ProblemSolvingDashboard"), { ssr: false });
 const AIFeaturesSection = dynamic(() => import("@/components/ai-features/AIFeaturesSection"),{ ssr: false });
 const GitHubSection     = dynamic(() => import("@/components/extras/GitHubSection"),         { ssr: false });
-const BlogSection       = dynamic(() => import("@/components/blog/BlogSection"),             { ssr: false });
+// const BlogSection       = dynamic(() => import("@/components/blog/BlogSection"),             { ssr: false });
 const ExtrasSection     = dynamic(() => import("@/components/extras/ExtrasSection"),         { ssr: false });
 const ServicesSection   = dynamic(() => import("@/components/extras/ServicesSection"),        { ssr: false });
 const NewsletterSection = dynamic(() => import("@/components/extras/NewsletterSection"),     { ssr: false });
@@ -130,7 +130,7 @@ export default function Home() {
                 <section id="extras" className="w-full">
                   <ExtrasSection />
                   <ServicesSection />
-                  <BlogSection />
+                  {/* <BlogSection /> */}
                   <NewsletterSection />
                 </section>
 

@@ -19,7 +19,7 @@ import { personalInfo } from "@/lib/data";
 
 const STRENGTHS = [
   { label: "Agentic AI & Workflows", detail: "LangChain · LangGraph · LLM APIs · Auto-Agents", icon: Zap,        color: "#a855f7" },
-  { label: "MERN Stack Systems",    detail: "Next.js · React · TypeScript · Node.js · MongoDB",  icon: Code2,      color: "#06b6d4" },
+  { label: "MERN Stack Systems",    detail: "React · TypeScript · Node.js · MongoDB · Express",  icon: Code2,      color: "#06b6d4" },
   { label: "C++ & DSA Mastery",      detail: "Elite Algorithmic Problem Solving · Strong CS Foundations", icon: Users,      color: "#f59e0b" },
   { label: "RAG & Vector DBs",       detail: "Pinecone · FAISS · Semantic Search · Data Pipelines", icon: TrendingUp, color: "#10b981" },
 ];
@@ -136,7 +136,7 @@ export default function RecruiterMode() {
                       {personalInfo.fullName}
                     </h2>
                     <p className="text-emerald-400 font-mono text-sm mt-1">
-                      Full Stack &amp; AI Engineer · 3+ Years · Hyderabad, India
+                      MERN Stack &amp; AI Engineer · Hyderabad, India
                     </p>
                   </div>
                   <button
@@ -166,7 +166,7 @@ export default function RecruiterMode() {
                   <div>
                     <span className="text-green-400 font-bold text-sm">Available Now</span>
                     <span className="text-slate-400 text-sm ml-2">
-                      — Open to full-time roles, freelance, and AI consulting
+                      — Open to full-time roles and AI consulting
                     </span>
                   </div>
                   <Zap size={14} className="text-yellow-400 ml-auto flex-shrink-0" />
@@ -178,11 +178,8 @@ export default function RecruiterMode() {
                     Why Hire Uday?
                   </h3>
                   <p className="text-slate-300 leading-relaxed text-sm">
-                    I build <strong className="text-cyan-400">production-grade AI systems</strong> that ship fast and scale reliably.
-                    In 3 years, I&apos;ve served <strong className="text-white">50,000+ users</strong>, reduced review cycles by{" "}
-                    <strong className="text-white">70%</strong>, and cut cloud spend by{" "}
-                    <strong className="text-white">40%</strong> — not by accident, but through deliberate architecture.
-                    I bridge the gap between modern LLM capabilities and production engineering realities.
+                    I build <strong className="text-cyan-400">production-grade AI systems</strong> that run fast and perform reliably.
+                    As a B.Tech CSE student and active developer, I bridge the gap between modern LLM capabilities and MERN stack engineering realities, building projects with robust architectures and elegant DSA logic.
                   </p>
                 </div>
 

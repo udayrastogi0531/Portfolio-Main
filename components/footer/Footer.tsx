@@ -48,7 +48,7 @@ export default function Footer() {
               </span>
             </div>
             <p className="text-slate-400 text-sm leading-relaxed mb-4">
-              Full Stack & AI Engineer building next-generation digital experiences.
+              MERN Stack & AI Engineer building next-generation digital experiences.
               Let&apos;s create the future together.
             </p>
             <div className="flex gap-3">
@@ -135,7 +135,7 @@ export default function Footer() {
           <p className="text-slate-500 text-sm font-mono">
             © {year} {personalInfo.fullName}. Built with{" "}
             <Heart size={12} className="inline text-red-400" />{" "}
-            using Next.js & Three.js
+            using React.js & Three.js
           </p>
           <div className="flex items-center gap-4 text-slate-600 text-xs font-mono">
             <span>v3.0.0</span>

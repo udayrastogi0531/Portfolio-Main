@@ -85,11 +85,11 @@ export default function NewsletterSection() {
                   className="text-3xl md:text-4xl font-extrabold text-white leading-tight"
                   style={{ fontFamily: "Orbitron, sans-serif" }}
                 >
-                  Stay Connected to the <span className="gradient-text-cyan">AI Frontier</span>
+                  🚀 AI Engineering <span className="gradient-text-cyan">Newsletter</span>
                 </h2>
 
                 <p className="text-slate-400 text-sm md:text-base leading-relaxed">
-                  Join a high-telemetry sync node containing elite developer updates, LangChain guidelines, vector RAG benchmarks, and personal launch coordinates.
+                  Building the Future with Gen AI & Agentic Systems. Get practical insights on LangChain, LangGraph, RAG architectures, vector databases, AI agents, MERN AI applications, and real-world engineering workflows.
                 </p>
 
                 {/* Animated counter pill */}
@@ -106,10 +106,10 @@ export default function NewsletterSection() {
                     <span>
                       Join{" "}
                       <span className="text-cyan-400 font-bold">
-                        {isInView ? <CountUp start={0} end={128} duration={2.5} /> : "100"}
+                        {isInView ? <CountUp start={0} end={100} duration={2.5} /> : "100"}
                         +
                       </span>{" "}
-                      engineers learning agentic architectures
+                      developers and AI enthusiasts
                     </span>
                   </span>
                 </div>

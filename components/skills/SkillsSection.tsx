@@ -34,8 +34,8 @@ const CATEGORIES = [
     label: "Frontend",
     accent: "#8b5cf6",
     skills: [
-      "React", "TypeScript", "HTML5", "CSS3",
-      "JavaScript", "Next.js", "Framer Motion", "Tailwind CSS",
+      "React", "TypeScript", "HTML", "CSS",
+      "JavaScript", "Tailwind CSS",
     ],
   },
   {
@@ -44,8 +44,7 @@ const CATEGORIES = [
     label: "Backend & MERN",
     accent: "#06b6d4",
     skills: [
-      "Node.js", "MongoDB", "REST APIs", "Firebase",
-      "Express.js", "PostgreSQL", "Supabase",
+      "Node.js", "MongoDB", "REST APIs", "Firebase","PostgreSQL", "Supabase",
     ],
   },
   {
@@ -82,10 +81,10 @@ const PROFICIENCY: Record<string, number> = {
   "Ollama": 88, "Pinecone": 90, "FAISS": 88, "Vector Databases": 90,
   "Groq API": 95, "OpenAI APIs": 94, "OpenRouter": 92,
   "Google AI Studio": 90, "Agentic AI": 92,
-  "React": 95, "TypeScript": 92, "HTML5": 97, "CSS3": 93,
-  "JavaScript": 95, "Next.js": 94, "Framer Motion": 88, "Tailwind CSS": 93,
+  "React": 95, "TypeScript": 92, "HTML": 97, "CSS": 93,
+  "JavaScript": 95, "Tailwind CSS": 93,
   "Node.js": 90, "MongoDB": 92, "REST APIs": 95, "Firebase": 85,
-  "Express.js": 90, "PostgreSQL": 82, "Supabase": 88,
+  "PostgreSQL": 82, "Supabase": 88,
   "Git": 96, "GitHub": 96, "Vercel": 95, "Railway": 88,
   "Netlify": 90, "Streamlit": 85, "Resend API": 90, "Docker (basics)": 72,
   "DBMS": 92, "Computer Networks": 88, "Operating Systems": 90,
@@ -261,7 +260,7 @@ export default function SkillsSection() {
             <span className="gradient-text-cyan">Skill Matrix</span>
           </h2>
           <p className="text-slate-400 text-lg max-w-2xl mx-auto mb-6">
-            Full-stack expertise — from low-level algorithms to cloud-scale AI systems.
+            Mern-stack expertise — from low-level algorithms to cloud-scale AI systems.
           </p>
 
           {/* Stat pills */}

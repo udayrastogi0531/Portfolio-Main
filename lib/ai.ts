@@ -90,14 +90,14 @@ function handleLocalMock(messages: ChatMessage[], options?: LLMOptions): Respons
     const list = Object.entries(skills)
       .map(([cat, sks]) => `• **${cat}**: ${sks.slice(0, 5).map(s => s.name).join(", ")}`)
       .join("\n");
-    const res = `Uday has a strong full-stack and AI engineering toolkit:\n\n${list}\n\nHe is highly specialized in developing Next.js frontend layers and integrating them with LangChain/cloud LLM backends.`;
+    const res = `Uday has a strong MERN Stack and AI engineering toolkit:\n\n${list}\n\nHe is highly specialized in developing interactive frontend layers and integrating them with LangChain/cloud LLM backends.`;
     if (options?.stream) return makeMockStream(res, options?.sessionId);
     return res;
   }
 
   // 3. Contact / Hire / Email Query
   if (query.includes("contact") || query.includes("email") || query.includes("hire") || query.includes("reach") || query.includes("phone")) {
-    const res = `You can get in touch with Uday Prakash Rastogi directly through the following channels:\n\n• 📧 **Email**: [udayprakashrastogi2005@gmail.com]\n• 🔗 **LinkedIn**: [linkedin.com/in/udayrastogi0531]\n• 📁 **GitHub**: [github.com/udayrastogi0531]\n\nHe is currently open to full-time opportunities and freelance consulting. Feel free to shoot an email!`;
+    const res = `You can get in touch with Uday Prakash Rastogi directly through the following channels:\n\n• 📧 **Email**: [udayprakashrastogi2005@gmail.com]\n• 🔗 **LinkedIn**: [linkedin.com/in/udayrastogi0531]\n• 📁 **GitHub**: [github.com/udayrastogi0531]\n\nHe is currently open to opportunities. Feel free to shoot an email!`;
     if (options?.stream) return makeMockStream(res, options?.sessionId);
     return res;
   }
@@ -105,16 +105,16 @@ function handleLocalMock(messages: ChatMessage[], options?: LLMOptions): Respons
   // 4. Experience Query
   if (query.includes("experience") || query.includes("job") || query.includes("work") || query.includes("company") || query.includes("history")) {
     const list = experiences.map(e => `• **${e.role}** at **${e.company}** (${e.period})\n  *${e.description}*`).join("\n\n");
-    const res = `Uday's professional work experience includes:\n\n${list}`;
+    const res = `Uday's professional experience includes:\n\n${list}`;
     if (options?.stream) return makeMockStream(res, options?.sessionId);
     return res;
   }
 
   // Default conversational response
   const genericResponses = [
-    "I'm ARIA, Uday's neural assistant avatar! Uday is a Full Stack & AI systems developer specialized in building extremely fast Next.js applications, serverless Python backends, and semantic search utilities. What aspect of his background would you like to explore?",
+    "I'm ARIA, Uday's neural assistant avatar! Uday is a MERN Stack & AI systems developer specialized in building extremely fast React applications, node/express backends, and RAG search utilities. What aspect of his background would you like to explore?",
     "That is a great question! Uday is highly skilled in building modern AI-integrated software. For example, he built 'NeuralChat', which handles over 50,000 users and features a robust RAG vector index. Would you like to know more about Uday's AI experience?",
-    "Welcome! I can provide detailed stats, skills, or projects from Uday's background. Feel free to ask about his technical skills, hackathon achievements (like winning 1st place at HackAI 2024), or how to hire him!",
+    "Welcome! I can provide detailed stats, skills, or projects from Uday's background. Feel free to ask about his technical skills, hackathon achievements (like being a finalist at the Oddo Hackathon), or how to hire him!",
   ];
 
   const res = genericResponses[Math.floor(Math.random() * genericResponses.length)];
@@ -201,17 +201,17 @@ export async function queryLLM(
       if (userMsg.includes("recruiter") || userMsg.includes("resume")) {
         mockJson = JSON.stringify({
           matchScore: 88,
-          matchedSkills: ["Next.js", "React", "TypeScript", "Python", "Node.js", "AWS", "Docker"],
+          matchedSkills: ["React", "TypeScript", "Python", "Node.js", "MongoDB", "Express", "C++", "DSA"],
           missingSkills: ["Kubernetes at scale"],
-          strengths: ["Strong full-stack foundations", "Hands-on cloud LLM integration experience", "Excellent UI engineering capabilities"],
+          strengths: ["Strong MERN stack foundations", "Hands-on cloud LLM integration experience", "Excellent C++ DSA problem solving", "Excellent UI engineering capabilities"],
           improvements: ["Expand on container orchestration metrics", "Add more details on high-scale systems latency design"],
           verdict: "Strong match. The candidate possesses 90%+ of the key criteria listed."
         });
       } else {
         mockJson = JSON.stringify({
           relevantProjects: [projects[0].title, projects[2].title],
-          relevantSkills: ["Next.js", "Python", "FastAPI", "LangChain", "Vector DBs"],
-          approach: "Build a modular serverless API on FastAPI connected to an optimized Next.js App Router UI. Use Pinecone for vector indexing and stream completions using WebSockets.",
+          relevantSkills: ["React", "Node.js", "Express", "MongoDB", "Python", "LangChain", "Vector DBs"],
+          approach: "Build a modular Express API connected to an optimized animated React UI. Use Pinecone for vector indexing and stream completions using Server-Sent Events (SSE).",
           timeline: "MVP in 3 weeks, Production build in 8 weeks.",
           confidence: 94
         });

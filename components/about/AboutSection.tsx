@@ -7,10 +7,10 @@ import { personalInfo, education, hobbies } from "@/lib/data";
 import { Target, Lightbulb, Rocket, Heart, GraduationCap, MapPin, Calendar } from "lucide-react";
 
 const STATS = [
-  { value: 3, suffix: "+", label: "Years Experience", icon: Calendar },
-  { value: 25, suffix: "+", label: "Projects Built", icon: Rocket },
-  { value: 15, suffix: "+", label: "Happy Clients", icon: Heart },
-  { value: 500, suffix: "+", label: "GitHub Stars", icon: Target },
+  { value: 2, suffix: "+", label: "Years Experience", icon: Calendar },
+  { value: 15, suffix: "+", label: "Projects Built", icon: Rocket },
+  { value: 5, suffix: "+", label: "Happy Clients", icon: Heart },
+  { value: 20, suffix: "+", label: "GitHub Stars", icon: Target },
 ];
 
 const TRAITS = [
@@ -146,7 +146,7 @@ export default function AboutSection() {
                     {personalInfo.fullName}
                   </h3>
                   <p className="text-cyan-400 font-mono text-sm mb-3">
-                    Full Stack & AI Engineer
+                    MERN Stack & AI Engineer
                   </p>
                   <div className="flex items-center gap-2 text-slate-400 text-sm">
                     <MapPin size={14} />
