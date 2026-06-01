@@ -46,12 +46,25 @@ export default function ExtrasSection() {
                 </div>
                 <h3 className="text-white font-bold text-sm mb-1 leading-tight">{cert.name}</h3>
                 <p className="text-slate-400 text-xs mb-2 font-mono">{cert.issuer}</p>
-                <span
-                  className="text-xs font-mono px-2 py-0.5 rounded"
-                  style={{ background: `${cert.color}15`, color: cert.color }}
-                >
-                  {cert.date}
-                </span>
+                <div className="flex items-center justify-between mt-3">
+                  <span
+                    className="text-xs font-mono px-2 py-0.5 rounded"
+                    style={{ background: `${cert.color}15`, color: cert.color }}
+                  >
+                    {cert.date}
+                  </span>
+                  {("url" in cert) && (cert as any).url && (
+                    <a
+                      href={(cert as any).url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[10px] font-mono hover:underline font-bold transition-all"
+                      style={{ color: cert.color }}
+                    >
+                      View Certificate →
+                    </a>
+                  )}
+                </div>
               </motion.div>
             ))}
           </div>
