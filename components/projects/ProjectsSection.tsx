@@ -101,14 +101,15 @@ function ProjectCard({
       <div
         className={`h-52 bg-gradient-to-br ${project.gradient} relative overflow-hidden flex items-center justify-center`}
       >
-        {/* Project Image Background */}
+         {/* Project Image Background */}
         {("image" in project) && (project as any).image && (
           <img
             src={(project as any).image}
             alt={project.title}
-            className="absolute inset-0 w-full h-full object-cover opacity-65 transition-transform duration-500"
+            className="absolute inset-0 w-full h-full object-cover transition-all duration-500"
             style={{
               transform: isHovered ? "scale(1.05)" : "scale(1)",
+              opacity: isHovered ? 0.98 : 0.82,
             }}
           />
         )}
@@ -122,28 +123,32 @@ function ProjectCard({
           }}
         />
         {/* Radial light blobs */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(circle at 30% 40%, rgba(255,255,255,0.2) 0%, transparent 50%), radial-gradient(circle at 70% 60%, rgba(255,255,255,0.1) 0%, transparent 40%)",
-          }}
-        />
+        {(!("image" in project) || !(project as any).image) && (
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(circle at 30% 40%, rgba(255,255,255,0.2) 0%, transparent 50%), radial-gradient(circle at 70% 60%, rgba(255,255,255,0.1) 0%, transparent 40%)",
+            }}
+          />
+        )}
 
         {/* Project initial letter — oversized watermark */}
-        <div
-          className="relative z-10 text-white font-black select-none pointer-events-none"
-          style={{
-            fontFamily: "Orbitron, sans-serif",
-            fontSize: "clamp(4rem, 8vw, 7rem)",
-            opacity: 0.18,
-            lineHeight: 1,
-            transform: isHovered ? "scale(1.08)" : "scale(1)",
-            transition: "transform 0.3s ease",
-          }}
-        >
-          {project.title.charAt(0)}
-        </div>
+        {(!("image" in project) || !(project as any).image) && (
+          <div
+            className="relative z-10 text-white font-black select-none pointer-events-none"
+            style={{
+              fontFamily: "Orbitron, sans-serif",
+              fontSize: "clamp(4rem, 8vw, 7rem)",
+              opacity: 0.18,
+              lineHeight: 1,
+              transform: isHovered ? "scale(1.08)" : "scale(1)",
+              transition: "transform 0.3s ease",
+            }}
+          >
+            {project.title.charAt(0)}
+          </div>
+        )}
 
         {/* Featured badge */}
         {project.featured && (
@@ -399,7 +404,7 @@ export default function ProjectsSection() {
                   <img
                     src={(selectedProject as any).image}
                     alt={selectedProject.title}
-                    className="absolute inset-0 w-full h-full object-cover opacity-60"
+                    className="absolute inset-0 w-full h-full object-cover opacity-80"
                   />
                 )}
                 <div
@@ -416,12 +421,14 @@ export default function ProjectsSection() {
                 >
                   <X size={16} />
                 </button>
-                <h2
-                  className="text-5xl font-black text-white/18 select-none"
-                  style={{ fontFamily: "Orbitron, sans-serif" }}
-                >
-                  {selectedProject.title.split(" ")[0]}
-                </h2>
+                {(!("image" in selectedProject) || !(selectedProject as any).image) && (
+                  <h2
+                    className="text-5xl font-black text-white/18 select-none"
+                    style={{ fontFamily: "Orbitron, sans-serif" }}
+                  >
+                    {selectedProject.title.split(" ")[0]}
+                  </h2>
+                )}
               </div>
 
               <div className="p-8">
