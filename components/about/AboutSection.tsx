@@ -8,7 +8,7 @@ import { Target, Lightbulb, Rocket, Heart, GraduationCap, MapPin, Calendar } fro
 
 const STATS = [
   { value: 2, suffix: "+", label: "Years Experience", icon: Calendar },
-  { value: 15, suffix: "+", label: "Projects Built", icon: Rocket },
+  { value: 25, suffix: "+", label: "Projects Built", icon: Rocket },
   { value: 5, suffix: "+", label: "Happy Clients", icon: Heart },
   { value: 20, suffix: "+", label: "GitHub Stars", icon: Target },
 ];

@@ -627,7 +627,7 @@ export const problemSolving = {
   milestones: [
     {
       year: "2023",
-      title: "Started OIST CSE & DSA",
+      title: "C++ With DSA",
       description: "Began Computer Science B.Tech at OIST. Mastered C++ STL foundations, standard memory structures, and OOP concepts.",
       color: "#06b6d4",
     },

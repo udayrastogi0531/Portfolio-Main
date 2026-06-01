@@ -14,7 +14,7 @@ import {
   Eye,
 } from "lucide-react";
 
-const CATEGORIES = ["All", "AI/ML", "Full Stack", "EdTech", "Web3"];
+const CATEGORIES = ["All", "Gen AI", "MERN Stack", "Agentic AI", "Tools & Automation", "CPP & DSA"];
 
 interface TiltState {
   rotateX: number;
