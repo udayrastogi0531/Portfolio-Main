@@ -54,11 +54,11 @@ export async function POST(req: NextRequest) {
     const { success, alreadySubscribed, error } = await subscribeToNewsletter(email);
 
     if (!success) {
-      return NextResponse.json({ error: error || "Database registration failed." }, { status: 500 });
+      console.warn("[Newsletter API] Supabase insert failed — proceeding with email only:", error);
     }
 
     // If already subscribed, return success gracefully (prevents duplicate logs but acts positive)
-    if (alreadySubscribed) {
+    if (success && alreadySubscribed) {
       return NextResponse.json(
         {
           success: true,
@@ -74,7 +74,7 @@ export async function POST(req: NextRequest) {
     const resendKey = process.env.RESEND_API_KEY;
     if (resendKey) {
       try {
-        await fetch("https://api.resend.com/emails", {
+        const emailRes = await fetch("https://api.resend.com/emails", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -87,6 +87,11 @@ export async function POST(req: NextRequest) {
             html: buildNewsletterWelcomeHTML(email),
           }),
         });
+
+        if (!emailRes.ok) {
+          const errBody = await emailRes.text();
+          console.error(`[Newsletter API] Resend failed with status ${emailRes.status}:`, errBody);
+        }
       } catch (err) {
         console.error("[Newsletter API] Resend email failed:", err);
       }

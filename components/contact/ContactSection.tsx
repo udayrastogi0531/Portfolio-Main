@@ -49,14 +49,16 @@ export default function ContactSection() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
-      if (res.ok || true) {
+      const data = await res.json();
+      if (res.ok) {
         setSubmitted(true);
-        toast.success("Message transmitted! Uday will respond within 24 hours.");
+        toast.success(data.message || "Message transmitted! Uday will respond within 24 hours.");
         setForm({ name: "", email: "", subject: "", message: "" });
+      } else {
+        toast.error(data.error || "Uplink transmission failed. Please check inputs.");
       }
     } catch {
-      setSubmitted(true);
-      toast.success("Message transmitted! Uday will respond within 24 hours.");
+      toast.error("Uplink transmission failed due to a network error.");
     } finally {
       setIsLoading(false);
     }

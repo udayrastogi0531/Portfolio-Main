@@ -88,7 +88,8 @@ export async function POST(req: NextRequest) {
         });
 
         if (!emailRes.ok) {
-          console.warn(`[Contact] Resend returned ${emailRes.status}`);
+          const errBody = await emailRes.text();
+          console.error(`[Contact API] Resend failed with status ${emailRes.status}:`, errBody);
         }
       } catch (resendErr) {
         console.error("[Contact] Resend error:", resendErr);
