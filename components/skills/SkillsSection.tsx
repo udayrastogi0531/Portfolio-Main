@@ -6,45 +6,42 @@ import { motion, AnimatePresence, useInView } from "framer-motion";
 // ── Categories ────────────────────────────────────────────────
 const CATEGORIES = [
   {
-    id: "dsa",
-    icon: "🧠",
-    label: "Programming & DSA",
-    accent: "#f59e0b",
-    skills: [
-      "C++", "DSA", "Problem Solving", "Python",
-      "Dynamic Programming", "Graph Algorithms",
-      "Data Structures", "Competitive Programming",
-    ],
-  },
-  {
     id: "genai",
     icon: "🤖",
     label: "Gen AI & Agentic AI",
     accent: "#10b981",
     skills: [
-      "LangChain", "LangGraph", "RAG", "Hugging Face",
-      "Ollama", "Pinecone", "FAISS", "Vector Databases",
-      "Groq API", "OpenAI APIs", "OpenRouter",
-      "Google AI Studio", "Agentic AI",
+      "LangChain", "LangGraph", "RAG", "Pinecone",
+      "FAISS", "Vector DB", "Groq", "OpenAI",
+      "Gemini", "OpenRouter", "Ollama", "Hugging Face",
     ],
   },
   {
-    id: "frontend",
+    id: "fullstack",
     icon: "⚛️",
-    label: "Frontend",
+    label: "Full Stack Development",
     accent: "#8b5cf6",
     skills: [
-      "React", "TypeScript", "HTML", "CSS",
-      "JavaScript", "Tailwind CSS",
+      "React", "TypeScript", "JavaScript", "Node.js",
+      "Express.js", "REST API", "HTML", "CSS", "MERN",
     ],
   },
   {
-    id: "backend",
-    icon: "🌐",
-    label: "Backend & MERN",
+    id: "programming",
+    icon: "🧠",
+    label: "Programming Languages",
+    accent: "#f59e0b",
+    skills: [
+      "C++", "DSA", "Python",
+    ],
+  },
+  {
+    id: "databases",
+    icon: "💾",
+    label: "Databases",
     accent: "#06b6d4",
     skills: [
-      "Node.js", "MongoDB", "REST APIs", "Firebase","PostgreSQL", "Supabase",
+      "MongoDB", "Firebase", "Pinecone", "Vector DB",
     ],
   },
   {
@@ -53,19 +50,17 @@ const CATEGORIES = [
     label: "DevOps & Deployment",
     accent: "#ec4899",
     skills: [
-      "Git", "GitHub", "Vercel", "Railway",
-      "Netlify", "Streamlit", "Resend API", "Docker (basics)",
+      "Vercel", "Railway", "Netlify", "Git", "GitHub",
     ],
   },
   {
-    id: "core",
+    id: "corecs",
     icon: "🖥️",
-    label: "Core CS",
+    label: "Core Computer Science",
     accent: "#a78bfa",
     skills: [
-      "DBMS", "Computer Networks", "Operating Systems",
-      "Compiler Design", "Software Engineering",
-      "ADA / Algorithms", "Project Management",
+      "OS", "DBMS", "Computer Networks", "Compiler Design",
+      "Software Engineering", "Project Management", "TOC", "ADA",
     ],
   },
 ] as const;
@@ -74,22 +69,22 @@ type CategoryId = (typeof CATEGORIES)[number]["id"];
 
 // ── Skill proficiency map ─────────────────────────────────────
 const PROFICIENCY: Record<string, number> = {
-  "C++": 95, "DSA": 94, "Problem Solving": 95, "Python": 88,
-  "Dynamic Programming": 90, "Graph Algorithms": 88,
-  "Data Structures": 94, "Competitive Programming": 86,
-  "LangChain": 95, "LangGraph": 90, "RAG": 95, "Hugging Face": 85,
-  "Ollama": 88, "Pinecone": 90, "FAISS": 88, "Vector Databases": 90,
-  "Groq API": 95, "OpenAI APIs": 94, "OpenRouter": 92,
-  "Google AI Studio": 90, "Agentic AI": 92,
-  "React": 95, "TypeScript": 92, "HTML": 97, "CSS": 93,
-  "JavaScript": 95, "Tailwind CSS": 93,
-  "Node.js": 90, "MongoDB": 92, "REST APIs": 95, "Firebase": 85,
-  "PostgreSQL": 82, "Supabase": 88,
-  "Git": 96, "GitHub": 96, "Vercel": 95, "Railway": 88,
-  "Netlify": 90, "Streamlit": 85, "Resend API": 90, "Docker (basics)": 72,
-  "DBMS": 92, "Computer Networks": 88, "Operating Systems": 90,
-  "Compiler Design": 85, "Software Engineering": 92,
-  "ADA / Algorithms": 90, "Project Management": 88,
+  // Gen AI
+  "LangChain": 95, "LangGraph": 92, "RAG": 95, "Pinecone": 90,
+  "FAISS": 88, "Vector DB": 90, "Groq": 95, "OpenAI": 94,
+  "Gemini": 93, "OpenRouter": 92, "Ollama": 88, "Hugging Face": 85,
+  // MERN Stack
+  "React": 95, "TypeScript": 92, "JavaScript": 95, "Node.js": 90,
+   "REST API": 94, "HTML": 97, "CSS": 93, "MERN": 95,
+  // Programming
+  "C++": 96, "DSA": 95, "Python": 90,
+  // Databases
+  "MongoDB": 92, "Firebase": 86,
+  // Deployment
+  "Vercel": 95, "Railway": 88, "Netlify": 90, "Git": 96, "GitHub": 96,
+  // Core CS
+  "OS": 89, "DBMS": 92, "Computer Networks": 88, "Compiler Design": 84,
+  "Software Engineering": 92, "Project Management": 88, "TOC": 82, "ADA": 90,
 };
 
 const getTag = (lvl: number) =>
@@ -214,7 +209,7 @@ function SkillCard({
 export default function SkillsSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
-  const [activeId, setActiveId] = useState<CategoryId>("dsa");
+  const [activeId, setActiveId] = useState<CategoryId>("genai");
 
   // Track which skills have already animated — so switching tabs doesn't reset bars
   const animatedSkills = useRef<Set<string>>(new Set());

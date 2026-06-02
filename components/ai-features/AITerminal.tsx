@@ -218,7 +218,7 @@ Type 'help' to explore the neural command system.
                 </div>
                 <div className="flex items-center gap-2 text-cyan-400/50">
                   <TerminalIcon size={12} />
-                  <span className="font-mono text-[11px]">uday@neural-os — zsh — 80×24</span>
+                  <span className="font-mono text-[11px]">uday@Neural-Core — zsh — 80×24</span>
                 </div>
               </div>
               <span className="font-mono text-[10px] text-slate-600 tracking-widest">

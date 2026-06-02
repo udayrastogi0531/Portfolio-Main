@@ -146,7 +146,7 @@ export default function AboutSection() {
                     {personalInfo.fullName}
                   </h3>
                   <p className="text-cyan-400 font-mono text-sm mb-3">
-                    MERN Stack & AI Engineer
+                  AI Engineer & MERN Stack Developer
                   </p>
                   <div className="flex items-center gap-2 text-slate-400 text-sm">
                     <MapPin size={14} />

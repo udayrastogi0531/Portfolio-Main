@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
+import SmoothScroll from "@/components/navigation/SmoothScroll";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -150,6 +151,7 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
       </head>
       <body className="antialiased bg-[#050816] text-slate-200 selection:bg-cyan-500/30 selection:text-white">
+        <SmoothScroll />
         {children}
         <Toaster
           position="bottom-right"
