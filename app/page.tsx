@@ -31,12 +31,12 @@ const ContactSection    = dynamic(() => import("@/components/contact/ContactSect
 const AIChatAssistant    = dynamic(() => import("@/components/ai-features/AIChatAssistant"),  { ssr: false });
 const AITerminal         = dynamic(() => import("@/components/ai-features/AITerminal"),        { ssr: false });
 const AICommandPalette   = dynamic(() => import("@/components/ai-features/AICommandPalette"), { ssr: false });
-const CustomCursor       = dynamic(() => import("@/components/cursor/CustomCursor"),           { ssr: false });
 const MatrixRain         = dynamic(() => import("@/components/extras/MatrixRain"),             { ssr: false });
 const KonamiEasterEgg    = dynamic(() => import("@/components/extras/KonamiEasterEgg"),        { ssr: false });
 const AchievementSystem  = dynamic(() => import("@/components/extras/AchievementSystem"),      { ssr: false });
 const RecruiterMode      = dynamic(() => import("@/components/extras/RecruiterMode"),          { ssr: false });
 const CinematicOverlay   = dynamic(() => import("@/components/extras/CinematicOverlay"),       { ssr: false });
+const CustomCursor       = dynamic(() => import("@/components/cursor/CustomCursor"),           { ssr: false });
 const FloatingHUD        = dynamic(() => import("@/components/extras/FloatingHUD"),            { ssr: false });
 
 export default function Home() {
@@ -53,8 +53,8 @@ export default function Home() {
       style={{ background: "linear-gradient(180deg, #050816 0%, #07101f 40%, #050816 70%, #07101f 100%)" }}
     >
       {/* ── Always-visible overlays (fixed, z-top) ── */}
-      <CinematicOverlay />
       <CustomCursor />
+      <CinematicOverlay />
       <MatrixRain />
       <AITerminal />
       <AICommandPalette />

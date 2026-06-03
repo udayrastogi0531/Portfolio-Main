@@ -4,12 +4,12 @@ import { useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useStore } from "@/store";
 
-// Film grain canvas overlay + cinematic vignette + optional letterbox
+// Film grain canvas overlay (optional letterbox is preserved)
 export default function CinematicOverlay() {
   const { isFilmGrain, isCinemaMode } = useStore();
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  // GPU-efficient film grain via canvas
+  // GPU-efficient film grain via canvas (tuned to be extremely subtle)
   useEffect(() => {
     if (!isFilmGrain) return;
     const canvas = canvasRef.current;
@@ -25,11 +25,11 @@ export default function CinematicOverlay() {
       const imageData = ctx.createImageData(256, 256);
       const data = imageData.data;
       for (let i = 0; i < data.length; i += 4) {
-        const noise = Math.random() * 18;
+        const noise = Math.random() * 10; // Reduce noise amplitude
         data[i] = noise;
         data[i + 1] = noise;
         data[i + 2] = noise;
-        data[i + 3] = Math.random() * 30; // Very subtle alpha
+        data[i + 3] = Math.random() * 12; // DRASICALLY reduce alpha opacity for microscopic subtlety
       }
       ctx.putImageData(imageData, 0, 0);
       animId = requestAnimationFrame(drawGrain);
@@ -40,7 +40,7 @@ export default function CinematicOverlay() {
 
   return (
     <>
-      {/* Film grain texture tiled over entire screen */}
+      {/* Film grain texture tiled over entire screen — tuned to 3% opacity */}
       <AnimatePresence>
         {isFilmGrain && (
           <motion.div
@@ -53,20 +53,13 @@ export default function CinematicOverlay() {
             <canvas
               ref={canvasRef}
               className="w-full h-full"
-              style={{ imageRendering: "pixelated", opacity: 0.35 }}
+              style={{ imageRendering: "pixelated", opacity: 0.03 }}
             />
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Cinematic vignette — always subtle */}
-      <div
-        className="fixed inset-0 z-[9979] pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.5) 100%)",
-        }}
-      />
+      {/* Cinematic vignette has been removed to eliminate over-dark overlays per user request */}
 
       {/* Letterbox bars for cinema mode */}
       <AnimatePresence>

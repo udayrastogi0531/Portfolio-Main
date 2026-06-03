@@ -1,199 +1,213 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { useStore } from "@/store";
+import { useEffect, useState, useRef } from "react";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 
 export default function CustomCursor() {
-  const dotRef = useRef<HTMLDivElement>(null);
-  const ringRef = useRef<HTMLDivElement>(null);
-  const { setCursorPosition } = useStore();
-  const [isMobile, setIsMobile] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  const [cursorText, setCursorText] = useState("");
+  const [isClicked, setIsClicked] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const [magneticTarget, setMagneticTarget] = useState<HTMLElement | null>(null);
 
+  // Mouse coordinate motion values
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  // Buttery-smooth trailing ring spring physics
+  const ringX = useSpring(mouseX, { damping: 25, stiffness: 200, mass: 0.5 });
+  const ringY = useSpring(mouseY, { damping: 25, stiffness: 200, mass: 0.5 });
+
+  // Highly responsive dot spring physics
+  const dotX = useSpring(mouseX, { damping: 35, stiffness: 450, mass: 0.1 });
+  const dotY = useSpring(mouseY, { damping: 35, stiffness: 450, mass: 0.1 });
+
+  // 1. Detect device eligibility (Desktop only - no touch, width > 768px)
   useEffect(() => {
-    // 1. Mobile viewports check
-    const checkMobile = () => {
-      setIsMobile(window.matchMedia("(max-width: 768px)").matches);
-    };
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-
-    if (isMobile) return;
-
-    let mouseX = 0;
-    let mouseY = 0;
-    
-    // Smooth trailing spring coordinates (LERP values)
-    let dotX = 0;
-    let dotY = 0;
-    let ringX = 0;
-    let ringY = 0;
-    
-    let rafId: number;
-
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      setCursorPosition(mouseX, mouseY);
-      
-      // Global Magnetic Attraction Logic
-      const magnetics = document.querySelectorAll(
-        ".magnetic-btn, .social-icon, .nav-link, nav a, .project-card, .holographic-card"
-      );
-      
-      magnetics.forEach((el) => {
-        const rect = el.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        const dx = e.clientX - centerX;
-        const dy = e.clientY - centerY;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        
-        // Threshold: 1.5 times the size of the element
-        const threshold = Math.max(rect.width, rect.height) * 1.5;
-        
-        if (dist < threshold) {
-          const factor = (threshold - dist) / threshold;
-          const strength = el.classList.contains("project-card") ? 8 : 22; // subtle for cards, more responsive for buttons
-          
-          (el as HTMLElement).style.transform = `translate3d(${dx * factor * (strength / 100)}px, ${dy * factor * (strength / 100)}px, 0)`;
-          (el as HTMLElement).style.transition = "transform 0.1s ease-out";
-        } else {
-          if ((el as HTMLElement).style.transform !== "") {
-            (el as HTMLElement).style.transform = "";
-            (el as HTMLElement).style.transition = "transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)";
-          }
-        }
-      });
+    const checkEligibility = () => {
+      const isTouch = window.matchMedia("(pointer: coarse)").matches;
+      const isMobileSize = window.innerWidth <= 768;
+      setIsDesktop(!isTouch && !isMobileSize);
     };
 
-    // 2. Custom Cursor Interactive Labels detection
-    const handleHoverIn = (e: MouseEvent) => {
-      setIsHovered(true);
-      const target = e.currentTarget as HTMLElement;
-      
-      // Check labels criteria
-      if (
-        target.classList.contains("project-card") || 
-        target.closest("#projects") ||
-        target.getAttribute("data-cursor") === "view"
-      ) {
-        setCursorText("VIEW");
-      } else if (
-        target.getAttribute("target") === "_blank" || 
-        target.getAttribute("href")?.startsWith("http") ||
-        target.classList.contains("social-icon") ||
-        target.closest("footer") && target.tagName === "A"
-      ) {
-        setCursorText("OPEN");
-      } else {
-        setCursorText("CLICK");
+    checkEligibility();
+    window.addEventListener("resize", checkEligibility);
+    return () => window.removeEventListener("resize", checkEligibility);
+  }, []);
+
+  // 2. Manage cursor hide overrides styles on desktop
+  useEffect(() => {
+    if (!isDesktop) return;
+
+    document.documentElement.classList.add("custom-cursor-active");
+
+    const style = document.createElement("style");
+    style.id = "custom-cursor-hide-rules";
+    style.innerHTML = `
+      .custom-cursor-active,
+      .custom-cursor-active * {
+        cursor: none !important;
       }
-    };
-
-    const handleHoverOut = () => {
-      setIsHovered(false);
-      setCursorText("");
-    };
-
-    const animateCursor = () => {
-      // Fast, responsive center dot trailing
-      dotX += (mouseX - dotX) * 0.35;
-      dotY += (mouseY - dotY) * 0.35;
-      
-      // Elastic spring-driven outer ring trailing
-      ringX += (mouseX - ringX) * 0.12;
-      ringY += (mouseY - ringY) * 0.12;
-
-      if (dotRef.current) {
-        dotRef.current.style.transform = `translate3d(${dotX}px, ${dotY}px, 0) translate(-50%, -50%)`;
-      }
-      if (ringRef.current) {
-        ringRef.current.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)`;
-      }
-
-      rafId = requestAnimationFrame(animateCursor);
-    };
-
-    // Attach listeners
-    document.addEventListener("mousemove", handleMouseMove, { passive: true });
-    rafId = requestAnimationFrame(animateCursor);
-
-    // Bind event listeners to interactive elements
-    let elements: Element[] = [];
-    const attachHoverListeners = () => {
-      const interactables = document.querySelectorAll(
-        "a, button, [data-cursor='hover'], input, textarea, .project-card, .holographic-card"
-      );
-      interactables.forEach((el) => {
-        el.addEventListener("mouseenter", handleHoverIn as any);
-        el.addEventListener("mouseleave", handleHoverOut as any);
-        elements.push(el);
-      });
-    };
-    attachHoverListeners();
-
-    // Re-bind when dynamic DOM changes occur (e.g. filters)
-    const observer = new MutationObserver(() => {
-      elements.forEach((el) => {
-        el.removeEventListener("mouseenter", handleHoverIn as any);
-        el.removeEventListener("mouseleave", handleHoverOut as any);
-      });
-      elements = [];
-      attachHoverListeners();
-    });
-    observer.observe(document.body, { childList: true, subtree: true });
+    `;
+    document.head.appendChild(style);
 
     return () => {
-      cancelAnimationFrame(rafId);
-      document.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("resize", checkMobile);
-      
-      elements.forEach((el) => {
-        el.removeEventListener("mouseenter", handleHoverIn as any);
-        el.removeEventListener("mouseleave", handleHoverOut as any);
-        (el as HTMLElement).style.transform = "";
-      });
-      observer.disconnect();
+      document.documentElement.classList.remove("custom-cursor-active");
+      const element = document.getElementById("custom-cursor-hide-rules");
+      if (element) element.remove();
     };
-  }, [isMobile, setCursorPosition]);
+  }, [isDesktop]);
 
-  if (isMobile) return null;
+  // 3. Setup event listeners
+  useEffect(() => {
+    if (!isDesktop) return;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!isVisible) setIsVisible(true);
+
+      if (magneticTarget) {
+        const rect = magneticTarget.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+
+        // Dot follows the actual mouse
+        mouseX.set(e.clientX);
+        mouseY.set(e.clientY);
+
+        // Ring is pulled magnetically towards the center of the hovered element
+        const pullFactor = 0.55; // Snug sticky feel
+        const targetX = e.clientX + (centerX - e.clientX) * pullFactor;
+        const targetY = e.clientY + (centerY - e.clientY) * pullFactor;
+
+        ringX.set(targetX);
+        ringY.set(targetY);
+
+        // Compute haptic offset for the element itself (gentle drag towards mouse)
+        const isProjectCard = magneticTarget.classList.contains("project-card");
+        const maxOffset = isProjectCard ? 8 : 14;
+        
+        const dragX = Math.max(-maxOffset, Math.min(maxOffset, (e.clientX - centerX) * 0.12));
+        const dragY = Math.max(-maxOffset, Math.min(maxOffset, (e.clientY - centerY) * 0.12));
+
+        magneticTarget.style.transform = `translate3d(${dragX}px, ${dragY}px, 0)`;
+        magneticTarget.style.transition = "transform 0.08s cubic-bezier(0.25, 1, 0.5, 1)";
+      } else {
+        mouseX.set(e.clientX);
+        mouseY.set(e.clientY);
+      }
+    };
+
+    const handleMouseLeaveWindow = () => {
+      setIsVisible(false);
+    };
+
+    const handleMouseEnterWindow = () => {
+      setIsVisible(true);
+    };
+
+    const handleMouseDown = () => setIsClicked(true);
+    const handleMouseUp = () => setIsClicked(false);
+
+    // Global delegation for hover targets
+    const handleMouseOver = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      // Search upwards for hoverable targets (buttons, anchors, navigation, project cards, and custom markers)
+      const hoverable = target.closest(
+        "button, a, .project-card, .nav-link, [role='button'], [data-magnetic]"
+      ) as HTMLElement | null;
+
+      if (hoverable) {
+        setIsHovered(true);
+        // Magnetic behavior is enabled for all key interactive types
+        const shouldBeMagnetic = hoverable.matches(
+          "button, a, .project-card, .nav-link, [data-magnetic]"
+        );
+        if (shouldBeMagnetic) {
+          setMagneticTarget(hoverable);
+        }
+      }
+    };
+
+    const handleMouseOut = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const hoverable = target.closest(
+        "button, a, .project-card, .nav-link, [role='button'], [data-magnetic]"
+      ) as HTMLElement | null;
+
+      if (hoverable) {
+        setIsHovered(false);
+        if (magneticTarget === hoverable) {
+          // Smoothly restore position to original state
+          hoverable.style.transform = "";
+          hoverable.style.transition = "transform 0.35s cubic-bezier(0.25, 1, 0.5, 1)";
+          setMagneticTarget(null);
+        }
+      }
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseleave", handleMouseLeaveWindow);
+    document.addEventListener("mouseenter", handleMouseEnterWindow);
+    window.addEventListener("mousedown", handleMouseDown);
+    window.addEventListener("mouseup", handleMouseUp);
+    window.addEventListener("mouseover", handleMouseOver);
+    window.addEventListener("mouseout", handleMouseOut);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseleave", handleMouseLeaveWindow);
+      document.removeEventListener("mouseenter", handleMouseEnterWindow);
+      window.removeEventListener("mousedown", handleMouseDown);
+      window.removeEventListener("mouseup", handleMouseUp);
+      window.removeEventListener("mouseover", handleMouseOver);
+      window.removeEventListener("mouseout", handleMouseOut);
+    };
+  }, [isDesktop, isVisible, magneticTarget, mouseX, mouseY, ringX, ringY]);
+
+  if (!isDesktop || !isVisible) return null;
 
   return (
     <>
-      {/* 1. Small glowing center dot */}
-      <div 
-        ref={dotRef} 
-        className="cursor-dot hidden md:block" 
+      {/* Outer Smooth Ring */}
+      <motion.div
         style={{
-          width: isHovered ? "4px" : "8px",
-          height: isHovered ? "4px" : "8px",
-          opacity: isHovered ? 0.3 : 1,
-          transition: "width 0.25s ease, height 0.25s ease, opacity 0.25s ease",
-          willChange: "transform",
+          x: ringX,
+          y: ringY,
+          translateX: "-50%",
+          translateY: "-50%",
+        }}
+        className="fixed top-0 left-0 pointer-events-none z-[99999] rounded-full border border-cyan-400/40 mix-blend-screen transition-all duration-300 ease-out"
+        animate={{
+          width: isHovered ? 56 : 30,
+          height: isHovered ? 56 : 30,
+          backgroundColor: isHovered ? "rgba(6, 182, 212, 0.04)" : "rgba(6, 182, 212, 0)",
+          borderColor: isHovered ? "rgba(0, 245, 255, 0.8)" : "rgba(6, 182, 212, 0.4)",
+          boxShadow: isHovered 
+            ? "0 0 16px rgba(0, 245, 255, 0.3), inset 0 0 10px rgba(0, 245, 255, 0.15)"
+            : "0 0 0px rgba(0, 0, 0, 0)",
+          scale: isClicked ? 0.85 : 1,
         }}
       />
 
-      {/* 2. Trailing ring with dynamically loaded text label */}
-      <div 
-        ref={ringRef} 
-        className="cursor-ring hidden md:flex items-center justify-center font-mono font-black uppercase text-[8px] tracking-[0.25em] text-center" 
+      {/* Center Small Dot */}
+      <motion.div
         style={{
-          width: isHovered ? "76px" : "40px",
-          height: isHovered ? "76px" : "40px",
-          backgroundColor: isHovered ? "rgba(255, 255, 255, 1)" : "transparent",
-          borderColor: isHovered ? "white" : "rgba(6, 182, 212, 0.6)",
-          color: isHovered ? "black" : "transparent",
-          mixBlendMode: "difference", // blend mode effect
-          transition: "width 0.3s cubic-bezier(0.16, 1, 0.3, 1), height 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease, border-color 0.3s ease, color 0.2s ease",
-          willChange: "transform",
-          paddingLeft: "2px", // offsets tracking alignment
+          x: dotX,
+          y: dotY,
+          translateX: "-50%",
+          translateY: "-50%",
         }}
-      >
-        {cursorText}
-      </div>
+        className="fixed top-0 left-0 pointer-events-none z-[100000] rounded-full bg-cyan-400 mix-blend-screen transition-all duration-200 ease-out"
+        animate={{
+          width: isHovered ? 12 : 8,
+          height: isHovered ? 12 : 8,
+          backgroundColor: isHovered ? "#00f5ff" : "#22d3ee",
+          boxShadow: isHovered
+            ? "0 0 12px #00f5ff, 0 0 24px rgba(0, 245, 255, 0.8)"
+            : "0 0 6px rgba(6, 182, 212, 0.6)",
+          scale: isClicked ? 0.8 : 1,
+        }}
+      />
     </>
   );
 }
