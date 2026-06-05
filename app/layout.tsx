@@ -149,7 +149,7 @@ export default function RootLayout({
         {/* Prevent flash */}
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
       </head>
-      <body className="antialiased bg-[#050816] text-slate-200 selection:bg-cyan-500/30 selection:text-white">
+      <body className="antialiased bg-[#050816] text-slate-200 selection:bg-cyan-500/30 selection:text-white" suppressHydrationWarning>
         {children}
         <Toaster
           position="bottom-right"
