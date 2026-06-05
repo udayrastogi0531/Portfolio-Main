@@ -431,7 +431,7 @@ metrics: {
     "LMS",
     "Gemini AI",
     "Firebase",
-    "Full Stack",
+    "Mern Stack",
     "SaaS",
     "Learning Platform"
   ],
@@ -495,7 +495,7 @@ export const blogs = [
     title: "Building Production RAG Systems at Scale",
     slug: "production-rag-systems",
     excerpt: "Deep dive into architecting RAG pipelines that handle millions of queries with sub-100ms latency.",
-    category: "AI/ML",
+    category: "GenAI",
     readTime: "12 min",
     date: "2024-03-15",
     tags: ["AI", "LangChain", "Production"],

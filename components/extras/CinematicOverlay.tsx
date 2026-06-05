@@ -4,12 +4,12 @@ import { useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useStore } from "@/store";
 
-// Film grain canvas overlay (optional letterbox is preserved)
+// Film grain canvas overlay + cinematic vignette + optional letterbox
 export default function CinematicOverlay() {
   const { isFilmGrain, isCinemaMode } = useStore();
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  // GPU-efficient film grain via canvas (tuned to be extremely subtle)
+  // GPU-efficient film grain via canvas
   useEffect(() => {
     if (!isFilmGrain) return;
     const canvas = canvasRef.current;
@@ -25,11 +25,11 @@ export default function CinematicOverlay() {
       const imageData = ctx.createImageData(256, 256);
       const data = imageData.data;
       for (let i = 0; i < data.length; i += 4) {
-        const noise = Math.random() * 10; // Reduce noise amplitude
+        const noise = Math.random() * 18;
         data[i] = noise;
         data[i + 1] = noise;
         data[i + 2] = noise;
-        data[i + 3] = Math.random() * 12; // DRASICALLY reduce alpha opacity for microscopic subtlety
+        data[i + 3] = Math.random() * 30; // Very subtle alpha
       }
       ctx.putImageData(imageData, 0, 0);
       animId = requestAnimationFrame(drawGrain);
@@ -40,7 +40,7 @@ export default function CinematicOverlay() {
 
   return (
     <>
-      {/* Film grain texture tiled over entire screen — tuned to 3% opacity */}
+      {/* Film grain texture tiled over entire screen */}
       <AnimatePresence>
         {isFilmGrain && (
           <motion.div
@@ -53,13 +53,20 @@ export default function CinematicOverlay() {
             <canvas
               ref={canvasRef}
               className="w-full h-full"
-              style={{ imageRendering: "pixelated", opacity: 0.03 }}
+              style={{ imageRendering: "pixelated", opacity: 0.35 }}
             />
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Cinematic vignette has been removed to eliminate over-dark overlays per user request */}
+      {/* Cinematic vignette — always subtle */}
+      <div
+        className="fixed inset-0 z-[9979] pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.5) 100%)",
+        }}
+      />
 
       {/* Letterbox bars for cinema mode */}
       <AnimatePresence>

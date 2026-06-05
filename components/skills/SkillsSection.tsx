@@ -22,8 +22,7 @@ const CATEGORIES = [
     label: "Full Stack Development",
     accent: "#8b5cf6",
     skills: [
-      "React", "TypeScript", "JavaScript", "Node.js",
-      "Express.js", "REST API", "HTML", "CSS", "MERN",
+      "React", "TypeScript", "JavaScript", "Node.js", "REST API", "HTML", "CSS", "MERN",
     ],
   },
   {
@@ -50,7 +49,7 @@ const CATEGORIES = [
     label: "DevOps & Deployment",
     accent: "#ec4899",
     skills: [
-      "Vercel", "Railway", "Netlify", "Git", "GitHub",
+      "Vercel", "Railway", "Netlify", "Git", "GitHub","Streamlit"
     ],
   },
   {
